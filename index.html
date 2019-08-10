@@ -1,7 +1,883 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <title>gyration</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon"
+    href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Noto_Emoji_Lollipop_1f466.svg/2000px-Noto_Emoji_Lollipop_1f466.svg.png"
+    type="image/png">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Noto+Sans+TC:300,900&effect=canvas-print">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: "Roboto Mono", "Noto Sans TC";
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    .A-block {
+      border: 1px solid;
+    }
+
+    .A-block>* {
+      margin-inline-start: 1em;
+      margin-inline-end: 1em;
+    }
+
+    li+p,
+    table+p,
+    table+table,
+    table p,
+    table ol,
+    .well-behaved_div+p,
+    .well-behaved_div p,
+    .well-behaved_div ol {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0"><button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">links</button></h5>
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <p><a href="" target="_blank"></a></p>
+          <p><a href="https://campus5.ncku.edu.tw/SignUp/AllPrevious/"
+              target="_blank">108學年度大學考試入學分發--93-107學力審查通過查詢系統</a></p>
+          <p><a href="https://campus4.ncku.edu.tw/uac/cross_search/dept_info/00127.html" target="_blank">國立臺灣大學
+              資訊工程學系</a></p>
+          <p><a href="https://ap.ceec.edu.tw/ExamInfo/SysOpen.aspx?examid=108DRSE" target="_blank">108學年度指定科目考試試務專區</a>
+          </p>
+          <p><a href="http://140.112.161.31/NTUVoxCourse/index.php/uquery/index" target="_blank">臺大必修課程查詢</a></p>
+          <p><a href="https://reg227.aca.ntu.edu.tw/regwork/login.asp" target="_blank">申請延緩註冊及復學系統</a></p>
+          <p><a href="https://ifsel3.aca.ntu.edu.tw/hissco/index.asp" target="_blank">成績查詢系統</a></p>
+          <p><a href="https://reg.aca.ntu.edu.tw/queryarr/index.asp" target="_blank">名次查詢</a></p>
+          <p><a href="https://reg71.aca.ntu.edu.tw/transcript/" target="_blank">網路申請成績單</a></p>
+          <p><a href="http://curri.aca.ntu.edu.tw/ISO/表單或紀錄/補辦課程科目及學分抵免申請A--申請所屬學系課程.doc"
+              target="_blank">補辦課程科目及學分抵免申請A--申請所屬學系課程</a></p>
+          <p><a href="http://www.aca.ntu.edu.tw/aca2012/reg/forms/063A.pdf" target="_blank">學士班學生提前畢業申請書</a></p>
+          <p><a href="https://www.uac.edu.tw/flow.htm" target="_blank">大學考試入學分發委員會-重要時程</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="false" aria-controls="collapseTwo">108學年度考試簡章</button><a
+            href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <p><a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=1" target="_blank">p1</a></p>
+          <table style="text-align: center;">
+            <tr>
+              <th>考試名稱</th>
+              <th>報名日期</th>
+              <th>考試日期</th>
+            </tr>
+            <tr>
+              <td>指定科目考試</td>
+              <td>108年 5月 7日(二)~23日(四)</td>
+              <td>108年 7月 1日(一)~ 3日(三)</td>
+            </tr>
+          </table>
+          <p>108學年度考試重要行事曆<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=2" target="_blank">p2</a>
+          </p>
+          <table>
+            <tr>
+              <th>重要日期</th>
+              <th>指考</th>
+            </tr>
+            <tr>
+              <td>108.05.07-23</td>
+              <td>指考報名</td>
+            </tr>
+            <tr>
+              <td>108.06.05</td>
+              <td>指考寄發考試通知</td>
+            </tr>
+            <tr>
+              <td>108.06.18</td>
+              <td>指考公布試場分配表</td>
+            </tr>
+            <tr>
+              <td>108.07.01-03</td>
+              <td>指考考試</td>
+            </tr>
+            <tr>
+              <td>108.07.18</td>
+              <td>指考寄發成績通知單</td>
+            </tr>
+            <tr>
+              <td>108.07.19-07.23</td>
+              <td>指考申請成績複查</td>
+            </tr>
+          </table>
+          <p>§ 108 學年度考試重要試務日期 §<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=3"
+              target="_blank">p3</a></p>
+          <table>
+            <tr>
+              <th>項目</th>
+              <th>指定科目考試</th>
+            </tr>
+            <tr>
+              <td>報名</td>
+              <td>108.05.07(二)~ 108.05.23(四)</td>
+            </tr>
+            <tr>
+              <td>確認報名資料</td>
+              <td>108.05.07(二)~ 108.05.23(四)</td>
+            </tr>
+            <tr>
+              <td>寄發考試通知<br>開放應試號碼查詢</td>
+              <td>108.06.05(三)</td>
+            </tr>
+            <tr>
+              <td>公布試場分配表<br>開放考試地點查詢</td>
+              <td>108.06.18(二)</td>
+            </tr>
+            <tr>
+              <td>考試</td>
+              <td>108.07.01(一)～ 108.07.03(三)</td>
+            </tr>
+            <tr>
+              <td>公布前ㄧ日考試科目選擇 （填）題答案</td>
+              <td>108.07.02(二)～ 108.07.04(四)</td>
+            </tr>
+            <tr>
+              <td>公布成績及統計資料<br>開放成績查詢</td>
+              <td>108.07.18(四)</td>
+            </tr>
+            <tr>
+              <td>寄發成績通知單</td>
+              <td>108.07.18(四)</td>
+            </tr>
+            <tr>
+              <td>申請成績複查</td>
+              <td>108.07.19(五)~ 108.07.23(二)</td>
+            </tr>
+            <tr>
+              <td>寄發成績複查結果通知書<br>開放成績複查結果查詢</td>
+              <td>108.07.26(五)</td>
+            </tr>
+          </table>
+          <p>註：</p>
+          <ol>
+            <li>上述各項查詢服務，請於開放日上午 9 時起逕至本中心網站 http://www.ceec.edu.tw 或使用電話語音 02-23643677 查詢。</li>
+            <li>本中心各項考試相關資訊，請務必以本中心網站 http://www.ceec.edu.tw 公布為準。</li>
+          </ol>
+          <p>■考試測驗說明<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=7" target="_blank">p7</a></p>
+          <p>叁、指定科目考試<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=13" target="_blank">p13</a></p>
+          <p>一、考試日期及時間<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=13" target="_blank">p13</a></p>
+          <p>二、測驗範圍及題型<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=13" target="_blank">p13</a></p>
+          <p>三、成績計算<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=14" target="_blank">p14</a></p>
+          <p>■考試試務作業<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <p>肆、報考資格<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <p>
+            　　高級中等學校之三年級在學學生、畢業生或具同等學力者。（按：教育部頒「入學大學同等學力認定標準」請至教育部主管法規查詢系統之法規體系/高等教育項目下查詢，網址http://edu.law.moe.gov.tw；或參見本簡章「附錄一、入學大學同等學力認定標準資訊」）。
+          </p>
+          <p>伍、報名<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <p>　　高級中等學校之三年級在學學生，應一律經由就讀學校辦理集體報名。其他具備報考資格者採個別報名，亦可委託經政府立案之升大學補習班辦理集體報名。未於規定期限內辦理報名及完成繳費者，即未完成報名手續，不得參加考試。
+          </p>
+          <p>一、報名日期<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <table>
+            <tr>
+              <th>考試名稱</th>
+              <th>報名日期</th>
+            </tr>
+            <tr>
+              <td>指定科目考試</td>
+              <td>108 年 05 月 07 日至 05 月 23 日</td>
+            </tr>
+          </table>
+          <p>二、報名方式<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <p>(二) 個別報名：</p>
+          <p>備妥數位相片檔，至本中心網站 http://www.ceec.edu.tw，依網頁指示登錄報名資料，並列印「個別報名繳費表」，於繳費期限內完成繳費。</p>
+          <p>※注意事項：</p>
+          <p>非學校型態實驗教育高中、大陸及港澳地區學校、國外學校應屆畢業生，一貫制學校學生等，相關報考方式說明參見本簡章「附錄一、入學大學同等學力認定標準資訊」。</p>
+          <p>三、報名應備資料<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=16" target="_blank">p16</a></p>
+          <p>(一) 考生及集體報名單位應依其報名方式分別備妥下列資料：</p>
+          <p>3.個別報名：<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=17" target="_blank">p17</a></p>
+          <div class="well-behaved_div" style="border: 1px solid;">
+            <ol>
+              <li>數位相片檔【相關規定詳本節（三）】</li>
+              <li>報名費【繳費後收據自行留存】或低收入戶或中低收入戶之證明文件影像檔（註 1）</li>
+              <li>身分證正面影像檔（註 2）</li>
+            </ol>
+          </div>
+          <p>註 1：須繳交低收入戶或中低收入戶證明文件影像檔者（曾報考 108
+            學年度任一考試者免繳，惟身分別變更者須重繳），應於報名期限內，以網路報名系統之「低收入戶或中低收入戶證明影像檔上傳功能」上傳。未於期限內傳送者，應於本中心規定期限內補繳報名費，否則取消報名資格。</p>
+          <p>註 2：須繳交身分證正面影像檔者（曾報考本中心 91
+            學年度以後任一考試者免繳，惟報考後曾更改姓名或身分證字號者須重繳），應於報名期限內，以網路報名系統之「身分證影像檔上傳功能」上傳。未於期限內傳送者，以未完成報名手續處理。（身分證正面影像檔可使用掃描器掃描或數位相機拍攝）
+          </p>
+          <p>(三) 相片或數位相片檔：</p>
+          <ol>
+            <li>應為 107 年 1 月 1 日以後拍攝。惟曾報考本中心 107 或 108 學年度任一考試且相片為 106 年 1 月 1 日以後拍攝者免繳。</li>
+            <li>考生之相片或數位相片檔，應符合下列規格：<ol>
+                <li>人像之頭頂至下顎之高度應介於 2.5 至 3 公分之間。</li>
+                <li>人像須脫帽、面貌清晰（不得遮蓋眉毛）、正面之半身照。</li>
+                <li>黑白或彩色不拘，背景須為白色或淺色。</li>
+                <li>不得配戴深色鏡片眼鏡。</li>
+                <li>不得使用合成相片。</li>
+              </ol>
+            </li>
+            <li>數位相片檔應注意事項：<ol>
+                <li>應為灰階黑白相片檔或高彩之彩色相片檔。</li>
+                <li>數位攝影之影像，寬×高像素不得少於 450×600 pixels；掃描器掃描之解析度不得低於 300 dpi，最高解析度建議不超過 500 dpi。</li>
+                <li>個別報名考生之相片檔以身分證號命名，JPG 格式儲存，檔案大小限制為6MB。</li>
+              </ol>
+            </li>
+          </ol>
+          <p>四、報名費及繳費期間<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=18" target="_blank">p18</a>
+          </p>
+          <p>(一) 考生依各考試及報名方式繳費，低收入戶考生之報名費全免，中低收入戶考生減免報名費十分之六。一般考生及中低收入戶考生應繳報名費如下表：<a
+              href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=18" target="_blank">p18</a></p>
+          <table>
+            <tr>
+              <th rowspan="2">考試名稱</th>
+              <th rowspan="2">報名方式</th>
+              <th>報名費</th>
+            </tr>
+            <tr>
+              <th>一般考生</th>
+            </tr>
+            <tr>
+              <td rowspan="2">指定科目考試<sup>註</sup></td>
+              <td rowspan="2">個別報名</td>
+              <td>基本作業費：250 元</td>
+            </tr>
+            <tr>
+              <td>考科測驗費：170 元/科</td>
+            </tr>
+          </table>
+          <p>註：學科能力測驗與指定科目考試報名費含【基本作業費】及【考科測驗費】兩項，考生視個人之選考科目數計算報名費，例如選考 5 科之報名費如下表：</p>
+          <table>
+            <tr>
+              <th>報名方式</th>
+              <th>身分別</th>
+              <th>基本作業費</th>
+              <th>考科測驗費×5（科）</th>
+              <th>報名費</th>
+            </tr>
+            <tr>
+              <td>個別報名</td>
+              <td>一般</td>
+              <td>250 元</td>
+              <td>170 元/科×5（科）</td>
+              <td>1,100 元</td>
+            </tr>
+          </table>
+          <p>(三) 繳費期間：<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=19" target="_blank">p19</a></p>
+          <table>
+            <tr>
+              <th rowspan="2">考試名稱</th>
+              <th colspan="3">繳費方式</th>
+            </tr>
+            <tr>
+              <th>臨櫃（含票據）繳費或匯款轉帳</th>
+              <th>以自動櫃員機（ATM）、 網路 ATM 繳費</th>
+              <th>便利商店繳費（僅限 個別報名考生使用）</th>
+            </tr>
+            <tr>
+              <th>指定科目考試</th>
+              <td>108 年 05 月 07 日至 108 年 05 月 23 日下午 3 時 30 分止</td>
+              <td>108 年 05 月 07 日至 108 年 05 月 23 日夜間 12 時止</td>
+              <td>108 年 05 月 07 日至 108 年 05 月 21 日夜間 12 時止</td>
+            </tr>
+          </table>
+          <p>五、繳費手續<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=19" target="_blank">p19</a></p>
+          <p>六、報名查詢及確認<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=21" target="_blank">p21</a></p>
+          <p>七、報名費退費<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=22" target="_blank">p22</a></p>
+          <p>八、報名注意事項<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=23" target="_blank">p23</a></p>
+          <p>陸、考試地區及考試通知<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=24" target="_blank">p24</a>
+          </p>
+          <p>玖、公布試題及選擇（填）題答案<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=31"
+              target="_blank">p31</a></p>
+          <p>拾、成績公布與通知<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=31" target="_blank">p31</a></p>
+          <p>一、各項考試考生成績通知單公布與寄發日期如下表：</p>
+          <table>
+            <tr>
+              <th>考試名稱</th>
+              <th>公布日期</th>
+              <th>寄發日期</th>
+            </tr>
+            <tr>
+              <td>指定科目考試</td>
+              <td>108 年 07 月 18 日</td>
+              <td>108 年 07 月 18 日</td>
+            </tr>
+          </table>
+          <p>拾壹、成績複查<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=33" target="_blank">p33</a></p>
+          <p>拾貳、考試成績及資料之使用<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=34" target="_blank">p34</a>
+          </p>
+          <p>拾叁、成績證明申請<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=35" target="_blank">p35</a></p>
+          <p>拾肆、試務作業申訴<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=36" target="_blank">p36</a></p>
+          <p>拾伍、成績複查後申訴<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=37" target="_blank">p37</a>
+          </p>
+          <p>■試場規則及違規處理辦法<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=38" target="_blank">p38</a>
+          </p>
+          <p>拾陸、試場規則<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=38" target="_blank">p38</a></p>
+          <p>拾柒、違規處理辦法<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=42" target="_blank">p42</a></p>
+          <p>■附錄<a href="http://www.ceec.edu.tw/CeecNews/108簡章/108學年度考試簡章.pdf#page=47" target="_blank">p47</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="false" aria-controls="collapseThree">大學考試入學分發委員會-常見問題</button><a
+            href="https://www.uac.edu.tw/QA.php" target="_blank"><img src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          <p>登記及入學資格</p>
+          <div class="well-behaved_div A-block">
+            <p>請參閱大學考試入學分發招生簡章「登記及入學資格」。</p>
+          </div>
+          <p>我是大學生可是我想重考，是否須先辦理休學</p>
+          <div class="well-behaved_div A-block">
+            <p>報考指定科目考試時，不需辦理休學，但錄取後欲報到註冊時，請與錄取學校及原學校確認學籍相關事宜。</p>
+          </div>
+          <p>我該如何參與七月指定科目考試的分發入學</p>
+          <div class="well-behaved_div A-block">
+            <ol>
+              <li>您必須向大考中心報名指定科目考試；</li>
+              <li>並向本會（大學考試入學分發委員會）辦理「登記分發相關證明文件審查」，始具備大學指考分發資格。詳請參閱大學考試入學分發招生簡章「登記分發相關證明文件審查」。</li>
+            </ol>
+          </div>
+          <p>「登記分發相關證明文件審查」注意事項</p>
+          <div class="well-behaved_div A-block">
+            <p>學校團體報名之應屆畢業生及已通過93-106學力證明文件審查之考生，免作107學年學力證明文件審查。除此之外，均應繳交學力證明文件辦理審查。</p>
+            <p>凡以特種生身分登記者，均須繳交特種生身分證明文件，逾期未提出申請者一律視為普通生。</p>
+            <p>申請辦法詳請見大學考試入學分發招生簡章「登記分發及入學資格」及「登記分發相關證明文件審查」。</p>
+          </div>
+          <p>已於其他招生管道錄取之學生，是否可以再參加登記分發</p>
+          <div class="well-behaved_div A-block">
+            <p>
+              通過登記資格審查，且不具有「107學年度大學繁星推薦入學、大學個人申請入學、大學特殊選才招生、科技校院繁星計畫甄選、四技二專甄選入學及技優入學、四技日間部申請入學、身心障礙生甄試、運動績優甄審甄試、師資保送甄試及醫事人員養成計畫、軍事學校正期班甄選入學等錄取資格之考生」(以下簡稱符合登記資格者)，得依據大學考試入學分發招生辦法，照其意願及考試成績參與登記及分發。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+            aria-expanded="false" aria-controls="collapseFour">108學年度大學考試入學分發招生簡章</button><a
+            href="https://www.uac.edu.tw/108data/108recruit.pdf" target="_blank"><img src="round-link-24px.svg"></a>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body">
+          <p>重要提示<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=2" target="_blank">p2</a></p>
+          <ol>
+            <li value="2">登記分發相關證明文件審查（含學力審查、特種生審查及聽覺障礙審查），於 108 年 5 月 8 日至 5 月 31 日受理申請，6 月 11 日於考分會網站公告審查結果。</li>
+            <li value="5">各校系採計之指定科目考試或術科考試，若考生未報考任一科目或術科任一採計項目，該校系將不予分發。若報考但缺考者，該科以 0 分計算，但可參與分發。</li>
+            <li>申請指定科目考試成績複查者，仍須於規定時間內完成分發志願登記。複查結果有異動者，方可依相關規定辦理重新登記。</li>
+            <li>完成登記分發志願後，請務必儲存或列印「分發志願表」作為憑據。</li>
+          </ol>
+          <p>重要日期<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=2" target="_blank">p2</a></p>
+          <table>
+            <tr>
+              <td>受理登記分發「相關證明文件審查」（線上申請）</td>
+              <td>108 年 5 月 8 日至 5 月 31 日(下午 5:00 止)</td>
+            </tr>
+            <tr>
+              <td>公布證明文件審查結果</td>
+              <td>108 年 6 月 11 日</td>
+            </tr>
+            <tr>
+              <td>受理證明文件審查結果申覆（線上申請）</td>
+              <td>108 年 6 月 11 日至 6 月 19 日(下午 5:00 止)</td>
+            </tr>
+            <tr>
+              <td>公布證明文件審查申覆結果</td>
+              <td>108 年 6 月 26 日</td>
+            </tr>
+            <tr>
+              <td>公布招生名額（含回流名額）、指定科目考試組合成 績人數累計及最低登記標準</td>
+              <td>108 年 7 月 18 日</td>
+            </tr>
+            <tr>
+              <td>繳交登記費</td>
+              <td>108 年 7 月 19 日至 7 月 28 日(中午 12:00 止)</td>
+            </tr>
+            <tr>
+              <td>登記分發志願（線上登記）</td>
+              <td>108 年 7 月 24 日至 7 月 28 日(下午 4:30 止)</td>
+            </tr>
+            <tr>
+              <td>公布錄取名單</td>
+              <td>108 年 8 月 7 日</td>
+            </tr>
+            <tr>
+              <td>受理分發結果複查（紙本申請）</td>
+              <td>108 年 8 月 7 日至 8 月 13 日</td>
+            </tr>
+            <tr>
+              <td>公布分發複查結果</td>
+              <td>108 年 8 月 20 日</td>
+            </tr>
+          </table>
+          <p>備註：各項考試之簡章發售、報名方式及考試試務等事項，請各自洽詢其承辦單位<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=2"
+              target="_blank">p2</a></p>
+          <table>
+            <tr>
+              <th>考試項目</th>
+              <th>承辦單位</th>
+              <th>報名時間</th>
+              <th>考試時間</th>
+            </tr>
+            <tr>
+              <td>指定科目考試</td>
+              <td>大學入學考試中心</td>
+              <td>108 年 5 月 7 日至 5 月 23 日</td>
+              <td>108 年 7 月 1 日至 7 月 3 日</td>
+            </tr>
+          </table>
+          <p>登記分發流程<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=3" target="_blank">p3</a></p>
+          <p>招生學校頁碼索引<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=6" target="_blank">p6</a></p>
+          <table>
+            <tr>
+              <th>學校代碼</th>
+              <th>校名</th>
+              <th>分則</th>
+              <th>術科</th>
+              <th>基本資料</th>
+            </tr>
+            <tr>
+              <td>001</td>
+              <td>國立臺灣大學</td>
+              <td>19</td>
+              <td>--</td>
+              <td>250</td>
+            </tr>
+          </table>
+          <p>壹、總則<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=7" target="_blank">p7</a></p>
+          <p>　　108 學年度大學考試入學分發招生（以下簡稱「本招生」），採考招分離方式辦理。凡公私立高級中等學校畢業生或具同等學力者，通過學力證明文件審查後，得以其參加大學入學考試中心 106~108
+            學年度「高中英語聽力測驗」、108 學年度「學科能力測驗、指定科目考試」及大學術科考試委員會聯合會 108
+            學年度「大學術科考試」之各項成績參加本招生。依據本簡章規定之分發方式，經登記分發志願之程序，由大學考試入學分發委員會（以下簡稱「考分會」）統一辦理分發，進入大學就讀。</p>
+          <p>　　有關前述各項考試之報名及考試等相關事宜，本簡章並未刊載，請另詳見各該考試簡章。</p>
+          <p>一、登記分發及入學資格<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=8" target="_blank">p8</a></p>
+          <p>　　本招生採先審核學力資格後登記分發制。考生不具有其他招生管道錄取資格（詳見第 8 頁 ），且具有下列資格之一者，經學力證明文件審查通過後，得參加登記分發志願經分發進入大學就讀：</p>
+          <p>（一）曾在下列之公立或已立案之私立學校畢業，持有畢業證書者：</p>
+          <ol>
+            <li>高級中等學校。</li>
+          </ol>
+          <p>二、登記分發相關證明文件審查<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=10" target="_blank">p10</a></p>
+          <p>　　欲參加 108 學年度大學考試入學分發招生者，應依下列規定辦理相關證明文件審查。通過學力證明文件審查者，始可進行網路登記分發志願。</p>
+          <p>（一）相關證明文件審查</p>
+          <ol>
+            <li>審查項目：<ol>
+                <li>學力證明文件審查：「學校團體報名 108 學年度指定科目考試之應屆畢業生」及已通過「93 至 107
+                  學年度學力證明文件審查」之考生，視同已通過學力證明文件審查，其餘均須繳交學力證明文件進行審查。審查未通過者，不得參加登記分發。</li>
+              </ol>
+            </li>
+            <li>申請日期：<ul style="list-style-type: none;">
+                <li>自 108 年 5 月 8 日上午 9:00 起至 108 年 5 月 31 日下午 5:00 止，須至考分會網站「證明文件審查線上申請系統」（<a
+                    href="http://www.uac.edu.tw" target="_blank">http://www.uac.edu.tw</a>）提出審查申請，並上傳應繳文件（如下表），逾期不予受理。
+                </li>
+              </ul>
+            </li>
+            <p>【學力審查應繳證明文件一覽表】<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=11" target="_blank">p11</a>
+            </p>
+            <li>注意事項：<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=12" target="_blank">p12</a>
+              <ol>
+                <li value="3">本會網站（<a href="http://www.uac.edu.tw" target="_blank">http://www.uac.edu.tw</a>）於108 年4
+                  月起提供「93 至107 學年度學力審查通過」查詢系統，協助考生確認是否須申請學力審查。</li>
+              </ol>
+            </li>
+          </ol>
+          <p>（二）審查結果公布及申覆<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=13" target="_blank">p13</a></p>
+          <p>四、登記程序<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=13" target="_blank">p13</a></p>
+          <p>（一）繳交登記費<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=13" target="_blank">p13</a></p>
+          <p>（二）登記分發志願<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=14" target="_blank">p14</a></p>
+          <ol>
+            <li>登記時間：<ol>
+                <li>自 108 年 7 月 24 日上午 9:00 起至 108 年 7 月 28 日下午 4:30 止，未於規定期間完成登記者不予分發。</li>
+                <li>申請指定科目考試成績複查之考生，仍須於規定時間內完成分發志願登記。複查結果成績變更者，考分會將於 7 月 31 日前通知考生辦理重新登記。</li>
+              </ol>
+            </li>
+            <li>登記方式：</li>
+            <li>登記分發志願注意事項：</li>
+          </ol>
+          <p>五、分發程序<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=16" target="_blank">p16</a></p>
+          <p>（一） 高中英語聽力測驗檢定<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=16" target="_blank">p16</a></p>
+          <p>（二） 學科能力測驗檢定<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=16" target="_blank">p16</a></p>
+          <p>（三） 最低登記標準<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=17" target="_blank">p17</a></p>
+          <p>（五） 指定科目考試及術科考試成績之採計與加權<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=18"
+              target="_blank">p18</a></p>
+          <p>（七） 同分參酌<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=20" target="_blank">p20</a></p>
+          <p>六、錄取及公告<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=20" target="_blank">p20</a></p>
+          <p>（一） 錄取<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=20" target="_blank">p20</a></p>
+          <p>　　依招生簡章規定之分發程序及考分會公告之各校系招生名額，以考生可錄取之分發志願次序分發；如登記之志願校系均已全部滿額時，則不予錄取。</p>
+          <p>（二） 公告<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=20" target="_blank">p20</a></p>
+          <p>　　各校系錄取名單，於 108 年 8 月 7 日公告於考分會網站（網址:<a href="http://www.uac.edu.tw"
+              target="_blank">http://www.uac.edu.tw</a>），錄取名單查詢系統開放至 8 月 13 日，考生可經由網站或各媒體查詢，或下載考分會提供之「登記查榜」APP
+            軟體查詢。錄取通知由各錄取學校寄發，考分會不另行通知。</p>
+          <p>七、分發結果複查<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=20" target="_blank">p20</a></p>
+          <p>八、改補分發<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=21" target="_blank">p21</a></p>
+          <p>十、分發志願表申請<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=21" target="_blank">p21</a></p>
+          <p>十一、入學注意事項<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=22" target="_blank">p22</a></p>
+          <p>貳、校系分則<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=24" target="_blank">p24</a></p>
+          <p>　　本招生依據「大學考試入學分發招生規定」，由各大學校系訂定招生條件並依所訂條件分發，登記志願前請詳閱各校系條件及選系說明，並參閱總則「五、分發程序」之說明。</p>
+          <p>　　各大學校系之核定招生名額，刊載於「108 學年度大學考試入學登記分發相關資訊」。如因其他招生管道增額或缺額致使招生名額有所增減，將另於 7 月 18 日公告於考分會網站。</p>
+          <p>校名：國立臺灣大學（001）<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=31" target="_blank">p31</a></p>
+          <table>
+            <tr>
+              <th>學系</th>
+              <th>學科能力測驗及英語聽力檢定標準</th>
+              <th>指定考試採計科目及方法</th>
+              <th>同分參酌順序</th>
+              <th>選系說明</th>
+            </tr>
+            <tr>
+              <td rowspan="15">資訊工程學系</td>
+              <td rowspan="9">---</td>
+              <td rowspan="3">國 文 x 1.00</td>
+              <td rowspan="5">1 數學甲</td>
+              <td rowspan="15"></td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td rowspan="3">英 文 x 1.00</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td rowspan="5">2 英 文</td>
+            </tr>
+            <tr>
+              <td rowspan="3">數學甲 x 1.00</td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td rowspan="6">---</td>
+              <td rowspan="3">物 理 x 1.00</td>
+            </tr>
+            <tr>
+              <td rowspan="5">3 物 理</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td rowspan="3">化 學 x 1.00</td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+          </table>
+          <p>肆、附錄<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=258" target="_blank">p258</a></p>
+          <p>一、大學考試入學分發招生規定</p>
+          <p>附錄一<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=260" target="_blank">p260</a></p>
+          <p>伍、附表<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=294" target="_blank">p294</a></p>
+          <p>108 學年度大學考試入學分發 證明文件審查申請表（範例）<a href="https://www.uac.edu.tw/108data/108recruit.pdf#page=296"
+              target="_blank">p296</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
+            aria-expanded="false" aria-controls="collapseFive">大學考試入學分發委員會-資格審查</button><a
+            href="https://www.uac.edu.tw/checkup.htm" target="_blank"><img src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+        <div class="card-body">
+          <p>108學年度登記分發相關證明文件審查</p>
+          <p>【學力證明文件審查】</p>
+          <p>一、須辦理學力證明文件審查考生如下：</p>
+          <p>◎108學年度非由學校團體報名指定科目考試之應屆畢業生；</p>
+          <p>◎未通過93至107學年度學力證明文件審查之考生。</p>
+          <p>二、須辦理學力證明文件審查之考生，如未於規定期間內繳件，不得參加登記分發。</p>
+          <p>三、<a href="https://www.uac.edu.tw/cri1.htm" target="_blank">學力審查應繳證明文件一覽表</a>。</p>
+          <p>四、詳細規定請參考<a href="https://www.uac.edu.tw/synopsis.htm" target="_blank">招生簡章</a>。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingSix">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
+            aria-expanded="false" aria-controls="collapseSix">臺大課程學分抵免申請系統</button><a
+            href="http://curri.aca.ntu.edu.tw/aca_doc/waive.asp" target="_blank"><img src="round-link-24px.svg"></a>
+        </h5>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+        <div class="card-body">
+          <ol>
+            <li>同學申請抵免前請先參閱【<a href="http://www.aca.ntu.edu.tw/curri/statute/學生抵免學分辦法.pdf"
+                target="_blank">學生抵免學分辦法</a>】，系所若有更嚴格規定者，從其規定(請逕洽所屬系所)。</li>
+            <li>學生上網申請時間為 107 年 8 月 10 日至 17 日晚上 12 時止</li>
+            <li>學士班學生申請學分抵免，皆必須於 107 年 8 月 17 日前將原肄(畢)業學校歷年成績單正本掛號或送達所屬學系；非本學年度入學之在校生補申請抵免者，亦須寄(送)本校歷年成績單正本至所屬學系。</li>
+            <li>申請通識、國文、英(外)文、體育、服務學習等課程之抵免，請於申請同時將 (1) 課程大綱、(2)
+              原肄（畢）業學校歷年成績單，轉成PDF檔後上傳（若以曾於本校修習之科目申請者，僅須上傳本校歷年成績單PDF檔，不須上傳課程大綱）除上傳PDF檔以外，歷年成績單正本仍必須於 8 月 17 日前送達所屬學系。
+            </li>
+            <li>107年9月7日下午起，學生可於本系統查詢抵免結果並至所屬學系所領取核定書。</li>
+          </ol>
+          <p>校內單位審理期程</p>
+          <p>共同教育中心等單位：</p>
+          <p>8月20日下午 2 時至8月23日下午 5 時。</p>
+          <p>學系審核學士班學分抵免：</p>
+          <p>8月24日至8月28日下午 5 時。</p>
+          <p>(學系於8月20日下午 2 時起即可預先查閱學生申請資料)</p>
+          <p>通識、國文、英外文、體育、服務學習科目審核</p>
+          <p>本學年度審核時間已截止！</p>
+          <p>學系審核學分抵免</p>
+          <p>本學年度審核時間已截止！</p>
+          <p>教務處審核學分抵免</p>
+          <p>本學年度審核時間已截止！</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingSeven">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven"
+            aria-expanded="false" aria-controls="collapseSeven">學生抵免學分辦法</button><a
+            href="http://www.aca.ntu.edu.tw/curri/statute/學生抵免學分辦法.pdf" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+        <div class="card-body">
+          <p>第二條 各學系修讀學士學位班學生科目之抵免依下列規定辦理：</p>
+          <p>
+            一、學生入學前，於本校或其他公立或已立案之私立大學或專科學校或中央研究院或符合教育部採認規定之國外大學院校所修習及格科目（含線上教學課程，但不含推廣教育科目），或已取得相關機構先修科目之學分證明或考試及格證明，為現就讀學系規定之必修、選修科目或通識科目者，經申請並由就讀學系及教務處審核通過後，准予抵免。但通識學分抵免應先經共同教育中心審核欲抵免科目課程內容是否符合本校通識課程之精神及領域。
+          </p>
+          <p>五、提高編入年級限入學當學期辦理。</p>
+          <p>第五條 審核抵免學分之原則如下：</p>
+          <p>三、全學年課程僅修習一學期及格，經就讀之學系（所）同意者，准予抵免。但通識課程仍需依第二條第一項第四款辦理。</p>
+          <p>四、各學系(所)或師資培育中心得因個別科目之情況，認定該科不得抵免。</p>
+          <p>五、各學系(所)審核抵免科目如認有必要時，得通知申請者接受甄試，甄試及格者，准予抵免。</p>
+          <p>六、入學後在本校已修習之科目，除另有規定外，無論及格與否，不得辦理該科目之抵免。</p>
+          <p>八、申請抵免國文、英（外）文及體育者，應先經開課單位審核通過；申請抵免服務學習者，應先經學務處審核通過。</p>
+          <p>第六條 申請科目學分之抵免，應於本校行事曆所訂抵免申請期間內，依規定方式辦理申請手續。但應屆畢業學生之申請期間得不受此限。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingEight">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight"
+            aria-expanded="false" aria-controls="collapseEight">學士班抵免學分須知</button><a
+            href="http://curri.aca.ntu.edu.tw/aca_doc/cur/學士班抵免學分須知.pdf" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+        <div class="card-body">
+          <p>一、申請抵免應行注意事項 ：</p>
+          <p>(二)曾在本校修習之科目，持有學分證明者，入學本校時，其前在本校修習及格之科目學分，經申請並由就讀學系審核通過後，酌情抵免，並得視其抵免學分之多寡編入適當年級，惟至少須修業一學年。</p>
+          <p>(四)通識學分抵免，應先經共同教育中心審核欲抵免科目課程內容是否符合本校通識課程精神及領域；另原校修習之通識課程若屬學年課程，僅修一學期成績及格，該科不得提出申請。</p>
+          <p>(五)國文、英（外）文及體育學分抵免，應先經開課單位審核通過；服務學習(一)、(二)及(三)學分抵免，應先經學務處審核通過。</p>
+          <p>二、申請抵免作業流程：</p>
+          <p>(三)申請通識、國文、英(外)文、體育及服務學習等課程之抵免，請於申請同時併將原肄（畢）學校之(1)課程大綱、(2)原肄（畢）業學校歷年成績單，轉成 PDF 檔後上傳於學分抵免申請系統；所有申請抵免之科目皆必須於
+            8 月 17
+            日前，將原肄（畢）學校歷年成績單正本乙份（單一學期之成績通知單及成績單影本均不採認）寄(送)達所屬學系；非本學年度入學之在校生補申請抵免者，尚須寄(送)本校歷年成績單正本至所屬學系。各課程類別申請抵免應繳交資料整理如下表：
+          </p>
+          <table>
+            <tr>
+              <th rowspan="2">課程類別</th>
+              <th colspan="2">課程類別</th>
+            </tr>
+            <tr>
+              <th>一般科目 (必修、選修)</th>
+              <th>通識、國文、英(外)文、體育及服務學習</th>
+            </tr>
+            <tr>
+              <td>應繳交資料</td>
+              <td>本校歷年成績單正本送至所屬系所。</td>
+              <td>
+                <ol>
+                  <li>本校歷年成績單正本送至所屬學系。</li>
+                  <li>本校歷年成績單 PDF檔上傳至學分抵免申請系統。</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td>辦理期限</td>
+              <td colspan="2">107 年 8 月 10 日起至 17 日止<br>(逾期者，應屆畢業生得以紙本提出補申請；<br>非應屆畢業生皆請於明年度網路申請作業期間再提出申請)</td>
+            </tr>
+          </table>
+          <p>(四)107 年 9 月 7 日下午起，可查詢複審通過之抵免結果或至系所領取抵免學分核定書，以憑辦理開學後之課程加退選作業事宜。</p>
+          <p>六、若有關於辦理抵免學分疑義事項，請電洽（02）33662388 轉 304、305、306、307 或親赴本校教務處課務組洽詢。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingNine">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine"
+            aria-expanded="false" aria-controls="collapseNine">學士班抵免學分審核作業注意事項</button><a
+            href="http://curri.aca.ntu.edu.tw/aca_doc/cur/學士班抵免學分審核作業注意事項.pdf" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+        <div class="card-body">
+          <p>107 學年度學士班學生抵免學分審核作業注意事項</p>
+          <ol>
+            <li value="3">入學本校前修習及格之本校科目，可抵必修、共同必修、選修、通識。</li>
+            <li value="6">
+              抵免通識課程及共同必修課程【國文、英（外）文、體育、服務學習】，均需先經共同教育中心、中文系、外文系/日文系/外語教學暨資源中心、體育室、學務處審核同意。共教中心及專業單位僅審核課程內容是否符合本校課程要求，學系仍應確實參酌專業單位審查意見並核予合理之學分數。
+            </li>
+            <li>服務學習：原僅服務學習(一)可申請抵免，依據 106-1 第 2 次教務會議決議，開放服務學習(二)、(三)亦可申請抵免。</li>
+            <li value="10">提高編年級之申請時間，限入學當學期辦理：<ol>
+                <li>曾於本校就讀之學生，抵免學分數總計達 50 學分以上者（可將外校科目及本校科目之抵免學分數合併計算，來判定是否提高年級），經系主任同意可編入適當年級，惟至少須修業 1 學年。</li>
+              </ol>
+            </li>
+            <li>具雙重學籍之學生在入學本校後，就學重疊期間之科目不得申請抵免。</li>
+            <li>其他：<ol>
+                <li>本校生轉系、輔系或雙主修不需辦理抵免。</li>
+                <li>非本學年度入學學生因特殊情況可申請補辦抵免（需附入學本校前及入學本校後之歷年成績單正本），但入學後已修習之科目，除另有規定外，無論及格與否，均不得辦理該科之抵免。</li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTen">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen"
+            aria-expanded="false" aria-controls="collapseTen">國立臺灣大學教務處 抵免學分作業流程</button><a
+            href="http://www.aca.ntu.edu.tw/curri/curs_waive.asp" target="_blank"><img src="round-link-24px.svg"></a>
+        </h5>
+      </div>
+      <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+        <div class="card-body">
+          <p>一、相關法規：國立臺灣大學抵免學分辦法</p>
+          <p>二、網址：<a href="http://www.aca.ntu.edu.tw/aca2012/curri/statute/學生抵免學分辦法.pdf" target="_blank">學生抵免學分辦法</a>
+          </p>
+          <p>三、承辦單位：教務處課務組</p>
+          <p>四、承辦人員：課務組各承辦人</p>
+          <p>五、聯絡電話：33662388 轉 302、304、305、306、307</p>
+          <p>六、辦理時間：依本校行事曆所訂抵免申請期間內辦理(約8月中旬)</p>
+          <p>七、注意事項：</p>
+          <p>(一)依本校學生抵免學分辦法之規定辦理。</p>
+          <p>(二)轉學生、重考生：8 月中旬上網申請抵免，再將原校成績單正本送至所屬學系審核，若為通識課程 需先經共教中心審理（非入學當年度申請抵免，請另附入學後之本校歷年成績單）， 9 月中旬開學前
+            課務組複審後核發抵免核定書送學系及學生。</p>
+          <p>作業流程</p>
+          <img src="http://www.aca.ntu.edu.tw/aca2012/curri/servicebmp/waive103.png" style="max-width: 100%;">
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingEleven">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEleven"
+            aria-expanded="false" aria-controls="collapseEleven">國立臺灣大學新生暨轉學生入學服務網</button><a
+            href="http://reg.aca.ntu.edu.tw/newstu/UND/INDEX.htm" target="_blank"><img src="round-link-24px.svg"></a>
+        </h5>
+      </div>
+      <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion">
+        <div class="card-body">
+          <p>註冊</p>
+          <p>二、 新生（含轉學生）註冊一律需新生本人至註冊現場親自報到，詳情請見新生及轉學生報到註冊須知。</p>
+          <p>現場註冊排於「新生學習入門書院」各梯次之星期三，學生如未參加上列「新生學習入門書院」活動，仍請選擇於此二次註冊日期之任1天親自來校辦理。</p>
+          <p>（一）第 1 梯次『註冊』日期及時間：107 年 8 月 29 日（星期三）</p>
+          <p>上午 9：00 至 11：50、下午1：30 至 4：30</p>
+          <p>（二）第 2 梯次『註冊』日期及時間：107 年 9 月 5 日（星期三）</p>
+          <p>上午 9：00 至 11：50、下午1：30 至 4：30</p>
+          <p>休學、退學、保留入學資格</p>
+          <p>※ 退學</p>
+          <p>【法令依據】：本校學則第48條至第50條。</p>
+          <p>【法令摘述】</p>
+          <p>應令退學情形之一：自102學年度起入學學生同時在本校擁有二個(含)以上學士班學籍者。(第48條)</p>
+          <p>【申請退學小叮嚀】</p>
+          <p>原已有本校學士班學籍者，若選擇新錄取學系就讀，務必先完成原就讀學系之退學手續後，方能辦理新錄取學系註冊報到。</p>
+          <p>【申請方式】</p>
+          <p>自102學年度起，學生同時在本校具有二個(含)以上學士班學籍者，須擇一就讀：</p>
+          <p>選擇新錄取學系就讀，放棄原就讀學系：</p>
+          <ol>
+            <li>須於新錄取學系註冊日期前，辦理原就讀學系之退學手續。</li>
+            <li>請持已填妥之「退學申請書」至各單位核章後，再持原就讀學系之學生證正本或身分證件正本至教務處註冊組 (行政大樓1樓R106) 辦理。</li>
+            <li>依排定之註冊日期，攜帶教務處註冊組核發之「退學證明書」或「修業證明書」，辦理新錄取學系之註冊程序。</li>
+          </ol>
+          <p>選擇原已就讀學系就讀，放棄新錄取學系：</p>
+          <ol>
+            <li>須繳交原已就讀學系之學雜費，以完成註冊程序。若尚未領取學生證者，請持繳費收據至教務處註冊組 (行政大樓1樓R106) 領取。</li>
+            <li>無須辦理新錄取學系之註冊手續，開學後會自動以註銷學籍處理。</li>
+          </ol>
+          <p>註：「<a href="http://www.aca.ntu.edu.tw/aca2012/reg/forms/新退學申請書.pdf" target="_blank">退學申請書</a>」之表單，請自行下載。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwelve">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwelve"
+            aria-expanded="false" aria-controls="collapseTwelve">國立臺灣大學教務處 處理學士班學生退學事宜</button><a
+            href="http://www.aca.ntu.edu.tw/aca2012/reg/services/actno09.asp" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#accordion">
+        <div class="card-body">
+          <p>一、相關法規：國立灣大學學則</p>
+          <p>二、網址：<a href="http://www.aca.ntu.edu.tw/aca2012/reg/law/學則.pdf"
+              target="_blank">http://www.aca.ntu.edu.tw/aca2012/reg/law/學則.pdf</a></p>
+          <p>三、承辦單位：註冊組、醫學院教務分處</p>
+          <p>四、承辦人員：各櫃台人員</p>
+          <p>五、聯絡電話：註冊組：33662388轉203、211~220、225、230</p>
+          <p>醫學院教務分處：23123456轉88021、88024~88025、88027</p>
+          <p>六、辦理時間：</p>
+          <p>(一)、應令退學：已達退學規定者，可隨時辦理退學手續。</p>
+          <p>(二)、自動退學：依學校行事曆規定每學期上課開始日至學期考試開始前，可辦理當學期退學。</p>
+          <p>七、注意事項：</p>
+          <p>(一)、辦理退學時，請攜帶學生證至承辦教務單位填寫退學申請書或至本組網站表單下載自行列印學士班學生退學申請書。退學手續得委託他人代辦，惟代辦人須攜帶身分證明文件。</p>
+          <p>(二)、學生因故自請退學，須經家長或監護人之同意，方得辦理退學手續。</p>
+          <p>(三)、自請退學及勒令退學學生，應向教務處辦理退學離校手續。如在校修滿一學期以上，具有成績，其學籍並經審查合格，且退學離校手續業已辦理完成者，得申請修業證明書。</p>
+          <p>八、作業流程：</p>
+          <img src="http://www.aca.ntu.edu.tw/aca2012/reg/services/images/09-1.jpg" style="max-width: 100%">
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThirteen">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThirteen"
+            aria-expanded="false" aria-controls="collapseThirteen">國立臺灣大學學則</button><a
+            href="http://www.aca.ntu.edu.tw/aca2012/reg/law/學則.pdf" target="_blank"><img src="round-link-24px.svg"></a>
+        </h5>
+      </div>
+      <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#accordion">
+        <div class="card-body">
+          <p>第六章 休學、復學、轉學、退學</p>
+          <p>第四十八條 學生有下列情形之一者，應令退學︰</p>
+          <p>六、自一○二學年度起入學學生同時在本校擁有二個(含)以上學士班學籍者。</p>
+          <p>第四十九條 學生因故自請退學，得於期末考試開始前辦理，且須經家長或監護人之同意，但特殊情況經教務長同意者，不在此限。</p>
+          <p>第 五十 條 自請退學及應令退學學生，應向教務處辦理退學離校手續。如在校修滿一學期以上，具有成績，其學籍並經審查合格者，得發給修業證明書。</p>
+          <p>入學或轉學資格不合而退學者、經開除學籍者，或應令退學而仍有學雜費、學分費未依規定繳清者，不發給有關修業之任何證明文件。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingFourteen">
+        <h5 class="mb-0"><button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFourteen"
+            aria-expanded="false" aria-controls="collapseFourteen"></button><a href="" target="_blank"><img
+              src="round-link-24px.svg"></a></h5>
+      </div>
+      <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordion">
+        <div class="card-body">Fourteen</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
