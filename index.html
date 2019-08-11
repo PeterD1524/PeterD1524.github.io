@@ -4,19 +4,23 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
+      let ATTRIBUTE_choice = ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)', 'Where is', 'Combination mode'];
+
+      let ATTRIBUTE_letters = ['J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q'];
+
       var ss = 'Mushrooms';
 
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(changeValueList);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
-
+        /*
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
@@ -37,6 +41,93 @@
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+        */
+
+        var data = new google.visualization.Query(
+            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&tq?range=AI1:AI3000');
+        
+            
+      }
+
+      
+      
+      function changeValueList() {
+        while (browsers.firstChild) {
+          browsers.removeChild(browsers.firstChild);
+        }
+        while (browsers2.firstChild) {
+          browsers2.removeChild(browsers2.firstChild);
+        }
+        if (ATTRIBUTE.value === "Combination mode") {
+          p1.textContent = 'Boss/Sub-Boss';
+          p2.style.display = 'block';
+        } else {
+          p1.textContent = 'VALUE';
+          p2.style.display = 'none';
+        }
+        VALUE.value = '';
+        if (ATTRIBUTE.value === 'Where is') {
+          var query = new google.visualization.Query(
+            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=AI:AI');
+          query.send(gg);
+        } else if (ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) === 0 || 3 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
+          var query = new google.visualization.Query(
+            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=A' + ATTRIBUTE_letters[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)] + ':A' + ATTRIBUTE_letters[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)]);
+          query.send(gg);
+        } else if (ATTRIBUTE.value === "Combination mode") {
+          var query = new google.visualization.Query(
+            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=Z3:Z');
+          query.send(gg);
+          var query = new google.visualization.Query(
+            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=AA3:AA');
+          query.send(ff);
+        }
+      }
+
+      function gg(response) {
+        if (response.isError()) {
+          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+          return;
+        }
+
+        if (ATTRIBUTE.value === 'Where is') {
+          var data = response.getDataTable();
+          for (var i = 0; i < data.wg.length; i++) {
+            option = document.createElement('option');
+            option.value = data.wg[i].c[0].v;
+            browsers.appendChild(option);
+          }
+        } else if (ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) === 0 || 3 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
+          var data = response.getDataTable();
+          for (var i = 0; i < data.wg.length; i++) {
+            option = document.createElement('option');
+            option.value = data.wg[i].c[0].v;
+            browsers.appendChild(option);
+          }
+        } else if (ATTRIBUTE.value === "Combination mode") {
+          var data = response.getDataTable();
+          for (var i = 0; i < data.wg.length; i++) {
+            option = document.createElement('option');
+            option.value = data.wg[i].c[0].v;
+            browsers.appendChild(option);
+          }
+        }
+      }
+
+      function ff(response) {
+        if (response.isError()) {
+          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+          return;
+        }
+
+        if (ATTRIBUTE.value === "Combination mode") {
+          var data = response.getDataTable();
+          for (var i = 0; i < data.wg.length; i++) {
+            option = document.createElement('option');
+            option.value = data.wg[i].c[0].v;
+            browsers2.appendChild(option);
+          }
+        }
       }
       
       function drawGID() {
@@ -56,30 +147,190 @@
         }
 
         var data = response.getDataTable();
-        console.log(data.wg);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(image, 0, 0, 1000, 1000);
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+        tr = document.createElement('tr');
+        for (var i = 0; i <= 9; i++) {
+          td = document.createElement('td');
+          td.textContent = ATTRIBUTE_choice[i];
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+        
+        var isok = true;
         for (var i = 0; i < data.wg.length; i++) {
-          /*
-          test = document.getElementById('test');
-          ele = document.createElement('p');
-          ele.textContent = data.wg[i].c[2].v;
-          test.appendChild(ele);
-          */
-          ctx.beginPath();
-          ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 4, 0, Math.PI * 2, );
+          if (0 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
+            if (data.wg[i].c[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)] !== null && data.wg[i].c[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)].v.toString() === VALUE.value) {
+              isok = false;
+              ctx.beginPath();
+              ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+              ctx.fillStyle = 'red';
+              ctx.fill();
+              ctx.font = '12px Helvetica';
+              ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+              tr = document.createElement('tr');
+              for (var j = 0; j <= 9; j++) {
+                td = document.createElement('td');
+                if (data.wg[i].c[j] !== null) {
+                  td.textContent = data.wg[i].c[j].v;
+                }
+                tr.appendChild(td);
+              }
+              table.appendChild(tr);
+            }
+          } else if (ATTRIBUTE.value === 'Where is') {
+            var good = false;
+            for (var j = 3; j <= 6; j++) {
+              if (data.wg[i].c[j] !== null && data.wg[i].c[j].v.toString().toLowerCase() === VALUE.value.toLowerCase()) {
+                isok = false;
+                good = true;
+              }
+            }
+            if (good) {
+              ctx.beginPath();
+              ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+              ctx.fillStyle = 'red';
+              ctx.fill();
+              ctx.font = '12px Trebuchet MS';
+              ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+              tr = document.createElement('tr');
+              // console.log(data.wg[i].c);
+              for (var j = 0; j <= 9; j++) {
+                td = document.createElement('td');
+                if (data.wg[i].c[j] !== null) {
+                  td.textContent = data.wg[i].c[j].v;
+                }
+                tr.appendChild(td);
+              }
+              table.appendChild(tr);
+            }
+          } else if (ATTRIBUTE.value === 'Combination mode') {
+            let bossSub = VALUE.value.split('/');
+            let commonUncommon = VALUE2.value.split('/');
+            if (bossSub.length === 2 && commonUncommon.length === 2) {
+              if (data.wg[i].c[3] !== null && data.wg[i].c[3].v.toString().toLowerCase() === bossSub[0].toLowerCase() &&
+                  data.wg[i].c[4] !== null && data.wg[i].c[4].v.toString().toLowerCase() === bossSub[1].toLowerCase() &&
+                  data.wg[i].c[5] !== null && data.wg[i].c[5].v.toString().toLowerCase() === commonUncommon[0].toLowerCase() &&
+                  data.wg[i].c[6] !== null && data.wg[i].c[6].v.toString().toLowerCase() === commonUncommon[1].toLowerCase()) {
+                isok = false;
+                ctx.beginPath();
+                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                ctx.font = '12px Trebuchet MS';
+                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+                tr = document.createElement('tr');
+                for (var j = 0; j <= 9; j++) {
+                  td = document.createElement('td');
+                  if (data.wg[i].c[j] !== null) {
+                    td.textContent = data.wg[i].c[j].v;
+                  }
+                  tr.appendChild(td);
+                }
+                table.appendChild(tr);
+              }
+            } else if (bossSub.length === 2 && VALUE2.value === '') {
+              if (data.wg[i].c[3] !== null && data.wg[i].c[3].v.toString().toLowerCase() === bossSub[0].toLowerCase() &&
+                  data.wg[i].c[4] !== null && data.wg[i].c[4].v.toString().toLowerCase() === bossSub[1].toLowerCase()) {
+                isok = false;
+                ctx.beginPath();
+                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                ctx.font = '12px Trebuchet MS';
+                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+                tr = document.createElement('tr');
+                for (var j = 0; j <= 9; j++) {
+                  td = document.createElement('td');
+                  if (data.wg[i].c[j] !== null) {
+                    td.textContent = data.wg[i].c[j].v;
+                  }
+                  tr.appendChild(td);
+                }
+                table.appendChild(tr);
+              }
+            } else if (VALUE.value === '' && commonUncommon.length === 2) {
+              if (data.wg[i].c[5] !== null && data.wg[i].c[5].v.toString().toLowerCase() === commonUncommon[0].toLowerCase() &&
+                  data.wg[i].c[6] !== null && data.wg[i].c[6].v.toString().toLowerCase() === commonUncommon[1].toLowerCase()) {
+                isok = false;
+                ctx.beginPath();
+                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                ctx.font = '12px Trebuchet MS';
+                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+                tr = document.createElement('tr');
+                for (var j = 0; j <= 9; j++) {
+                  td = document.createElement('td');
+                  if (data.wg[i].c[j] !== null) {
+                    td.textContent = data.wg[i].c[j].v;
+                  }
+                  tr.appendChild(td);
+                }
+                table.appendChild(tr);
+              }
+            }
+          }
+        }
+        if (isok) {
+          ctx.font = '48px Trebuchet MS';
           ctx.fillStyle = 'red';
-          ctx.fill();
+          ctx.fillText('No Data or Incorrect Input or Error', 0, 500);
         }
       }
     </script>
+    <style>
+      body {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+
+      table {
+        
+        border-collapse: collapse;
+      }
+
+      td {
+        border: 1px solid black;
+        text-align: center;
+      }
+    </style>
   </head>
 
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+    <p>Data is from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit?usp=sharing">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit?usp=sharing</a></p>
+    <p>First, select the ATTRIBUTE.<br>And enter the VALUE.<br>Then click the button.</p>
+    <p style="font-weight: bold;" onchange="">ATTRIBUTE (options: Star, X, Y, Boss, Sub-Boss, Common, Uncommon, Biome, Where is, Combination mode)</p>
+    <select id="ATTRIBUTE" onchange="changeValueList();" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+        <option value="Star">Star</option>
+        <option value="X">X</option>
+        <option value="Y">Y</option>
+        <option value="Boss">Boss</option>
+        <option value="Sub-Boss">Sub-Boss</option>
+        <option value="Common">Common</option>
+        <option value="Uncommon">Uncommon</option>
+        <option value="Biome">Biome</option>
+        <option value="Where is">Where is</option>
+        <option value="Combination mode">Combination mode</option>
+    </select>
+    <p id="p1" style="font-weight: bold;">VALUE</p>
+    <input id="VALUE" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" list="browsers">
+    <datalist id="browsers"></datalist>
+    <div id="p2" style="display: none;">
+      <p style="font-weight: bold;">Common/Uncommon</p>
+      <input id="VALUE2" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" list="browsers2">
+      <datalist id="browsers2"></datalist>
+    </div>
+    <p>A list of search results will also be under the map</p>
+    <button onclick="drawGID();" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; width: 100%; height: 40px;">click me to generate map</button>
     <div id="test"></div>
     <canvas id="canvas"></canvas>
+    <p>search results:</p>
+    <table width=100% id="table"></table>
     <div style="display:none;">
       <img id="source" src="ggggg.png" width="1000" height="1000">
     </div>
@@ -89,6 +340,14 @@
       canvas.height = 1000;
       const ctx = canvas.getContext('2d');
       const image = document.getElementById('source');
+      const ATTRIBUTE = document.getElementById('ATTRIBUTE');
+      ATTRIBUTE.value = 'Where is';
+      VALUE.value = '';
+      const table = document.getElementById('table');
+      ctx.drawImage(image, 0, 0, 1000, 1000);
+      const browsers = document.getElementById('browsers');
+      const p1 = document.getElementById('p1');
+      const p2 = document.getElementById('p2');
     </script>
   </body>
 </html>
