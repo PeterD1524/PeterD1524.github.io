@@ -202,6 +202,9 @@
                 td = document.createElement('td');
                 if (data.wg[i].c[j] !== null) {
                   td.textContent = data.wg[i].c[j].v;
+                  if (data.wg[i].c[j].v.toString().toLowerCase() === VALUE.value.toLowerCase()) {
+                    td.style.background = 'coral';
+                  }
                 }
                 tr.appendChild(td);
               }
