@@ -1,356 +1,695 @@
 <html>
-  <head>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
 
-      let ATTRIBUTE_choice = ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)', 'Where is', 'Combination mode'];
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-      let ATTRIBUTE_letters = ['J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q'];
+      matchTable = [];
 
-      var ss = 'Mushrooms';
+      const point_layer = document.getElementById('point_layer');
+      const map_layer = document.getElementById('map_layer');
+      const grid_layer = document.getElementById('grid_layer');
+      point_layer.width = 1000;
+      point_layer.height = 1000;
+      map_layer.width = 1000;
+      map_layer.height = 1000;
+      grid_layer.width = 1000;
+      grid_layer.height = 1000;
+
+      const grid_layer_ctx = grid_layer.getContext('2d');
+
+      const gridButton = document.getElementById('gridButton');
+      gridButton.addEventListener('click', function () {
+        if (grid_layer.style.display === 'inline') {
+          grid_layer.style.display = 'none'
+          gridButton.textContent = 'show grid';
+        } else if (grid_layer.style.display === 'none') {
+          grid_layer.style.display = 'inline';
+          gridButton.textContent = 'hide grid';
+        }
+      })
+
+
+      grid_layer_ctx.strokeStyle = 'gray';
+      for (let i = 0; i <= grid_layer.width; i = i + 20) {
+        grid_layer_ctx.beginPath();
+        grid_layer_ctx.moveTo(i, 0);
+        grid_layer_ctx.lineTo(i, grid_layer.height);
+        grid_layer_ctx.stroke();
+        grid_layer_ctx.beginPath();
+        grid_layer_ctx.moveTo(0, i);
+        grid_layer_ctx.lineTo(grid_layer.height, i);
+        grid_layer_ctx.stroke();
+      }
+      grid_layer_ctx.strokeStyle = 'black';
+      for (let i = 0; i <= grid_layer.width; i = i + 100) {
+        grid_layer_ctx.beginPath();
+        grid_layer_ctx.moveTo(i, 0);
+        grid_layer_ctx.lineTo(i, grid_layer.height);
+        grid_layer_ctx.stroke();
+        grid_layer_ctx.beginPath();
+        grid_layer_ctx.moveTo(0, i);
+        grid_layer_ctx.lineTo(grid_layer.height, i);
+        grid_layer_ctx.stroke();
+      }
+
+      const map_layer_ctx = map_layer.getContext('2d');
+      map_layer_ctx.fillStyle = 'rgb(1, 55, 214)';
+      map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
+      const image = new Image(1000, 1000);
+      image.src = 'ggggg.png';
+      image.onload = function () {
+        map_layer_ctx.drawImage(this, 0, 0, this.width, this.height)
+      };
+
+      const ctx = point_layer.getContext('2d');
+
+      const table = document.getElementById('table');
 
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', { 'packages': ['corechart'] });
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(changeValueList);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-        /*
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          [ss, 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
-
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-        */
-
-        var data = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&tq?range=AI1:AI3000');
-        
-            
+      const ModeOption = ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Where is', 'Combination', 'Free', 'Draw'];
+      const header = ['', 'Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)'];
+      const Mode = document.getElementById('Mode');
+      const Values = document.getElementById('Values');
+      const Values_divs = Values.querySelectorAll('#Values > div');
+      const button = document.getElementById('button');
+      const result = document.getElementById('result');
+      let option;
+      for (let i = 0; i < ModeOption.length; i++) {
+        option = document.createElement('option');
+        option.value = i;
+        option.textContent = ModeOption[i];
+        Mode.appendChild(option);
+      }
+      for (let i = 0; i < Values_divs.length; i++) {
+        let datalist = document.createElement('datalist');
+        datalist.id = 'Values_divs_datalist_' + i;
+        Values_divs[i].appendChild(datalist);
+        let input = Values_divs[i].querySelector('input');
+        input.setAttribute('list', 'Values_divs_datalist_' + i);
       }
 
-      
-      
-      function changeValueList() {
-        while (browsers.firstChild) {
-          browsers.removeChild(browsers.firstChild);
-        }
-        while (browsers2.firstChild) {
-          browsers2.removeChild(browsers2.firstChild);
-        }
-        if (ATTRIBUTE.value === "Combination mode") {
-          p1.textContent = 'Boss/Sub-Boss';
-          p2.style.display = 'block';
+      Mode.addEventListener("change", ModechangeHandler);
+
+      function ModechangeHandler(event) {
+        if (event.target.value === 'Mode') {
+
+        } else if (Number(event.target.value) === 11) {
+          for (let i = 0; i < Values_divs.length; i++) {
+            Values_divs[i].style.display = 'none';
+            Values_divs[i].querySelector('input').value = "";
+          }
+          button.style.display = 'none';
+          for (let i = 1; i < 3; i++) {
+            Values_divs[i].querySelector('div').textContent = ModeOption[i];
+            let datalist = Values_divs[i].querySelector('datalist');
+            removeChildren(datalist);
+          }
+
+          for (let i = 0; i < matchTable.length; i++) {
+            matchTable[i][0] = false;
+          }
+
+          for (let i = 0; i < table.querySelectorAll('input').length; i++) {
+            table.querySelectorAll('input')[i].checked = false;
+          }
+
+          ctx.clearRect(0, 0, point_layer.width, point_layer.height);
+
+          for (let i = 1; i < 3; i++) {
+            Values_divs[i].style.display = 'block';
+          }
+          button.style.display = 'inline-block';
         } else {
-          p1.textContent = 'VALUE';
-          p2.style.display = 'none';
-        }
-        VALUE.value = '';
-        if (ATTRIBUTE.value === 'Where is') {
-          var query = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=AI:AI');
-          query.send(gg);
-        } else if (ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) === 0 || 3 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
-          var query = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=A' + ATTRIBUTE_letters[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)] + ':A' + ATTRIBUTE_letters[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)]);
-          query.send(gg);
-        } else if (ATTRIBUTE.value === "Combination mode") {
-          var query = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=Z3:Z');
-          query.send(gg);
-          var query = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=1890014120&range=AA3:AA');
-          query.send(ff);
+          for (let i = 0; i < Values_divs.length; i++) {
+            Values_divs[i].style.display = 'none';
+            Values_divs[i].querySelector('input').value = "";
+          }
+          button.style.display = 'none';
+
+          let gid = 158829331; // map
+
+          if (0 <= Number(event.target.value) && Number(event.target.value) <= 8) {
+            Values_divs[0].querySelector('div').textContent = 'Value';
+            let datalist = Values_divs[0].querySelector('datalist');
+            removeChildren(datalist);
+
+            let column = 'A' + String.fromCharCode('A'.charCodeAt() + Number(event.target.value));
+            let range = column + '2' + ':' + column;
+            let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
+
+            query.send(function (response) {
+              if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+              }
+
+              let data = response.getDataTable();
+
+              for (let i = 0; i < data.wg.length; i++) {
+                if (data.wg[i].c[0] !== null) {
+                  let option = document.createElement('option');
+                  option.value = data.wg[i].c[0].v;
+                  datalist.appendChild(option);
+                }
+              }
+
+              Values_divs[0].style.display = 'block';
+              button.style.display = 'inline-block';
+            });
+          } else if (Number(event.target.value) === 9) {
+            for (let i = 0; i < 2; i++) {
+              Values_divs[i].querySelector('div').textContent = ModeOption.slice(3 + 2 * i, 5 + 2 * i).join('/');
+              let datalist = Values_divs[i].querySelector('datalist');
+              removeChildren(datalist);
+            }
+
+            let column_start = 'A' + String.fromCharCode('A'.charCodeAt() + Number(event.target.value));
+            let column_end = 'A' + String.fromCharCode('A'.charCodeAt() + Number(event.target.value) + 1);
+            let range = column_start + '2' + ':' + column_end;
+            let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
+
+            query.send(function (response) {
+              if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+              }
+
+              let data = response.getDataTable();
+
+              for (let i = 0; i < data.wg.length; i++) {
+                for (let j = 0; j < data.wg[i].c.length; j++) {
+                  if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
+                    let datalist = Values_divs[j].querySelector('datalist');
+                    let option = document.createElement('option');
+                    option.value = data.wg[i].c[j].v;
+                    datalist.appendChild(option);
+                  }
+                }
+              }
+
+              for (let i = 0; i < 2; i++) {
+                Values_divs[i].style.display = 'block';
+              }
+              button.style.display = 'inline-block';
+            });
+          } else if (Number(event.target.value) === 10) {
+            for (let i = 0; i < Values_divs.length; i++) {
+              Values_divs[i].querySelector('div').textContent = ModeOption[i];
+              let datalist = Values_divs[i].querySelector('datalist');
+              removeChildren(datalist);
+            }
+
+            let column_start = 'A' + String.fromCharCode('A'.charCodeAt());
+            let column_end = 'A' + String.fromCharCode('A'.charCodeAt() + 7);
+            let range = column_start + '2' + ':' + column_end;
+            let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
+
+            query.send(function (response) {
+              if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+              }
+
+              let data = response.getDataTable();
+
+              for (let i = 0; i < data.wg.length; i++) {
+                for (let j = 0; j < data.wg[i].c.length; j++) {
+                  if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
+                    let datalist = Values_divs[j].querySelector('datalist');
+                    let option = document.createElement('option');
+                    option.value = data.wg[i].c[j].v;
+                    datalist.appendChild(option);
+                  }
+                }
+              }
+
+              for (let i = 0; i < Values_divs.length; i++) {
+                Values_divs[i].style.display = 'block';
+              }
+              button.style.display = 'inline-block';
+            });
+          }
         }
       }
 
-      function gg(response) {
-        if (response.isError()) {
-          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-          return;
-        }
+      button.addEventListener("click", buttonclickHandler);
 
-        if (ATTRIBUTE.value === 'Where is') {
-          var data = response.getDataTable();
-          for (var i = 0; i < data.wg.length; i++) {
-            option = document.createElement('option');
-            option.value = data.wg[i].c[0].v;
-            browsers.appendChild(option);
-          }
-        } else if (ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) === 0 || 3 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
-          var data = response.getDataTable();
-          for (var i = 0; i < data.wg.length; i++) {
-            option = document.createElement('option');
-            option.value = data.wg[i].c[0].v;
-            browsers.appendChild(option);
-          }
-        } else if (ATTRIBUTE.value === "Combination mode") {
-          var data = response.getDataTable();
-          for (var i = 0; i < data.wg.length; i++) {
-            option = document.createElement('option');
-            option.value = data.wg[i].c[0].v;
-            browsers.appendChild(option);
-          }
-        }
-      }
+      function buttonclickHandler() {
+        if (Mode.value === 'Mode') {
 
-      function ff(response) {
-        if (response.isError()) {
-          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-          return;
-        }
+        } else if (Number(Mode.value) === 11) {
+          ctx.clearRect(0, 0, point_layer.width, point_layer.height);
+          drawPoint(Values_divs[1].querySelector('input').value, Values_divs[2].querySelector('input').value);
+        } else {
+          result.style.display = 'none';
+          point_layer.style.display = 'none';
 
-        if (ATTRIBUTE.value === "Combination mode") {
-          var data = response.getDataTable();
-          for (var i = 0; i < data.wg.length; i++) {
-            option = document.createElement('option');
-            option.value = data.wg[i].c[0].v;
-            browsers2.appendChild(option);
-          }
-        }
-      }
-      
-      function drawGID() {
-        var queryString = encodeURIComponent('SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8');
+          let gid = 1163096229;
+          let range = 'A3:J';
+          let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
+          query.send(function (response) {
+            if (response.isError()) {
+              alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+              return;
+            }
 
-        // &tq=' + queryString
+            let data = response.getDataTable();
 
-        var query = new google.visualization.Query(
-            'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=314937164&tq?range=A3:J3000');
-        query.send(handleQueryResponse);
-      }
+            dataTable = [];
 
-      function handleQueryResponse(response) {
-        if (response.isError()) {
-          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-          return;
-        }
+            for (let i = 0; i < data.wg.length; i++) {
+              dataTable.push([]);
+              for (let j = 0; j < data.wg[i].c.length; j++) {
+                if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
+                  dataTable[i].push(data.wg[i].c[j].v);
+                } else {
+                  dataTable[i].push('');
+                }
+              }
+            }
 
-        var data = response.getDataTable();
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(image, 0, 0, 1000, 1000);
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-        tr = document.createElement('tr');
-        for (var i = 0; i <= 9; i++) {
-          td = document.createElement('td');
-          td.textContent = ATTRIBUTE_choice[i];
-          tr.appendChild(td);
-        }
-        table.appendChild(tr);
-        
-        var isok = true;
-        for (var i = 0; i < data.wg.length; i++) {
-          if (0 <= ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) && ATTRIBUTE_choice.indexOf(ATTRIBUTE.value) <= 7) {
-            if (data.wg[i].c[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)] !== null && data.wg[i].c[ATTRIBUTE_choice.indexOf(ATTRIBUTE.value)].v.toString() === VALUE.value) {
-              isok = false;
-              ctx.beginPath();
-              ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
+            removeChildren(table);
+
+            ctx.clearRect(0, 0, 1000, 1000);
+
+            matchTable = [];
+
+            if (0 <= Number(Mode.value) && Number(Mode.value) <= 7) {
+              for (let i = 0; i < dataTable.length; i++) {
+                if (dataTable[i][Number(Mode.value)].toString().toLowerCase() === Values_divs[0].querySelector('input').value.toLowerCase()) {
+                  matchTable.push([]);
+                  matchTable[matchTable.length - 1].push(true);
+                  for (let j = 0; j < dataTable[i].length; j++) {
+                    matchTable[matchTable.length - 1].push(dataTable[i][j]);
+                  }
+                }
+              }
+            } else if (Number(Mode.value) === 8) {
+              for (let i = 0; i < dataTable.length; i++) {
+                let match = false;
+                for (let j = 3; j <= 6; j++) {
+                  if (dataTable[i][j].toString().toLowerCase() === Values_divs[0].querySelector('input').value.toLowerCase()) {
+                    match = true;
+                    break;
+                  }
+                }
+                if (match === true) {
+                  matchTable.push([]);
+                  matchTable[matchTable.length - 1].push(true);
+                  for (let j = 0; j < dataTable[i].length; j++) {
+                    matchTable[matchTable.length - 1].push(dataTable[i][j]);
+                  }
+                }
+              }
+            } else if (Number(Mode.value) === 9) {
+              let notEmpty = [true, true];
+              let split = [null, null, null, null];
+              let inputCorrect = true;
+              for (let i = 0; i < 2; i++) {
+                if (Values_divs[i].querySelector('input').value === '') {
+                  notEmpty[i] = false;
+                } else if (Values_divs[i].querySelector('input').value.toLowerCase().split('/').length === 2) {
+                  split[0 + 2 * i] = Values_divs[i].querySelector('input').value.toLowerCase().split('/')[0];
+                  split[1 + 2 * i] = Values_divs[i].querySelector('input').value.toLowerCase().split('/')[1];
+                } else {
+                  inputCorrect = false;
+                  break;
+                }
+              }
+              if (inputCorrect === true) {
+                for (let i = 0; i < dataTable.length; i++) {
+                  let match = true;
+                  for (let j = 0; j < 2; j++) {
+                    if (notEmpty[j] === true) {
+                      for (let k = 0; k < 2; k++) {
+                        if (dataTable[i][3 + 2 * j + k].toString().toLowerCase() !== split[2 * j + k]) {
+                          match = false;
+                        }
+                      }
+                    }
+                  }
+                  if (match === true) {
+                    matchTable.push([]);
+                    matchTable[matchTable.length - 1].push(true);
+                    for (let j = 0; j < dataTable[i].length; j++) {
+                      matchTable[matchTable.length - 1].push(dataTable[i][j]);
+                    }
+                  }
+                }
+              }
+            } else if (Number(Mode.value) === 10) {
+              for (let i = 0; i < dataTable.length; i++) {
+                let match = true;
+                for (let j = 0; j < Values_divs.length; j++) {
+                  if (Values_divs[j].querySelector('input').value === '') {
+                    continue;
+                  }
+                  if (dataTable[i][j].toString().toLowerCase() !== Values_divs[j].querySelector('input').value.toString().toLowerCase()) {
+                    match = false;
+                    break;
+                  }
+                }
+                if (match === true) {
+                  matchTable.push([]);
+                  matchTable[matchTable.length - 1].push(true);
+                  for (let j = 0; j < dataTable[i].length; j++) {
+                    matchTable[matchTable.length - 1].push(dataTable[i][j]);
+                  }
+                }
+              }
+            }
+
+
+            if (matchTable.length !== 0) {
+              let tr = document.createElement('tr');
+              for (let i = 0; i < header.length; i++) {
+                let td = document.createElement('td');
+                td.textContent = header[i];
+                tr.appendChild(td);
+              }
+              tr.style.backgroundColor = '#78909c';
+              tr.style.fontWeight = '700';
+              table.appendChild(tr);
+            } else {
+              ctx.textAlign = 'center';
+              ctx.font = '72px Roboto';
               ctx.fillStyle = 'red';
-              ctx.fill();
-              ctx.font = '12px Helvetica';
-              ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
+              ctx.fillText('No data or incorrect input', point_layer.width / 2, point_layer.height / 2);
+            }
+
+            let alternatingColors = ['white', '#ebeff1']
+
+            for (let i = 0; i < matchTable.length; i++) {
               tr = document.createElement('tr');
-              for (var j = 0; j <= 9; j++) {
+              let td = document.createElement('td');
+              let input = document.createElement('input');
+              input.type = 'checkbox';
+              input.checked = true;
+              input.style.margin = '0';
+              input.style.width = '20px';
+              input.style.height = '20px';
+              input.addEventListener('click', inputclickHandler);
+              input.setAttribute('data-row', i);
+              td.appendChild(input);
+              tr.appendChild(td);
+              for (let j = 1; j < matchTable[i].length; j++) {
                 td = document.createElement('td');
-                if (data.wg[i].c[j] !== null) {
-                  td.textContent = data.wg[i].c[j].v;
+                td.textContent = (matchTable[i][j]);
+                if (Number(Mode.value) === 8 && 4 <= j && j <= 7 && matchTable[i][j].toString().toLowerCase() === Values_divs[0].querySelector('input').value.toString().toLowerCase()) {
+                  td.style.backgroundColor = 'coral';
+                }
+                else if (Number(Mode.value) === 10 && j < Values_divs.length + 1 && Values_divs[j - 1].querySelector('input').value.toString().toLowerCase() !== '' && matchTable[i][j].toString().toLowerCase() === Values_divs[j - 1].querySelector('input').value.toString().toLowerCase()) {
+                  td.style.backgroundColor = 'coral';
                 }
                 tr.appendChild(td);
               }
+              tr.style.backgroundColor = alternatingColors[i % 2];
               table.appendChild(tr);
+              drawPoint(matchTable[i][2], matchTable[i][3]);
             }
-          } else if (ATTRIBUTE.value === 'Where is') {
-            var good = false;
-            for (var j = 3; j <= 6; j++) {
-              if (data.wg[i].c[j] !== null && data.wg[i].c[j].v.toString().toLowerCase() === VALUE.value.toLowerCase()) {
-                isok = false;
-                good = true;
-              }
+
+            if (matchTable.length !== 0) {
+              result.style.display = 'block';
             }
-            if (good) {
-              ctx.beginPath();
-              ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
-              ctx.fillStyle = 'red';
-              ctx.fill();
-              ctx.font = '12px Trebuchet MS';
-              ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
-              tr = document.createElement('tr');
-              // console.log(data.wg[i].c);
-              for (var j = 0; j <= 9; j++) {
-                td = document.createElement('td');
-                if (data.wg[i].c[j] !== null) {
-                  td.textContent = data.wg[i].c[j].v;
-                  if (data.wg[i].c[j].v.toString().toLowerCase() === VALUE.value.toLowerCase()) {
-                    td.style.background = 'coral';
-                  }
-                }
-                tr.appendChild(td);
-              }
-              table.appendChild(tr);
-            }
-          } else if (ATTRIBUTE.value === 'Combination mode') {
-            let bossSub = VALUE.value.split('/');
-            let commonUncommon = VALUE2.value.split('/');
-            if (bossSub.length === 2 && commonUncommon.length === 2) {
-              if (data.wg[i].c[3] !== null && data.wg[i].c[3].v.toString().toLowerCase() === bossSub[0].toLowerCase() &&
-                  data.wg[i].c[4] !== null && data.wg[i].c[4].v.toString().toLowerCase() === bossSub[1].toLowerCase() &&
-                  data.wg[i].c[5] !== null && data.wg[i].c[5].v.toString().toLowerCase() === commonUncommon[0].toLowerCase() &&
-                  data.wg[i].c[6] !== null && data.wg[i].c[6].v.toString().toLowerCase() === commonUncommon[1].toLowerCase()) {
-                isok = false;
-                ctx.beginPath();
-                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
-                ctx.fillStyle = 'red';
-                ctx.fill();
-                ctx.font = '12px Trebuchet MS';
-                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
-                tr = document.createElement('tr');
-                for (var j = 0; j <= 9; j++) {
-                  td = document.createElement('td');
-                  if (data.wg[i].c[j] !== null) {
-                    td.textContent = data.wg[i].c[j].v;
-                  }
-                  tr.appendChild(td);
-                }
-                table.appendChild(tr);
-              }
-            } else if (bossSub.length === 2 && VALUE2.value === '') {
-              if (data.wg[i].c[3] !== null && data.wg[i].c[3].v.toString().toLowerCase() === bossSub[0].toLowerCase() &&
-                  data.wg[i].c[4] !== null && data.wg[i].c[4].v.toString().toLowerCase() === bossSub[1].toLowerCase()) {
-                isok = false;
-                ctx.beginPath();
-                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
-                ctx.fillStyle = 'red';
-                ctx.fill();
-                ctx.font = '12px Trebuchet MS';
-                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
-                tr = document.createElement('tr');
-                for (var j = 0; j <= 9; j++) {
-                  td = document.createElement('td');
-                  if (data.wg[i].c[j] !== null) {
-                    td.textContent = data.wg[i].c[j].v;
-                  }
-                  tr.appendChild(td);
-                }
-                table.appendChild(tr);
-              }
-            } else if (VALUE.value === '' && commonUncommon.length === 2) {
-              if (data.wg[i].c[5] !== null && data.wg[i].c[5].v.toString().toLowerCase() === commonUncommon[0].toLowerCase() &&
-                  data.wg[i].c[6] !== null && data.wg[i].c[6].v.toString().toLowerCase() === commonUncommon[1].toLowerCase()) {
-                isok = false;
-                ctx.beginPath();
-                ctx.arc(data.wg[i].c[1].v + 500, -data.wg[i].c[2].v + 500, 3, 0, Math.PI * 2, );
-                ctx.fillStyle = 'red';
-                ctx.fill();
-                ctx.font = '12px Trebuchet MS';
-                ctx.fillText('[' + data.wg[i].c[1].v + ', ' + data.wg[i].c[2].v + ']', data.wg[i].c[1].v + 500 + 10, -data.wg[i].c[2].v + 500 + 5);
-                tr = document.createElement('tr');
-                for (var j = 0; j <= 9; j++) {
-                  td = document.createElement('td');
-                  if (data.wg[i].c[j] !== null) {
-                    td.textContent = data.wg[i].c[j].v;
-                  }
-                  tr.appendChild(td);
-                }
-                table.appendChild(tr);
-              }
-            }
+
+            point_layer.style.display = 'inline';
+          });
+        }
+      }
+
+      function inputclickHandler(event) {
+        matchTable[Number(event.target.dataset.row)][0] = event.target.checked;
+        if (Number(Mode.value) !== 11) {
+          ctx.clearRect(0, 0, point_layer.width, point_layer.height);
+        }
+        for (let i = 0; i < matchTable.length; i++) {
+          if (matchTable[i][0] === true) {
+            drawPoint(matchTable[i][2], matchTable[i][3]);
           }
         }
-        if (isok) {
-          ctx.font = '48px Trebuchet MS';
+      }
+
+      function removeChildren(parent) {
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+      }
+
+      function drawPoint(x, y) {
+        if (x !== '' && y !== '') {
+          ctx.beginPath();
+          ctx.arc(Number(x) + 500, -Number(y) + 500, 3, 0, Math.PI * 2);
           ctx.fillStyle = 'red';
-          ctx.fillText('No Data or Incorrect Input or Error', 0, 500);
+          ctx.fill();
         }
       }
-    </script>
-    <style>
-      body {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+      function drawByCanvasCoordinate(x, y) {
+        if (x !== '' && y !== '') {
+          ctx.beginPath();
+          ctx.arc(Number(x), Number(y), 3, 0, Math.PI * 2);
+          ctx.fillStyle = 'red';
+          ctx.fill();
+        }
       }
 
-      table {
-        
-        border-collapse: collapse;
+      const log = document.getElementById('log');
+
+      function getCursorPosition(canvas, event) {
+        removeChildren(log);
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.round(event.clientX - rect.left);
+        const y = Math.round(event.clientY - rect.top);
+        let mx = x - 500;
+        let my = 500 - y;
+        if (Number(Mode.value) === 11) {
+          drawPoint(mx, my);
+        }
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        span.textContent = 'Click Response:';
+        div.appendChild(span);
+        div.appendChild(document.createElement('br'));
+        span = document.createElement('span');
+        span.textContent = 'Position: [' + mx + ', ' + my + ']';
+        div.appendChild(span);
+        log.appendChild(div);
+        div = document.createElement('div');
+        div.textContent = 'Nearby results:';
+        log.appendChild(div);
+        for (let i = 0; i < matchTable.length; i++) {
+          if (matchTable[i][0] === true) {
+            let mx = Number(matchTable[i][2]) + 500;
+            let my = -Number(matchTable[i][3]) + 500;
+            if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(3, 2)) {
+              let div = document.createElement('div');
+              div.style.border = '1px solid black';
+              div.style.borderRadius = '0.5em';
+              div.style.padding = '1em';
+              for (let j = 1; j < matchTable[i].length; j++) {
+                let divdiv = document.createElement('div');
+                divdiv.textContent = header[j];
+                divdiv.style.fontWeight = '700';
+                divdiv.style.height = '1.5em';
+                div.appendChild(divdiv);
+                divdiv = document.createElement('div');
+                divdiv.textContent = matchTable[i][j];
+                divdiv.style.height = '1.5em';
+                div.appendChild(divdiv);
+              }
+              log.appendChild(div);
+            }
+          }
+        }
       }
 
-      td {
-        border: 1px solid black;
-        text-align: center;
-      }
-    </style>
-  </head>
+      point_layer.addEventListener('click', function (event) {
+        getCursorPosition(point_layer, event);
+      })
+    });
+  </script>
+  <style>
+    body {
+      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      margin: 1em;
+      font-weight: 400;
+    }
 
-  <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
-    <p>Data is from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit?usp=sharing">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit?usp=sharing</a></p>
-    <p>First, select the ATTRIBUTE.<br>And enter the VALUE.<br>Then click the button.</p>
-    <p style="font-weight: bold;" onchange="">ATTRIBUTE (options: Star, X, Y, Boss, Sub-Boss, Common, Uncommon, Biome, Where is, Combination mode)</p>
-    <select id="ATTRIBUTE" onchange="changeValueList();" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
-        <option value="Star">Star</option>
-        <option value="X">X</option>
-        <option value="Y">Y</option>
-        <option value="Boss">Boss</option>
-        <option value="Sub-Boss">Sub-Boss</option>
-        <option value="Common">Common</option>
-        <option value="Uncommon">Uncommon</option>
-        <option value="Biome">Biome</option>
-        <option value="Where is">Where is</option>
-        <option value="Combination mode">Combination mode</option>
-    </select>
-    <p id="p1" style="font-weight: bold;">VALUE</p>
-    <input id="VALUE" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" list="browsers">
-    <datalist id="browsers"></datalist>
-    <div id="p2" style="display: none;">
-      <p style="font-weight: bold;">Common/Uncommon</p>
-      <input id="VALUE2" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" list="browsers2">
-      <datalist id="browsers2"></datalist>
+    button,
+    select,
+    input {
+      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    #button {
+      width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+      border-radius: 0.5em;
+      border: none;
+      background-color: rgba(221, 221, 221, 1);
+    }
+
+    input,
+    select {
+      height: 30px;
+      padding: 0;
+    }
+
+    button:hover {
+      background-color: rgba(221, 221, 221, 0.5);
+    }
+
+    body>div {
+      margin: 1em 0 1em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid black;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    button {
+      padding: 1em;
+    }
+
+    .canvas {
+      position: absolute;
+      left: 1em;
+    }
+
+    .grid-container>div {
+      margin: 1em 0 1em;
+      display: none;
+    }
+
+    .grid-container>div>* {
+      margin: 0.2em 0 0.2em;
+    }
+
+    #result>* {
+      margin: 1em 0 1em;
+    }
+
+    #result {
+      display: none;
+    }
+
+    #gridButton {
+      width: 10em;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    #log {
+      position: absolute;
+      left: 1016px;
+      border: 1px;
+      -webkit-box-sizing: border-box;
+      /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;
+      /* Firefox, other Gecko */
+      box-sizing: border-box;
+      padding: 1em;
+      display: inline-block;
+      width: 300px;
+      height: 1000px;
+      overflow-y: scroll;
+      border-width: 1px 0 1px;
+      border-color: black;
+      border-style: solid;
+    }
+
+    #log>div {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    .grid-container {
+      display: grid;
+      grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+    }
+
+    .grid-container>div:not(:first-of-type) {
+      margin-left: 1em;
+    }
+
+    .grid-container>div:not(:last-of-type) {
+      margin-right: 1em;
+    }
+  -->
+  <div id="description">
+    <p>Data is from <a target="_blank"
+        href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1163096229">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1163096229</a>
+    </p>
+    <p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p>
+    <p>Search results will also be listed below the map.</p>
+  </div>
+  <div>
+    <div><select id="Mode">
+        <option value="Mode">Mode</option>
+      </select></div>
+    <div class="grid-container" id="Values">
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
+      <div>
+        <div></div><input>
+      </div>
     </div>
-    <p style="border: 1px solid black;">A list of search results will also be under the map</p>
-    <button onclick="drawGID();" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; width: 100%; height: 40px;">click me to generate map</button>
-    <div id="test"></div>
-    <canvas id="canvas"></canvas>
-    <p>search results:</p>
-    <table width=100% id="table"></table>
-    <div style="display:none;">
-      <img id="source" src="ggggg.png" width="1000" height="1000">
-    </div>
-    <script>
-      const canvas = document.getElementById('canvas');
-      canvas.width = 1000;
-      canvas.height = 1000;
-      const ctx = canvas.getContext('2d');
-      const image = document.getElementById('source');
-      const ATTRIBUTE = document.getElementById('ATTRIBUTE');
-      ATTRIBUTE.value = 'Where is';
-      VALUE.value = '';
-      const table = document.getElementById('table');
-      ctx.drawImage(image, 0, 0, 1000, 1000);
-      const browsers = document.getElementById('browsers');
-      const p1 = document.getElementById('p1');
-      const p2 = document.getElementById('p2');
-    </script>
-  </body>
+  </div>
+  <div><button id="button" style="display: none;">Click to generate map or refresh map</button></div>
+  <button id="gridButton">show grid</button>
+  <div>
+    <canvas width=1 height=1000></canvas>
+    <div id="log">log</div>
+    <canvas class="canvas" id="map_layer" style="z-index: 0;"></canvas>
+    <canvas class="canvas" id="grid_layer" style="z-index: 1; display: none;"></canvas>
+    <canvas class="canvas" id="point_layer" style="z-index: 2;"></canvas>
+  </div>
+  <div id="result">
+    <div>Search result: </div>
+    <table id="table"></table>
+  </div>
+</body>
+
 </html>
