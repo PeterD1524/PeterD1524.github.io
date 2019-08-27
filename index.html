@@ -403,8 +403,6 @@
 
             function sortHandler() {
               let j = indexOfChild(this);
-              console.log(j);
-
               matchTable.sort(function (a, b) {
                 if (1 <= j && j <= 3) {
                   return (a[j] - b[j]) * sortAscending[j];
