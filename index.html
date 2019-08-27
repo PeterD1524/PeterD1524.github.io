@@ -249,7 +249,12 @@
           drawPoint(Values_divs[1].querySelector('input').value, Values_divs[2].querySelector('input').value);
         } else {
           result.style.display = 'none';
-          point_layer.style.display = 'none';
+          // point_layer.style.display = 'none';
+          ctx.clearRect(0, 0, 1000, 1000);
+          ctx.textAlign = 'center';
+          ctx.font = '72px Roboto';
+          ctx.fillStyle = 'red';
+          ctx.fillText('Loading...', point_layer.width / 2, point_layer.height / 2);
 
           let gid = 1163096229;
           let range = 'A3:J';
@@ -276,8 +281,6 @@
             }
 
             removeChildren(table);
-
-            ctx.clearRect(0, 0, 1000, 1000);
 
             matchTable = [];
 
@@ -367,17 +370,139 @@
             }
 
 
+            let sortOrder = [10, 9, 3, 2, 8, 7, 6, 5, 4, 1];
+
+            for (let i = 0; i < sortOrder.length; i++) {
+              matchTable.sort(function (a, b) {
+                if (1 <= sortOrder[i] && sortOrder[i] <= 3) {
+                  return a[sortOrder[i]] - b[sortOrder[i]];
+                } else {
+                  let nameA;
+                  let nameB;
+                  if (4 <= sortOrder[i] && sortOrder[i] <= 7) {
+                    nameA = a[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
+                    nameB = b[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
+                  } else {
+                    nameA = a[sortOrder[i]];
+                    nameB = b[sortOrder[i]];
+                  }
+                  if (nameA < nameB) {
+                    return -1;
+                  }
+                  if (nameA > nameB) {
+                    return 1;
+                  }
+
+                  // names must be equal
+                  return 0;
+                }
+              });
+            }
+
+            let sortAscending = [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+            function sortHandler() {
+              let j = indexOfChild(this);
+              console.log(j);
+
+              matchTable.sort(function (a, b) {
+                if (1 <= j && j <= 3) {
+                  return (a[j] - b[j]) * sortAscending[j];
+                } else {
+                  let nameA;
+                  let nameB;
+                  if (4 <= j && j <= 7) {
+                    nameA = a[j].toUpperCase(); // ignore upper and lowercase
+                    nameB = b[j].toUpperCase(); // ignore upper and lowercase
+                  } else {
+                    nameA = a[j];
+                    nameB = b[j];
+                  }
+                  if (nameA < nameB) {
+                    return -sortAscending[j];
+                  }
+                  if (nameA > nameB) {
+                    return sortAscending[j];
+                  }
+
+                  // names must be equal
+                  return 0;
+                }
+              });
+              sortAscending[j] = sortAscending[j] * -1;
+              removeChildren(table);
+              createTable();
+            }
+
+            function createTable() {
+              if (matchTable.length !== 0) {
+                let tr = document.createElement('tr');
+                for (let i = 0; i < header.length; i++) {
+                  let td = document.createElement('td');
+                  td.textContent = header[i];
+                  if (i != 0) {
+                    td.addEventListener('click', sortHandler);
+                    if (sortAscending[i] == 1) {
+                      td.title = 'Sort ascending';
+                    } else {
+                      td.title = 'Sort descending';
+                    }
+                  }
+                  tr.appendChild(td);
+                }
+                tr.style.backgroundColor = '#78909c';
+                tr.style.fontWeight = '700';
+                table.appendChild(tr);
+              }
+
+              let alternatingColors = ['white', '#ebeff1']
+
+              for (let i = 0; i < matchTable.length; i++) {
+                tr = document.createElement('tr');
+                let td = document.createElement('td');
+                let input = document.createElement('input');
+                input.type = 'checkbox';
+                input.checked = matchTable[i][0];
+                input.style.margin = '0';
+                input.style.width = '20px';
+                input.style.height = '20px';
+                input.addEventListener('click', inputclickHandler);
+                input.setAttribute('data-row', i);
+                td.appendChild(input);
+                tr.appendChild(td);
+                for (let j = 1; j < matchTable[i].length; j++) {
+                  td = document.createElement('td');
+                  td.textContent = (matchTable[i][j]);
+                  if (Number(Mode.value) === 8 && 4 <= j && j <= 7 && matchTable[i][j].toString().toLowerCase() === Values_divs[0].querySelector('input').value.toString().toLowerCase()) {
+                    td.style.backgroundColor = 'coral';
+                  }
+                  else if (Number(Mode.value) === 10 && j < Values_divs.length + 1 && Values_divs[j - 1].querySelector('input').value.toString().toLowerCase() !== '' && matchTable[i][j].toString().toLowerCase() === Values_divs[j - 1].querySelector('input').value.toString().toLowerCase()) {
+                    td.style.backgroundColor = 'coral';
+                  }
+                  tr.appendChild(td);
+                }
+                tr.style.backgroundColor = alternatingColors[i % 2];
+                table.appendChild(tr);
+              }
+            }
+
             if (matchTable.length !== 0) {
               let tr = document.createElement('tr');
               for (let i = 0; i < header.length; i++) {
                 let td = document.createElement('td');
                 td.textContent = header[i];
+                if (i != 0) {
+                  td.addEventListener('click', sortHandler);
+                  td.title = 'Sort ascending';
+                }
                 tr.appendChild(td);
               }
               tr.style.backgroundColor = '#78909c';
               tr.style.fontWeight = '700';
               table.appendChild(tr);
+              ctx.clearRect(0, 0, 1000, 1000);
             } else {
+              ctx.clearRect(0, 0, 1000, 1000);
               ctx.textAlign = 'center';
               ctx.font = '72px Roboto';
               ctx.fillStyle = 'red';
@@ -419,7 +544,7 @@
               result.style.display = 'block';
             }
 
-            point_layer.style.display = 'inline';
+            // point_layer.style.display = 'inline';
           });
         }
       }
@@ -440,6 +565,11 @@
         while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
         }
+      }
+
+      function indexOfChild(child) {
+        let parent = child.parentNode;
+        return Array.prototype.indexOf.call(parent.children, child);
       }
 
       function drawPoint(x, y) {
@@ -488,7 +618,7 @@
           if (matchTable[i][0] === true) {
             let mx = Number(matchTable[i][2]) + 500;
             let my = -Number(matchTable[i][3]) + 500;
-            if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(3, 2)) {
+            if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
               let div = document.createElement('div');
               div.style.border = '1px solid black';
               div.style.borderRadius = '0.5em';
@@ -621,6 +751,15 @@
     #log>div {
       margin-bottom: 1em;
     }
+
+    #table>tr:first-of-type>td:not(:first-of-type):hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #point_layer {
+      cursor: crosshair;
+    }
   </style>
 </head>
 
@@ -642,7 +781,8 @@
   <div id="description">
     <p>Data is from <a target="_blank"
         href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1163096229">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1163096229</a><br>Feel
-      free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just blue(rgb(1, 55, 214)) background currently.
+      free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is
+      just blue(rgb(1, 55, 214)) background currently.
     </p>
     <p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p>
     <p>Search results will also be listed below the map.</p>
@@ -682,13 +822,13 @@
   <button id="gridButton">show grid</button>
   <div>
     <canvas width=1 height=1000></canvas>
-    <div id="log">log</div>
+    <div id="log">Click Response:</div>
     <canvas class="canvas" id="map_layer" style="z-index: 0;"></canvas>
     <canvas class="canvas" id="grid_layer" style="z-index: 1; display: none;"></canvas>
     <canvas class="canvas" id="point_layer" style="z-index: 2;"></canvas>
   </div>
   <div id="result">
-    <div>Search result: </div>
+    <div>Search result: (click header to sort)</div>
     <table id="table"></table>
   </div>
 </body>
