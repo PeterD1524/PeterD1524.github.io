@@ -61,7 +61,11 @@
       map_layer_ctx.fillStyle = 'rgb(81, 168, 212)';
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
       const image = new Image(1000, 1000);
-      image.src = 'ggggg.png';
+      if (Date.now() > 1568786400000) {
+        image.src = 'MyslandChart.png';
+      } else {
+        image.src = 'ggggg.png';
+      }
       image.onload = function () {
         map_layer_ctx.drawImage(this, 0, 0, this.width, this.height)
       };
@@ -134,6 +138,10 @@
           button.style.display = 'none';
 
           let gid = 13770965; // map
+
+          if (Date.now() > 1568786400000) {
+            gid = 1143391282;
+          }
 
           if (0 <= Number(event.target.value) && Number(event.target.value) <= 8) {
             Values_divs[0].querySelector('div').textContent = 'Value';
@@ -257,6 +265,9 @@
           ctx.fillText('Loading...', point_layer.width / 2, point_layer.height / 2);
 
           let gid = 1484497780;
+          if (Date.now() > 1568786400000) {
+            gid = 1363504719;
+          }
           let range = 'A3:J';
           let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
           query.send(function (response) {
@@ -778,7 +789,7 @@
   -->
   <div id="description">
     <p>Data is from <a target="_blank"
-        href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1484497780">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1484497780</a><br>Feel
+        href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel
       free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is
       just blue(rgb(81, 168, 212)) background currently.<br>Some locations only unlock after reaching certain stages.
     </p>
