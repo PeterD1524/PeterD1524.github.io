@@ -61,10 +61,10 @@
       map_layer_ctx.fillStyle = 'rgb(89, 206, 195)';
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
       const image = new Image(1000, 1000);
-      if (Date.now() > 1568786400000) {
-        image.src = 'MyslandChart.png';
-      } else {
+      if (Date.now() > 1569996000000) {
         image.src = 'ggggg.png';
+      } else {
+        image.src = 'MyslandChart.png';
       }
       image.onload = function () {
         map_layer_ctx.drawImage(this, 0, 0, this.width, this.height)
@@ -137,10 +137,10 @@
           }
           button.style.display = 'none';
 
-          let gid = 13770965; // map
+          let gid = 1143391282; // map
 
-          if (Date.now() > 1568786400000) {
-            gid = 1143391282;
+          if (Date.now() > 1569996000000) {
+            gid = 1368622363;
           }
 
           if (0 <= Number(event.target.value) && Number(event.target.value) <= 8) {
@@ -264,9 +264,9 @@
           ctx.fillStyle = 'red';
           ctx.fillText('Loading...', point_layer.width / 2, point_layer.height / 2);
 
-          let gid = 1484497780;
-          if (Date.now() > 1568786400000) {
-            gid = 1363504719;
+          let gid = 1363504719;
+          if (Date.now() > 1569996000000) {
+            gid = 889672073;
           }
           let range = 'A3:J';
           let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
