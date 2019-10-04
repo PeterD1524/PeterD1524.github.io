@@ -21,6 +21,63 @@
       let biomeenTo = biomeenToAll[whatLanguage];
       let biomeToen = biomeAllToen[whatLanguage];
 
+      let strings = {
+        '#description': {
+          'de': '',
+          'en-us': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just blue(rgb(1, 55, 214)) background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'es': '',
+          'fr': '',
+          'it': '',
+          'ja': '',
+          'ko': '',
+          'zh-tw': '<p>數據來自<a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>如果您發現自己的位置可以為他人提供幫助，請隨時添加。不完整的數據也是可以接受的。<br>當前，海域僅是藍色（rgb(1、55、214)）背景。<br>某些位置只有在達到特定階段後才能解鎖。</p><p>首先，選擇模式。<br>並輸入一個值。<br>然後點擊按鈕。</p><p>搜索結果也將列在地圖下方。</p>',
+        },
+        'body > div:nth-child(2) > p': {
+          'de': 'Sprache:',
+          'en-us': 'Language: ',
+          'es': '',
+          'fr': '',
+          'it': '',
+          'ja': '',
+          'ko': '',
+          'zh-tw': '語言：',
+        },
+        '#Mode > option:nth-child(1)': {
+          'de': '',
+          'en-us': 'Mode',
+          'es': '',
+          'fr': '',
+          'it': '',
+          'ja': '',
+          'ko': '',
+          'zh-tw': '模式',
+        },
+        '#button': {
+          'de': 'Klicken Sie hier, um eine Karte zu erstellen oder eine Karte zu aktualisieren',
+          'en-us': 'Click to generate map or refresh map',
+          'es': 'Haga clic para generar el mapa o actualizar el mapa',
+          'fr': 'Cliquez pour générer la carte ou mettre à jour la carte',
+          'it': 'Fare clic per generare la mappa o aggiornare la mappa',
+          'ja': 'クリックしてマップを生成するか、マップを更新します',
+          'ko': '지도를 만들거나지도를 새로 고침하려면 클릭',
+          'zh-tw': '點擊生成地圖或刷新地圖',
+        },
+        '#result > div': {
+          'de': '',
+          'en-us': 'Search result: (click header to sort)',
+          'es': '',
+          'fr': '',
+          'it': '',
+          'ja': '',
+          'ko': '',
+          'zh-tw': '搜索結果：（單擊標題進行排序）',
+        },
+      };
+      for (let i in strings) {
+        if (strings[i][whatLanguage] !== '') document.querySelector(i).innerHTML = strings[i][whatLanguage];
+        else document.querySelector(i).innerHTML = strings[i]['en-us'];
+      }
+
       const language = document.getElementById('language');
       language.value = whatLanguage;
 
@@ -702,6 +759,10 @@
         biomeenTo = biomeenToAll[whatLanguage];
         biomeToen = biomeAllToen[whatLanguage];
         ModechangeHandler(e);
+        for (let i in strings) {
+          if (strings[i][whatLanguage] !== '') document.querySelector(i).innerHTML = strings[i][whatLanguage];
+          else document.querySelector(i).innerHTML = strings[i]['en-us'];
+        }
       }
 
       function removeChildren(parent) {
