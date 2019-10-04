@@ -16,6 +16,11 @@
       let enTo = enToAll[whatLanguage];
       let toen = allToen[whatLanguage];
 
+      let biomeenToAll = { 'de': { 'Grassland': 'Wiese', 'Forest': 'Wald', 'Tower': 'Turm', 'Shore': 'Ufer', 'Cave': 'Höhle', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Grassland': 'Pradera', 'Forest': 'Bosque', 'Tower': 'Torre', 'Shore': 'Orilla', 'Cave': 'Cueva', }, 'fr': { 'Grassland': 'Prairie', 'Forest': 'Forêt', 'Tower': 'Tour', 'Shore': 'Rive', 'Cave': 'Grotte', }, 'it': { 'Grassland': 'Prateria', 'Forest': 'Bosco', 'Tower': 'Torre', 'Shore': 'Riva', 'Cave': 'Grotta', }, 'ja': { 'Grassland': '草原', 'Forest': '森', 'Tower': '塔', 'Shore': '水辺', 'Cave': '洞窟', }, 'ko': { 'Grassland': '초원', 'Forest': '숲', 'Tower': '탑', 'Shore': '물가', 'Cave': '동굴', }, 'zh-tw': { 'Grassland': '草原', 'Forest': '森林', 'Tower': '塔', 'Shore': '水岸', 'Cave': '洞窟', }, };
+      let biomeAllToen = { 'de': { 'Wiese': 'Grassland', 'Wald': 'Forest', 'Turm': 'Tower', 'Ufer': 'Shore', 'Höhle': 'Cave', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Pradera': 'Grassland', 'Bosque': 'Forest', 'Torre': 'Tower', 'Orilla': 'Shore', 'Cueva': 'Cave', }, 'fr': { 'Prairie': 'Grassland', 'Forêt': 'Forest', 'Tour': 'Tower', 'Rive': 'Shore', 'Grotte': 'Cave', }, 'it': { 'Prateria': 'Grassland', 'Bosco': 'Forest', 'Torre': 'Tower', 'Riva': 'Shore', 'Grotta': 'Cave', }, 'ja': { '草原': 'Grassland', '森': 'Forest', '塔': 'Tower', '水辺': 'Shore', '洞窟': 'Cave', }, 'ko': { '초원': 'Grassland', '숲': 'Forest', '탑': 'Tower', '물가': 'Shore', '동굴': 'Cave', }, 'zh-tw': { '草原': 'Grassland', '森林': 'Forest', '塔': 'Tower', '水岸': 'Shore', '洞窟': 'Cave', }, };
+      let biomeenTo = biomeenToAll[whatLanguage];
+      let biomeToen = biomeAllToen[whatLanguage];
+
       const language = document.getElementById('language');
       language.value = whatLanguage;
 
@@ -177,6 +182,8 @@
                   if (language.value !== 'en-us') {
                     if ((3 <= Number(event.target.value) && Number(event.target.value) <= 6 || Number(event.target.value) === 8) && enTo[data.wg[i].c[0].v] !== undefined) {
                       option.value = enTo[data.wg[i].c[0].v];
+                    } else if (Number(event.target.value) === 7 && biomeenTo[data.wg[i].c[0].v] !== undefined) {
+                      option.value = biomeenTo[data.wg[i].c[0].v];
                     } else {
                       option.value = data.wg[i].c[0].v;
                     }
@@ -261,6 +268,8 @@
                     if (language.value !== 'en-us') {
                       if (3 <= j && j <= 6 && enTo[data.wg[i].c[j].v] !== undefined) {
                         option.value = enTo[data.wg[i].c[j].v];
+                      } else if (j === 7 && biomeenTo[data.wg[i].c[j].v] !== undefined) {
+                        option.value = biomeenTo[data.wg[i].c[j].v];
                       } else {
                         option.value = data.wg[i].c[j].v;
                       }
@@ -334,6 +343,8 @@
               if (language.value !== 'en-us') {
                 if (3 <= Number(Mode.value) && Number(Mode.value) <= 6 && toen[matchValue] !== undefined) {
                   matchValue = toen[matchValue].toLowerCase();
+                } else if (Number(Mode.value) === 7 && biomeToen[matchValue] !== undefined) {
+                  matchValue = biomeToen[matchValue].toLowerCase();
                 }
               } else {
                 matchValue = matchValue.toLowerCase();
@@ -346,6 +357,8 @@
                     if (language.value !== 'en-us') {
                       if (3 <= j && j <= 6 && enTo[dataTable[i][j]] !== undefined) {
                         matchTable[matchTable.length - 1].push(enTo[dataTable[i][j]]);
+                      } else if (j === 7 && biomeenTo[dataTable[i][j]] !== undefined) {
+                        matchTable[matchTable.length - 1].push(biomeenTo[dataTable[i][j]]);
                       } else {
                         matchTable[matchTable.length - 1].push(dataTable[i][j]);
                       }
@@ -379,6 +392,8 @@
                     if (language.value !== 'en-us') {
                       if (3 <= j && j <= 6 && enTo[dataTable[i][j]] !== undefined) {
                         matchTable[matchTable.length - 1].push(enTo[dataTable[i][j]]);
+                      } else if (j === 7 && biomeenTo[dataTable[i][j]] !== undefined) {
+                        matchTable[matchTable.length - 1].push(biomeenTo[dataTable[i][j]]);
                       } else {
                         matchTable[matchTable.length - 1].push(dataTable[i][j]);
                       }
@@ -429,6 +444,8 @@
                       if (language.value !== 'en-us') {
                         if (3 <= j && j <= 6 && enTo[dataTable[i][j]] !== undefined) {
                           matchTable[matchTable.length - 1].push(enTo[dataTable[i][j]]);
+                        } else if (j === 7 && biomeenTo[dataTable[i][j]] !== undefined) {
+                          matchTable[matchTable.length - 1].push(biomeenTo[dataTable[i][j]]);
                         } else {
                           matchTable[matchTable.length - 1].push(dataTable[i][j]);
                         }
@@ -448,7 +465,11 @@
                   }
                   let matchValue = Values_divs[j].querySelector('input').value.toString();
                   if (language.value !== 'en-us') {
-                    if (3 <= j && j <= 6 && toen[matchValue] !== undefined) matchValue = toen[matchValue].toLowerCase();
+                    if (3 <= j && j <= 6 && toen[matchValue] !== undefined) {
+                      matchValue = toen[matchValue].toLowerCase();
+                    } else if (j === 7 && biomeToen[matchValue] !== undefined) {
+                      matchValue = biomeToen[matchValue].toLowerCase();
+                    }
                   } else {
                     matchValue = matchValue.toLowerCase();
                   }
@@ -464,6 +485,8 @@
                     if (language.value !== 'en-us') {
                       if (3 <= j && j <= 6 && enTo[dataTable[i][j]] !== undefined) {
                         matchTable[matchTable.length - 1].push(enTo[dataTable[i][j]]);
+                      } else if (j === 7 && biomeenTo[dataTable[i][j]] !== undefined) {
+                        matchTable[matchTable.length - 1].push(biomeenTo[dataTable[i][j]]);
                       } else {
                         matchTable[matchTable.length - 1].push(dataTable[i][j]);
                       }
@@ -676,6 +699,8 @@
         whatLanguage = language.value;
         enTo = enToAll[whatLanguage];
         toen = allToen[whatLanguage];
+        biomeenTo = biomeenToAll[whatLanguage];
+        biomeToen = biomeAllToen[whatLanguage];
         ModechangeHandler(e);
       }
 
