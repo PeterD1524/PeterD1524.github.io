@@ -322,7 +322,7 @@
                     let datalist = Values_divs[j].querySelector('datalist');
                     let option = document.createElement('option');
                     if (language.value !== 'en-us') {
-                      option.value = data.wg[i].c[j].v.split('/').map(x => {
+                      option.value = data.wg[i].c[j].v.split('/').map(function (x) {
                         if (enTo[x] !== undefined) return enTo[x];
                         return x;
                       }).join('/');
