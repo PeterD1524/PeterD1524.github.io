@@ -421,7 +421,7 @@
           ctx.clearRect(0, 0, 1000, 1000);
           ctx.textAlign = 'center';
           ctx.font = '72px Roboto';
-          ctx.fillStyle = 'red';
+          ctx.fillStyle = 'blue';
           ctx.fillText('Loading...', point_layer.width / 2, point_layer.height / 2);
 
           let gid = 889672073;
@@ -749,7 +749,7 @@
               ctx.clearRect(0, 0, 1000, 1000);
               ctx.textAlign = 'center';
               ctx.font = '72px Roboto';
-              ctx.fillStyle = 'red';
+              ctx.fillStyle = 'blue';
               ctx.fillText('No data or incorrect input', point_layer.width / 2, point_layer.height / 2);
             }
 
@@ -844,7 +844,7 @@
         if (x !== '' && y !== '') {
           ctx.beginPath();
           ctx.arc(Number(x) + 500, -Number(y) + 500, 3, 0, Math.PI * 2);
-          ctx.fillStyle = 'red';
+          ctx.fillStyle = 'blue';
           ctx.fill();
         }
       }
@@ -853,7 +853,7 @@
         if (x !== '' && y !== '') {
           ctx.beginPath();
           ctx.arc(Number(x), Number(y), 3, 0, Math.PI * 2);
-          ctx.fillStyle = 'red';
+          ctx.fillStyle = 'blue';
           ctx.fill();
         }
       }
