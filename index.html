@@ -16,6 +16,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      "use strict";
       let whatLanguage;
 
       function storageAvailable(type) {
@@ -141,7 +142,8 @@
       const language = document.getElementById('language');
       language.value = whatLanguage;
 
-      matchTable = [];
+      let matchTable = [];
+      let dataTable = [];
 
       const point_layer = document.getElementById('point_layer');
       const map_layer = document.getElementById('map_layer');
