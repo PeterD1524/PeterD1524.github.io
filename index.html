@@ -17,6 +17,14 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       "use strict";
+      let current = '1762926026';
+      let currentMap = '14467017';
+      let currentImage = 'MyslandChart.png';
+      let next = '132479061';
+      let nextMap = '1482405759';
+      let nextImage = 'ggggg.png';
+      let date = 1572415200000;
+
       let whatLanguage;
 
       function storageAvailable(type) {
@@ -196,10 +204,10 @@
       map_layer_ctx.fillStyle = 'rgb(255, 142, 2)';
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
       const image = new Image(1000, 1000);
-      if (Date.now() > 1571205600000) {
-        image.src = 'MyslandChart.png';
+      if (Date.now() > date) {
+        image.src = nextImage;
       } else {
-        image.src = 'ggggg.png';
+        image.src = currentImage;
       }
       image.onload = function () {
         map_layer_ctx.drawImage(this, 0, 0, this.width, this.height)
@@ -272,10 +280,10 @@
           }
           button.style.display = 'none';
 
-          let gid = 1368622363; // map
+          let gid = currentMap; // map
 
-          if (Date.now() > 1571205600000) {
-            gid = 14467017;
+          if (Date.now() > date) {
+            gid = nextMap;
           }
 
           if (0 <= Number(event.target.value) && Number(event.target.value) <= 8) {
@@ -426,9 +434,9 @@
           ctx.fillStyle = 'blue';
           ctx.fillText('Loading...', point_layer.width / 2, point_layer.height / 2);
 
-          let gid = 889672073;
-          if (Date.now() > 1571205600000) {
-            gid = 1762926026;
+          let gid = current;
+          if (Date.now() > date) {
+            gid = next;
           }
           let range = 'A3:J';
           let query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/gviz/tq?gid=' + gid + '&range=' + range);
