@@ -42,6 +42,8 @@
       console.log(ctx.measureText('Gardevoir'));
       */
       let body = document.querySelector('body');
+      let compStyles = window.getComputedStyle(body);
+      body.style.fontSize = compStyles.getPropertyValue('font-size');
       let p = document.createElement('p');
       body.appendChild(p);
       let ii = 0;
@@ -360,6 +362,10 @@
       margin-bottom: 0.5em;
       margin-top: 0.5em;
       font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: xx-large;
+    }
+
+    div {
       font-size: large;
     }
 
