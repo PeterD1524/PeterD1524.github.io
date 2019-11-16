@@ -1,0 +1,239 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      /*
+      let canvas = document.getElementById('a');
+      canvas.width = 1000;
+      canvas.height = 1000;
+      let ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'hanging';
+      let a = [['a', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir'], ['Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir']];
+      let x = 0;
+      let y = 0;
+      let widths = [];
+      let columnNum = 0;
+      for (let i = 0; i < a.length; i++) {
+        if (a[i].length > columnNum) columnNum = a[i].length;
+      }
+      for (let i = 0; i < columnNum; i++) {
+        widths.push(0);
+      }
+      ctx.font = '30px sans-serif';
+      console.log(ctx.font);
+      for (let i = 1; i < a.length; i++) {
+        for (j = 0; j < a[i].length; j++) {
+          if (ctx.measureText(a[i][j]).width > widths[j]) widths[j] = ctx.measureText(a[i][j]).width;
+        }
+      }
+      for (let i = 0; i < a.length; i++) {
+        x = 0
+        for (let j = 0; j < a[i].length; j++) {
+          ctx.fillText(a[i][j], x, y);
+          x += widths[j];
+        }
+        y += 30;
+      }
+      console.log(ctx.measureText('Gardevoir'));
+      */
+      let body = document.querySelector('body');
+      let p = document.createElement('p');
+      body.appendChild(p);
+      let ii = 0;
+      let loading = setInterval(function () {
+        ii = ii % 4;
+        let textContent = 'Loading';
+        for (let i = 0; i < ii; i++) {
+          textContent = textContent + '.';
+        }
+        p.textContent = textContent;
+        ii++;
+      }, 500);
+
+      let Untitled_spreadsheet = {
+        URL: 'https://docs.google.com/spreadsheets/d/1-P_1-7bgr2r6MLNvwIKqo4Gs3fCAwkBpMJyuE-9HRyw',
+        sheets: {
+          gen_WazaGetDesc: {
+            headers: '0',
+            gid: '434807980',
+            sheet: 'gen_WazaGetDesc',
+            range: 'A:ABQ',
+          },
+          gen_WazaDesc: {
+            headers: '0',
+            gid: '87008284',
+            sheet: 'gen_WazaDesc',
+            range: 'A:B',
+          },
+          gen_PiiDesc: {
+            headers: '0',
+            gid: '495489205',
+            sheet: 'gen_PiiDesc',
+            range: 'A:Q',
+          }
+        },
+      };
+
+      function trClickListener(event) {
+
+      }
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', { 'packages': ['corechart'] });
+      google.charts.setOnLoadCallback(function () {
+        let dataSourceUrl, optional_parameters;
+        dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+        optional_parameters = ['gid', 'range'];
+        for (let i = 0; i < optional_parameters.length; i++) {
+          dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaGetDesc[optional_parameters[i]] + '&';
+        }
+        if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+        let query;
+        query = new google.visualization.Query(dataSourceUrl);
+        query.send(function (QueryResponse) {
+          let gen_WazaGetDesc = QueryResponse.getDataTable();
+          dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+          optional_parameters = ['gid', 'range'];
+          for (let i = 0; i < optional_parameters.length; i++) {
+            dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
+          }
+          if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+          query = new google.visualization.Query(dataSourceUrl);
+          query.send(function (QueryResponse) {
+            let gen_WazaDesc = QueryResponse.getDataTable();
+            dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+            optional_parameters = ['gid', 'range'];
+            for (let i = 0; i < optional_parameters.length; i++) {
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_PiiDesc[optional_parameters[i]] + '&';
+            }
+            if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            query = new google.visualization.Query(dataSourceUrl);
+            query.send(function (QueryResponse) {
+              let gen_PiiDesc = QueryResponse.getDataTable();
+              let div = document.createElement('div');
+              div.textContent = 'A belief: Pokémon tend to learn moves with m_getLevel less than or equal to 100.';
+              body.appendChild(div);
+              let input = document.createElement('input');
+              input.placeholder = 'Move';
+              input.addEventListener('change', inputChangeListener);
+              p.remove();
+              clearInterval(loading);
+              body.appendChild(input);
+              function inputChangeListener(event) {
+                let tables = document.querySelectorAll('table');
+                for (let i = 0; i < tables.length; i++) {
+                  tables[i].remove();
+                }
+                let ps = body.querySelectorAll('p');
+                for (let i = 0; i < ps.length; i++) {
+                  ps[i].remove();
+                }
+                let Move = event.target.value;
+                let gen_WazaDescFilteredRows = gen_WazaDesc.getFilteredRows([{
+                  column: 1, test: function (cell_value) {
+                    if (cell_value === null) return false;
+                    cell_value = cell_value.toString();
+                    if (cell_value.toLowerCase() === Move.toLowerCase()) return true;
+                    return false;
+                  }
+                }]);
+                for (let i = 0; i < gen_WazaDescFilteredRows.length; i++) {
+                  let wazaID = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 0);
+                  let gen_WazaDescm_name = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 1);
+                  let p = document.createElement('p');
+                  p.textContent = gen_WazaDescm_name;
+                  body.appendChild(p);
+                  if (wazaID + 3 > gen_WazaGetDesc.getNumberOfColumns() - 1) continue;
+                  let gen_WazaGetDescFilteredRows = gen_WazaGetDesc.getFilteredRows([{ column: wazaID + 3, minValue: 1 }]);
+                  let table = document.createElement('table');
+                  let tr = document.createElement('tr');
+                  let th;
+                  th = document.createElement('th');
+                  th.textContent = 'm_monsNo';
+                  tr.addEventListener('click', trClickListener);
+                  tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'm_formNo';
+                  tr.addEventListener('click', trClickListener);
+                  tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'Pokémon';
+                  tr.addEventListener('click', trClickListener);
+                  tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'm_getLevel';
+                  tr.addEventListener('click', trClickListener);
+                  tr.appendChild(th);
+                  table.appendChild(tr);
+                  for (let j = 0; j < gen_WazaGetDescFilteredRows.length; j++) {
+                    let rowIndex = gen_WazaGetDescFilteredRows[j]
+                    let m_monsNo = gen_WazaGetDesc.getValue(rowIndex, 1), m_formNo = gen_WazaGetDesc.getValue(rowIndex, 2), m_getLevel = gen_WazaGetDesc.getValue(rowIndex, wazaID + 3);
+                    let gen_PiiDescFilteredRows = gen_PiiDesc.getFilteredRows([{ column: 1, value: m_monsNo }, { column: 2, value: m_formNo }]);
+                    let UMF = ['U', 'M', 'F'];
+                    let tr = document.createElement('tr');
+                    let td;
+                    td = document.createElement('td');
+                    td.textContent = m_monsNo;
+                    table.appendChild(td);
+                    td = document.createElement('td');
+                    td.textContent = m_formNo;
+                    table.appendChild(td);
+                    td = document.createElement('td');
+                    if (gen_PiiDescFilteredRows.length === 1) {
+                      let rowIndex = gen_PiiDescFilteredRows[0];
+                      let m_MonsName = gen_PiiDesc.getValue(rowIndex, 5), m_modelDiffSex = gen_PiiDesc.getValue(rowIndex, 16);
+                      td.innerHTML = `<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/${m_monsNo.toString().padStart(3, '0')}_${UMF[m_modelDiffSex]}_${m_formNo.toString().padStart(2, '0')}.png" style="width: 1em;">${m_MonsName}`;
+                    }
+                    table.appendChild(td);
+                    td = document.createElement('td');
+                    td.textContent = m_getLevel;
+                    table.appendChild(td);
+                    table.appendChild(tr);
+                  }
+                  table.style.width = '100%';
+                  body.appendChild(table);
+                }
+                if (gen_WazaDescFilteredRows.length === 0) {
+                  let p = document.createElement('p');
+                  p.textContent = 'There were no results matching the query.';
+                  body.appendChild(p);
+                }
+              }
+            });
+          });
+        });
+      });
+    });
+  </script>
+  <style>
+    body * {
+      margin-bottom: 0.5em;
+      margin-top: 0.5em;
+      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: large;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 0.05em;
+    }
+
+    td img {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>
