@@ -76,7 +76,7 @@
             headers: '0',
             gid: '495489205',
             sheet: 'gen_PiiDesc',
-            range: 'A:Q',
+            range: 'A:AB',
           }
         },
       };
@@ -289,6 +289,20 @@
                   th.style.cursor = 'pointer';
                   th.style.textDecoration = 'underline';
                   tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'm_ap';
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
+                  tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'm_spd';
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
+                  tr.appendChild(th);
                   table.appendChild(tr);
                   for (let j = 0; j < gen_WazaGetDescFilteredRows.length; j++) {
                     let rowIndex = gen_WazaGetDescFilteredRows[j]
@@ -312,6 +326,20 @@
                     tr.appendChild(td);
                     td = document.createElement('td');
                     td.textContent = m_getLevel;
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    if (gen_PiiDescFilteredRows.length === 1) {
+                      let rowIndex = gen_PiiDescFilteredRows[0];
+                      let m_ap = gen_PiiDesc.getValue(rowIndex, 25);
+                      td.textContent = m_ap;
+                    }
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    if (gen_PiiDescFilteredRows.length === 1) {
+                      let rowIndex = gen_PiiDescFilteredRows[0];
+                      let m_spd = gen_PiiDesc.getValue(rowIndex, 27);
+                      td.textContent = m_spd;
+                    }
                     tr.appendChild(td);
                     table.appendChild(tr);
                   }
@@ -378,6 +406,10 @@
     td {
       border: 1px solid black;
       padding: 0.05em;
+    }
+
+    th {
+      font-size: medium;
     }
 
     td * {
