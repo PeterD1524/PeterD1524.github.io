@@ -336,9 +336,6 @@
                     }
                     tr.appendChild(td);
                     td = document.createElement('td');
-                    td.textContent = m_getLevel;
-                    tr.appendChild(td);
-                    td = document.createElement('td');
                     if (gen_PiiDescFilteredRows.length === 1) {
                       let rowIndex = gen_PiiDescFilteredRows[0];
                       let m_ap = gen_PiiDesc.getValue(rowIndex, 25);
@@ -351,6 +348,9 @@
                       let m_spd = gen_PiiDesc.getValue(rowIndex, 27);
                       td.textContent = m_spd;
                     }
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    td.textContent = m_getLevel;
                     tr.appendChild(td);
                     table.appendChild(tr);
                   }
