@@ -286,13 +286,6 @@
                   th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'm_getLevel';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
                   th.textContent = 'm_ap';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
@@ -301,6 +294,13 @@
                   tr.appendChild(th);
                   th = document.createElement('th');
                   th.textContent = 'm_spd';
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
+                  tr.appendChild(th);
+                  th = document.createElement('th');
+                  th.textContent = 'm_getLevel';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
