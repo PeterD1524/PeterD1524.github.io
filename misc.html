@@ -1,7 +1,8 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700|Roboto+Mono:400,700">
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
@@ -45,7 +46,7 @@
       body.appendChild(p);
       let ii = 0;
       let loading = setInterval(function () {
-        ii = ii % 4;
+        ii = ii % 10;
         let textContent = 'Loading';
         for (let i = 0; i < ii; i++) {
           textContent = textContent + '.';
@@ -67,7 +68,7 @@
             headers: '0',
             gid: '87008284',
             sheet: 'gen_WazaDesc',
-            range: 'A:B',
+            range: 'A:AE',
           },
           gen_PiiDesc: {
             headers: '0',
@@ -78,8 +79,109 @@
         },
       };
 
-      function trClickListener(event) {
+      function DamerauLevenshteinDistance(s, t) {
+        let d = []; //2d matrix
 
+        // Step 1
+        let n = s.length;
+        let m = t.length;
+
+        if (n == 0) return m;
+        if (m == 0) return n;
+
+        //Create an array of arrays in javascript (a descending loop is quicker)
+        for (let i = n; i >= 0; i--) d[i] = [];
+
+        // Step 2
+        for (let i = n; i >= 0; i--) d[i][0] = i;
+        for (let j = m; j >= 0; j--) d[0][j] = j;
+
+        // Step 3
+        for (let i = 1; i <= n; i++) {
+          let s_i = s.charAt(i - 1);
+
+          // Step 4
+          for (let j = 1; j <= m; j++) {
+
+            //Check the jagged ld total so far
+            if (i == j && d[i][j] > 4) return n;
+
+            let t_j = t.charAt(j - 1);
+            let cost = (s_i == t_j) ? 0 : 1; // Step 5
+
+            //Calculate the minimum
+            let mi = d[i - 1][j] + 1;
+            let b = d[i][j - 1] + 1;
+            let c = d[i - 1][j - 1] + cost;
+
+            if (b < mi) mi = b;
+            if (c < mi) mi = c;
+
+            d[i][j] = mi; // Step 6
+
+            //Damerau transposition
+            if (i > 1 && j > 1 && s_i == t.charAt(j - 2) && s.charAt(i - 2) == t_j) {
+              d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
+            }
+          }
+        }
+
+        // Step 7
+        return d[n][m];
+      }
+
+      function thClickListener(event) {
+        let cellIndex = event.target.cellIndex, table = event.target.parentElement.parentElement, title = event.target.title;
+        let trs = table.querySelectorAll('tr');
+        /*
+        let trsClone = [];
+        for (let i = 0; i < trs.length; i++) {
+          trsClone.push(trs[i].cloneNode(true));
+        }
+        */
+        let tdInnerTexts = [];
+        for (let i = 1; i < trs.length; i++) {
+          tdInnerText = trs[i].querySelectorAll('td')[cellIndex].innerText;
+          tdInnerTexts.push({ index: i, value: tdInnerText });
+        }
+        tdInnerTexts.sort(function (a, b) {
+          if (cellIndex !== 2) return a.value - b.value;
+          var valueA = a.value.toUpperCase(); // ignore upper and lowercase
+          var valueB = b.value.toUpperCase(); // ignore upper and lowercase
+          if (valueA < valueB) {
+            return -1;
+          }
+          if (valueA > valueB) {
+            return 1;
+          }
+
+          // values must be equal
+          return 0;
+        });
+        tdInnerTexts = [''].concat(tdInnerTexts);
+        let newTable = document.createElement('table');
+        if (title === 'Sort ascending') {
+          for (let i = 1; i < trs.length; i++) {
+            let tr = trs[tdInnerTexts[i].index];
+            newTable.appendChild(tr);
+            // trs[i].innerHTML = trsClone[tdInnerTexts[i].index].innerHTML;
+          }
+          event.target.title = 'Sort descending';
+        } else if (title = 'Sort descending') {
+          for (let i = 1; i < trs.length; i++) {
+            let tr = trs[tdInnerTexts[trs.length - i].index];
+            newTable.appendChild(tr);
+            // trs[i].innerHTML = trsClone[tdInnerTexts[trs.length - i].index].innerHTML;
+          }
+          event.target.title = 'Sort ascending';
+        }
+        newTable.prepend(trs[0]);
+        table.innerHTML = newTable.innerHTML;
+        let tr = table.querySelector('tr');
+        let ths = tr.querySelectorAll('th');
+        for (let i = 0; i < ths.length; i++) {
+          ths[i].addEventListener('click', thClickListener);
+        }
       }
 
       // Load the Visualization API and the corechart package.
@@ -114,16 +216,19 @@
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
               let gen_PiiDesc = QueryResponse.getDataTable();
-              let div = document.createElement('div');
-              div.textContent = 'A belief: Pokémon tend to learn moves with m_getLevel less than or equal to 100.';
+              let div;
+              div = document.createElement('div');
+              div.innerHTML = 'Belief 1: Pokémon tend to learn nonzero m_star moves with m_getLevel less than or equal to 100 (by leveling up).';
+              div.innerHTML = div.innerHTML + '<br>Belief 2: Pokémon dont\'t  moves with m_getLevel equal to 0 (which will not be listed) or m_star equal to 0.';
               body.appendChild(div);
               let input = document.createElement('input');
               input.placeholder = 'Move';
-              input.addEventListener('change', inputChangeListener);
+              input.addEventListener('input', inputInputListener);
               p.remove();
               clearInterval(loading);
               body.appendChild(input);
-              function inputChangeListener(event) {
+              input.focus();
+              function inputInputListener(event) {
                 let tables = document.querySelectorAll('table');
                 for (let i = 0; i < tables.length; i++) {
                   tables[i].remove();
@@ -132,7 +237,7 @@
                 for (let i = 0; i < ps.length; i++) {
                   ps[i].remove();
                 }
-                let Move = event.target.value;
+                let Move = event.target.value.trim();
                 let gen_WazaDescFilteredRows = gen_WazaDesc.getFilteredRows([{
                   column: 1, test: function (cell_value) {
                     if (cell_value === null) return false;
@@ -144,8 +249,9 @@
                 for (let i = 0; i < gen_WazaDescFilteredRows.length; i++) {
                   let wazaID = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 0);
                   let gen_WazaDescm_name = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 1);
+                  let m_star = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 30);
                   let p = document.createElement('p');
-                  p.textContent = gen_WazaDescm_name;
+                  p.textContent = `${gen_WazaDescm_name} (m_star: ${m_star}, wazaID: ${wazaID})`;
                   body.appendChild(p);
                   if (wazaID + 3 > gen_WazaGetDesc.getNumberOfColumns() - 1) continue;
                   let gen_WazaGetDescFilteredRows = gen_WazaGetDesc.getFilteredRows([{ column: wazaID + 3, minValue: 1 }]);
@@ -154,19 +260,31 @@
                   let th;
                   th = document.createElement('th');
                   th.textContent = 'm_monsNo';
-                  tr.addEventListener('click', trClickListener);
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
                   th.textContent = 'm_formNo';
-                  tr.addEventListener('click', trClickListener);
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
                   th.textContent = 'Pokémon';
-                  tr.addEventListener('click', trClickListener);
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
                   th.textContent = 'm_getLevel';
-                  tr.addEventListener('click', trClickListener);
+                  th.setAttribute('title', 'Sort ascending');
+                  th.addEventListener('click', thClickListener);
+                  th.style.cursor = 'pointer';
+                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   table.appendChild(tr);
                   for (let j = 0; j < gen_WazaGetDescFilteredRows.length; j++) {
@@ -178,29 +296,57 @@
                     let td;
                     td = document.createElement('td');
                     td.textContent = m_monsNo;
-                    table.appendChild(td);
+                    tr.appendChild(td);
                     td = document.createElement('td');
                     td.textContent = m_formNo;
-                    table.appendChild(td);
+                    tr.appendChild(td);
                     td = document.createElement('td');
                     if (gen_PiiDescFilteredRows.length === 1) {
                       let rowIndex = gen_PiiDescFilteredRows[0];
                       let m_MonsName = gen_PiiDesc.getValue(rowIndex, 5), m_modelDiffSex = gen_PiiDesc.getValue(rowIndex, 16);
-                      td.innerHTML = `<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/${m_monsNo.toString().padStart(3, '0')}_${UMF[m_modelDiffSex]}_${m_formNo.toString().padStart(2, '0')}.png" style="width: 1em;">${m_MonsName}`;
+                      td.innerHTML = `<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/${m_monsNo.toString().padStart(3, '0')}_${UMF[m_modelDiffSex]}_${m_formNo.toString().padStart(2, '0')}.png" style="width: 1em;"><span>${m_MonsName}</span>`;
                     }
-                    table.appendChild(td);
+                    tr.appendChild(td);
                     td = document.createElement('td');
                     td.textContent = m_getLevel;
-                    table.appendChild(td);
+                    tr.appendChild(td);
                     table.appendChild(tr);
                   }
                   table.style.width = '100%';
                   body.appendChild(table);
                 }
                 if (gen_WazaDescFilteredRows.length === 0) {
-                  let p = document.createElement('p');
+                  let p;
+                  p = document.createElement('p');
                   p.textContent = 'There were no results matching the query.';
                   body.appendChild(p);
+                  let rowIndex = -1;
+                  let distanceMax = Infinity;
+                  for (let i = 0; i < gen_WazaDesc.getNumberOfRows(); i++) {
+                    let m_name = gen_WazaDesc.getValue(i, 1);
+                    if (m_name === null) continue;
+                    let distance = DamerauLevenshteinDistance(Move.toLowerCase(), m_name.toLowerCase());
+                    if (distance < distanceMax) {
+                      rowIndex = i;
+                      distanceMax = distance;
+                    }
+                  }
+                  if (rowIndex !== -1) {
+                    p = document.createElement('p');
+                    let a = document.createElement('a');
+                    a.textContent = gen_WazaDesc.getValue(rowIndex, 1);
+                    a.href = '#';
+                    a.addEventListener('click', function (event) {
+                      input.value = event.target.innerText;
+                      let evt = new Event('build');
+                      input.addEventListener('build', inputInputListener, false);
+                      input.dispatchEvent(evt);
+                    });
+                    p.textContent = 'Suggestion: ';
+                    p.appendChild(a);
+                    p.append(` (m_star: ${gen_WazaDesc.getValue(rowIndex, 30)},wazaID: ${gen_WazaDesc.getValue(rowIndex, 0)})`);
+                    body.appendChild(p);
+                  }
                 }
               }
             });
@@ -213,7 +359,7 @@
     body * {
       margin-bottom: 0.5em;
       margin-top: 0.5em;
-      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       font-size: large;
     }
 
@@ -227,7 +373,7 @@
       padding: 0.05em;
     }
 
-    td img {
+    td * {
       vertical-align: middle;
     }
   </style>
