@@ -141,12 +141,15 @@
           trsClone.push(trs[i].cloneNode(true));
         }
         */
+        let multiplier = 1;
+        if (title === 'Sort descending') multiplier = -1;
         let tdInnerTexts = [];
         for (let i = 1; i < trs.length; i++) {
           tdInnerText = trs[i].querySelectorAll('td')[cellIndex].innerText;
           tdInnerTexts.push({ index: i, value: tdInnerText });
         }
         tdInnerTexts.sort(function (a, b) {
+          if (a.value === b.value) return multiplier * (a.index - b.index);
           if (cellIndex !== 2) return a.value - b.value;
           var valueA = a.value.toUpperCase(); // ignore upper and lowercase
           var valueB = b.value.toUpperCase(); // ignore upper and lowercase
@@ -158,7 +161,7 @@
           }
 
           // values must be equal
-          return 0;
+          return multiplier * (a.index - b.index);
         });
         tdInnerTexts = [''].concat(tdInnerTexts);
         let newTable = document.createElement('table');
