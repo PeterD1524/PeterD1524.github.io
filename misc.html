@@ -326,10 +326,10 @@
                       let m_MonsName = gen_PiiDesc.getValue(rowIndex, 5), m_modelDiffSex = gen_PiiDesc.getValue(rowIndex, 16);
                       td.innerHTML = '<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_monsNo.toString().padStart(3, '0') + '_' + UMF[m_modelDiffSex] + '_' + m_formNo.toString().padStart(2, '0') + '.png" style="width: 1em;"><span>' + m_MonsName + '</span>';
                       img = td.querySelector('img');
-                      img.addEventListener('contextmenu', e => {
+                      img.addEventListener('contextmenu', function (e) {
                         e.preventDefault();
                       });
-                      img.addEventListener('dragstart', e => {
+                      img.addEventListener('dragstart', function (e) {
                         e.preventDefault();
                       });
                     }
