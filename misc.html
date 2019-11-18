@@ -263,7 +263,7 @@
                   let gen_WazaDescm_name = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 1);
                   let m_star = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 30);
                   let p = document.createElement('p');
-                  p.textContent = `${gen_WazaDescm_name} (m_star: ${m_star}, wazaID: ${wazaID})`;
+                  p.textContent = gen_WazaDescm_name + ' (m_star: ' + m_star + ', wazaID: ' + wazaID + ')';
                   body.appendChild(p);
                   if (wazaID + 3 > gen_WazaGetDesc.getNumberOfColumns() - 1) continue;
                   let gen_WazaGetDescFilteredRows = gen_WazaGetDesc.getFilteredRows([{ column: wazaID + 3, minValue: 1 }]);
@@ -324,9 +324,8 @@
                     if (gen_PiiDescFilteredRows.length === 1) {
                       let rowIndex = gen_PiiDescFilteredRows[0];
                       let m_MonsName = gen_PiiDesc.getValue(rowIndex, 5), m_modelDiffSex = gen_PiiDesc.getValue(rowIndex, 16);
-                      td.innerHTML = `<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/${m_monsNo.toString().padStart(3, '0')}_${UMF[m_modelDiffSex]}_${m_formNo.toString().padStart(2, '0')}.png" style="width: 1em;"><span>${m_MonsName}</span>`;
+                      td.innerHTML = '<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_monsNo.toString().padStart(3, '0') + '_' + UMF[m_modelDiffSex] + '_' + m_formNo.toString().padStart(2, '0') + '.png" style="width: 1em;"><span>' + m_MonsName + '</span>';
                       img = td.querySelector('img');
-                      console.log(img);
                       img.addEventListener('contextmenu', e => {
                         e.preventDefault();
                       });
@@ -386,7 +385,7 @@
                     });
                     p.textContent = 'Suggestion: ';
                     p.appendChild(a);
-                    p.append(` (m_star: ${gen_WazaDesc.getValue(rowIndex, 30)},wazaID: ${gen_WazaDesc.getValue(rowIndex, 0)})`);
+                    p.append(' (m_star: ' + gen_WazaDesc.getValue(rowIndex, 30) + ', wazaID: ' + gen_WazaDesc.getValue(rowIndex, 0) + ')');
                     body.appendChild(p);
                   }
                 }
