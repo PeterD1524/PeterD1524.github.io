@@ -2,7 +2,7 @@
 
 <head>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700|Roboto+Mono:400,700">
+    href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700|Roboto+Mono:400,700|Material+Icons">
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
@@ -133,59 +133,65 @@
       }
 
       function thClickListener(event) {
-        let cellIndex = event.target.cellIndex, table = event.target.parentElement.parentElement, title = event.target.title;
-        let trs = table.querySelectorAll('tr');
-        /*
-        let trsClone = [];
-        for (let i = 0; i < trs.length; i++) {
-          trsClone.push(trs[i].cloneNode(true));
-        }
-        */
-        let multiplier = 1;
-        if (title === 'Sort descending') multiplier = -1;
-        let tdInnerTexts = [];
-        for (let i = 1; i < trs.length; i++) {
-          tdInnerText = trs[i].querySelectorAll('td')[cellIndex].innerText;
-          tdInnerTexts.push({ index: i, value: tdInnerText });
-        }
-        tdInnerTexts.sort(function (a, b) {
-          if (a.value === b.value) return multiplier * (a.index - b.index);
-          if (cellIndex !== 2) return a.value - b.value;
-          var valueA = a.value.toUpperCase(); // ignore upper and lowercase
-          var valueB = b.value.toUpperCase(); // ignore upper and lowercase
-          if (valueA < valueB) {
-            return -1;
+        if (event.target.tagName === 'I') {
+          let evt = new Event('build');
+          event.target.parentElement.addEventListener('build', thClickListener, false);
+          event.target.parentElement.dispatchEvent(evt);
+        } else if (event.target.tagName === 'TH') {
+          let cellIndex = event.target.cellIndex, table = event.target.parentElement.parentElement, title = event.target.title;
+          let trs = table.querySelectorAll('tr');
+          /*
+          let trsClone = [];
+          for (let i = 0; i < trs.length; i++) {
+            trsClone.push(trs[i].cloneNode(true));
           }
-          if (valueA > valueB) {
-            return 1;
+          */
+          let multiplier = 1;
+          if (title === 'Sort descending') multiplier = -1;
+          let tdInnerTexts = [];
+          for (let i = 1; i < trs.length; i++) {
+            tdInnerText = trs[i].querySelectorAll('td')[cellIndex].innerText;
+            tdInnerTexts.push({ index: i, value: tdInnerText });
           }
+          tdInnerTexts.sort(function (a, b) {
+            if (a.value === b.value) return multiplier * (a.index - b.index);
+            if (cellIndex !== 2) return a.value - b.value;
+            var valueA = a.value.toUpperCase(); // ignore upper and lowercase
+            var valueB = b.value.toUpperCase(); // ignore upper and lowercase
+            if (valueA < valueB) {
+              return -1;
+            }
+            if (valueA > valueB) {
+              return 1;
+            }
 
-          // values must be equal
-          return multiplier * (a.index - b.index);
-        });
-        tdInnerTexts = [''].concat(tdInnerTexts);
-        let newTable = document.createElement('table');
-        if (title === 'Sort ascending') {
-          for (let i = 1; i < trs.length; i++) {
-            let tr = trs[tdInnerTexts[i].index];
-            newTable.appendChild(tr);
-            // trs[i].innerHTML = trsClone[tdInnerTexts[i].index].innerHTML;
+            // values must be equal
+            return multiplier * (a.index - b.index);
+          });
+          tdInnerTexts = [''].concat(tdInnerTexts);
+          let newTable = document.createElement('table');
+          if (title === 'Sort ascending') {
+            for (let i = 1; i < trs.length; i++) {
+              let tr = trs[tdInnerTexts[i].index];
+              newTable.appendChild(tr);
+              // trs[i].innerHTML = trsClone[tdInnerTexts[i].index].innerHTML;
+            }
+            event.target.title = 'Sort descending';
+          } else if (title = 'Sort descending') {
+            for (let i = 1; i < trs.length; i++) {
+              let tr = trs[tdInnerTexts[trs.length - i].index];
+              newTable.appendChild(tr);
+              // trs[i].innerHTML = trsClone[tdInnerTexts[trs.length - i].index].innerHTML;
+            }
+            event.target.title = 'Sort ascending';
           }
-          event.target.title = 'Sort descending';
-        } else if (title = 'Sort descending') {
-          for (let i = 1; i < trs.length; i++) {
-            let tr = trs[tdInnerTexts[trs.length - i].index];
-            newTable.appendChild(tr);
-            // trs[i].innerHTML = trsClone[tdInnerTexts[trs.length - i].index].innerHTML;
+          newTable.prepend(trs[0]);
+          table.innerHTML = newTable.innerHTML;
+          let tr = table.querySelector('tr');
+          let ths = tr.querySelectorAll('th');
+          for (let i = 0; i < ths.length; i++) {
+            ths[i].addEventListener('click', thClickListener);
           }
-          event.target.title = 'Sort ascending';
-        }
-        newTable.prepend(trs[0]);
-        table.innerHTML = newTable.innerHTML;
-        let tr = table.querySelector('tr');
-        let ths = tr.querySelectorAll('th');
-        for (let i = 0; i < ths.length; i++) {
-          ths[i].addEventListener('click', thClickListener);
         }
       }
 
@@ -265,46 +271,40 @@
                   let tr = document.createElement('tr');
                   let th;
                   th = document.createElement('th');
-                  th.textContent = 'm_monsNo';
+                  th.innerHTML = 'm_monsNo<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'm_formNo';
+                  th.innerHTML = 'm_formNo<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'Pokémon';
+                  th.innerHTML = 'Pokémon<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'm_ap';
+                  th.innerHTML = 'm_ap<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'm_spd';
+                  th.innerHTML = 'm_spd<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   th = document.createElement('th');
-                  th.textContent = 'm_getLevel';
+                  th.innerHTML = 'm_getLevel<i class="material-icons md-18">&#xE164;</i>';
                   th.setAttribute('title', 'Sort ascending');
                   th.addEventListener('click', thClickListener);
                   th.style.cursor = 'pointer';
-                  th.style.textDecoration = 'underline';
                   tr.appendChild(th);
                   table.appendChild(tr);
                   for (let j = 0; j < gen_WazaGetDescFilteredRows.length; j++) {
@@ -423,8 +423,35 @@
       font-size: medium;
     }
 
-    td * {
+    td *,
+    th * {
       vertical-align: middle;
+    }
+
+    /* Rules for sizing the icon. */
+    .material-icons.md-18 {
+      font-size: 18px;
+    }
+
+    .material-icons.md-24 {
+      font-size: 24px;
+    }
+
+    .material-icons.md-36 {
+      font-size: 36px;
+    }
+
+    .material-icons.md-48 {
+      font-size: 48px;
+    }
+
+    /* Rules for using icons as black on a light background. */
+    .material-icons.md-dark {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .material-icons.md-dark.md-inactive {
+      color: rgba(0, 0, 0, 0.26);
     }
   </style>
 </head>
