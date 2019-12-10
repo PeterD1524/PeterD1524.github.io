@@ -17,13 +17,13 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       "use strict";
-      let current = '2133025958';
-      let currentMap = '870594584';
-      let currentImage = 'MyslandChart.png';
-      let next = '102209860';
-      let nextMap = '1641765100';
-      let nextImage = 'ggggg.png';
-      let date = 1574834400000;
+      let current = '102209860';
+      let currentMap = '1641765100';
+      let currentImage = 'ggggg.png';
+      let next = '1161652057';
+      let nextMap = '137596131';
+      let nextImage = 'MyslandChart.png';
+      let date = 1576044000000;
 
       let whatLanguage;
 
@@ -201,11 +201,17 @@
       }
 
       const map_layer_ctx = map_layer.getContext('2d');
-      map_layer_ctx.fillStyle = 'rgb(32, 204, 197)';
+      map_layer_ctx.fillStyle = 'rgb(1, 56, 203)';
       if (Date.now() > date) {
-        map_layer_ctx.fillStyle = 'rgb(1, 56, 203)';
+        map_layer_ctx.fillStyle = 'rgb(32, 204, 197)';
       }
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
+      if (Date.now() > date) {
+        map_layer_ctx.textAlign = 'center';
+        map_layer_ctx.font = '72px Roboto';
+        map_layer_ctx.fillStyle = 'black';
+        map_layer_ctx.fillText('No image available', map_layer.width / 2, map_layer.height / 2);
+      }
       const image = new Image(1000, 1000);
       if (Date.now() > date) {
         image.src = nextImage;
