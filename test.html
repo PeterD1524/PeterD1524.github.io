@@ -1,0 +1,193 @@
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700|Roboto+Mono:400,700|Material+Icons">
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      function resolveAfter(ms) {
+        return new Promise(resolve => {
+          setTimeout(resolve, ms);
+        });
+      }
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', { 'packages': ['corechart'] });
+
+      let body = document.querySelector('body');
+      let title = document.querySelector('head > title');
+
+      let Untitled_spreadsheet = {
+        URL: 'https://docs.google.com/spreadsheets/d/18Gjj4A1KX_tZMzeM7jDsd4g-DvE7b2CWF1rWqoh5NPs',
+        sheets: {
+          gen_WazaGetDesc: {
+            headers: '0',
+            gid: '434807980',
+            sheet: 'gen_WazaGetDesc',
+            range: 'A:ABQ',
+          },
+          gen_WazaDesc: {
+            headers: '0',
+            gid: '1224240823',
+            sheet: 'gen_WazaDesc',
+            range: 'A:BJ',
+          },
+          gen_PiiDesc: {
+            headers: '0',
+            gid: '495489205',
+            sheet: 'gen_PiiDesc',
+            range: 'A:AB',
+          }
+        },
+      };
+
+      let callback = {
+        gen_WazaDesc: function (ID) {
+          if (ID === undefined) {
+            let dataSourceUrl, optional_parameters;
+            dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+            optional_parameters = ['gid'];
+            for (let i = 0; i < optional_parameters.length; i++) {
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
+            }
+            dataSourceUrl = dataSourceUrl + 'range' + '=' + 'A:B' + '&';
+            if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            let query;
+            query = new google.visualization.Query(dataSourceUrl);
+            query.send(function (QueryResponse) {
+              let gen_WazaDesc = QueryResponse.getDataTable();
+              let table = document.createElement('table');
+              body.appendChild(table);
+              let tr;
+
+              let thead = document.createElement('thead');
+              table.appendChild(thead);
+              tr = document.createElement('tr');
+              thead.appendChild(tr);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfColumns(); i++) {
+                let th = document.createElement('th');
+                tr.appendChild(th);
+                th.textContent = gen_WazaDesc.getColumnLabel(i);
+              }
+
+              let tbody = document.createElement('tbody');
+              table.appendChild(tbody);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfRows(); i++) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                for (let j = 0; j < gen_WazaDesc.getNumberOfColumns(); j++) {
+                  let td = document.createElement('td');
+                  tr.appendChild(td);
+                  let a = document.createElement('a');
+                  td.appendChild(a);
+                  a.setAttribute('href', (new URL(document.location)) + '&' + 'ID' + '=' + gen_WazaDesc.getValue(i, 0));
+                  a.textContent = gen_WazaDesc.getValue(i, j);
+                }
+              }
+            });
+          } else {
+            let dataSourceUrl, optional_parameters;
+            let queryString = encodeURIComponent('where A = ' + ID);
+            dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+            optional_parameters = ['gid'];
+            for (let i = 0; i < optional_parameters.length; i++) {
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
+            }
+            dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+            if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            let query;
+            query = new google.visualization.Query(dataSourceUrl);
+            query.send(function (QueryResponse) {
+              let gen_WazaDesc = QueryResponse.getDataTable();
+              let table = document.createElement('table');
+              body.appendChild(table);
+              let tr;
+              let tbody = document.createElement('tbody');
+              table.appendChild(tbody);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfColumns(); i++) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                let td;
+                td = document.createElement('td');
+                tr.appendChild(td);
+                td.textContent = gen_WazaDesc.getColumnLabel(i);
+                for (let j = 0; j < gen_WazaDesc.getNumberOfRows(); j++) {
+                  td = document.createElement('td');
+                  tr.appendChild(td);
+                  td.textContent = gen_WazaDesc.getValue(j, i);
+                }
+              }
+            });
+          }
+        },
+      }
+
+      let params = (new URL(document.location)).searchParams;
+      if (params.has('query')) {
+        let q = params.get('query');
+        let cb;
+        if (q === 'gen_WazaDesc') {
+          title.textContent = 'gen_WazaDesc';
+          if (params.has('ID')) {
+            let ID = params.get('ID');
+            cb = function () {
+              callback.gen_WazaDesc(ID);
+            };
+          } else {
+            cb = callback.gen_WazaDesc;
+          }
+        }
+        google.charts.setOnLoadCallback(cb);
+      }
+    });
+  </script>
+  <style>
+    body * {
+      font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    /* Rules for sizing the icon. */
+    .material-icons.md-18 {
+      font-size: 18px;
+    }
+
+    .material-icons.md-24 {
+      font-size: 24px;
+    }
+
+    .material-icons.md-36 {
+      font-size: 36px;
+    }
+
+    .material-icons.md-48 {
+      font-size: 48px;
+    }
+
+    /* Rules for using icons as black on a light background. */
+    .material-icons.md-dark {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .material-icons.md-dark.md-inactive {
+      color: rgba(0, 0, 0, 0.26);
+    }
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>
