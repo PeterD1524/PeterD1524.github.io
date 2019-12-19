@@ -1,107 +1,105 @@
 <html>
 
 <head>
+  <title></title>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700|Roboto+Mono:400,700|Material+Icons">
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      /*
-      let canvas = document.getElementById('a');
-      canvas.width = 1000;
-      canvas.height = 1000;
-      let ctx = canvas.getContext('2d');
-      ctx.textBaseline = 'hanging';
-      let a = [['a', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir'], ['Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir', 'Gardevoir']];
-      let x = 0;
-      let y = 0;
-      let widths = [];
-      let columnNum = 0;
-      for (let i = 0; i < a.length; i++) {
-        if (a[i].length > columnNum) columnNum = a[i].length;
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', { 'packages': ['corechart'] });
+
+      function resolveAfter(ms) {
+        return new Promise(resolve => {
+          setTimeout(resolve, ms);
+        });
       }
-      for (let i = 0; i < columnNum; i++) {
-        widths.push(0);
-      }
-      ctx.font = '30px sans-serif';
-      console.log(ctx.font);
-      for (let i = 1; i < a.length; i++) {
-        for (j = 0; j < a[i].length; j++) {
-          if (ctx.measureText(a[i][j]).width > widths[j]) widths[j] = ctx.measureText(a[i][j]).width;
+
+      function storageAvailable(type) {
+        let storage;
+        try {
+          storage = window[type];
+          let x = '__storage_test__';
+          storage.setItem(x, x);
+          storage.removeItem(x);
+          return true;
+        }
+        catch (e) {
+          return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
         }
       }
-      for (let i = 0; i < a.length; i++) {
-        x = 0
-        for (let j = 0; j < a[i].length; j++) {
-          ctx.fillText(a[i][j], x, y);
-          x += widths[j];
-        }
-        y += 30;
-      }
-      console.log(ctx.measureText('Gardevoir'));
-      */
-      // from:https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
-      (function (arr) {
-        arr.forEach(function (item) {
-          if (item.hasOwnProperty('remove')) {
-            return;
-          }
-          Object.defineProperty(item, 'remove', {
-            configurable: true,
-            enumerable: true,
-            writable: true,
-            value: function remove() {
-              if (this.parentNode === null) {
-                return;
-              }
-              this.parentNode.removeChild(this);
-            }
-          });
-        });
-      })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
-      // Source: https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/append()/append().md
-      (function (arr) {
-        arr.forEach(function (item) {
-          if (item.hasOwnProperty('append')) {
-            return;
-          }
-          Object.defineProperty(item, 'append', {
-            configurable: true,
-            enumerable: true,
-            writable: true,
-            value: function append() {
-              var argArr = Array.prototype.slice.call(arguments),
-                docFrag = document.createDocumentFragment();
 
-              argArr.forEach(function (argItem) {
-                var isNode = argItem instanceof Node;
-                docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
-              });
+      let languageOptions = ['English', 'Italiano', 'Français', 'Deutsch', 'Español', '中文（繁體）', '한국어', '日本語'];
+      let languages = ['en-us', 'it', 'fr', 'de', 'es', 'zh-tw', 'ko', 'ja'];
 
-              this.appendChild(docFrag);
-            }
-          });
-        });
-      })([Element.prototype, Document.prototype, DocumentFragment.prototype]);
       let body = document.querySelector('body');
-      let compStyles = window.getComputedStyle(body);
-      body.style.fontSize = compStyles.getPropertyValue('font-size');
-      let p = document.createElement('p');
-      body.appendChild(p);
-      let ii = 0;
-      let loading = setInterval(function () {
-        ii = ii % 10;
-        let textContent = 'Loading';
-        for (let i = 0; i < ii; i++) {
-          textContent = textContent + '.';
+      let title = document.querySelector('head > title');
+
+
+      let params = (new URL(document.location)).searchParams;
+
+      let language;
+
+
+      if (params.has('language')) {
+        if (languages.indexOf(params.get('language')) !== -1) {
+          language = params.get('language');
         }
-        p.textContent = textContent;
-        ii++;
-      }, 500);
+      } else {
+        if (storageAvailable('localStorage')) {
+          if (localStorage.getItem('language') === null) {
+            let subtags = ['en', 'it', 'fr', 'de', 'es', 'zh', 'ko', 'ja'];
+            for (let i = 0; i < subtags.length; i++) {
+              if (navigator.language.startsWith(subtags[i])) {
+                language = languages[i];
+                params.set('language', language);
+                window.location = (new URL(document.location)).toString().split('?')[0] + '?' + params.toString();
+              }
+            }
+          } else {
+            // let cookieLanguageValue = document.cookie.replace(/(?:(?:^|.*;\s*)language\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            if (languages.indexOf(localStorage.getItem('language')) !== -1) {
+              language = localStorage.getItem('language');
+            } else {
+            }
+          }
+        } else {
+        }
+      }
+
+      let div = document.createElement('div');
+      body.appendChild(div);
+      let select = document.createElement('select');
+      div.appendChild(select);
+      select.addEventListener("change", languagechangeHandler);
+      for (let i = 0; i < languageOptions.length; i++) {
+        let option = document.createElement('option');
+        select.appendChild(option);
+        option.textContent = languageOptions[i];
+        option.value = languages[i];
+      }
+      if (language !== undefined) {
+        console.log(language);
+        select.value = language;
+      }
+      console.log(select.value);
 
       let Untitled_spreadsheet = {
-        URL: 'https://docs.google.com/spreadsheets/d/1-P_1-7bgr2r6MLNvwIKqo4Gs3fCAwkBpMJyuE-9HRyw',
+        URL: 'https://docs.google.com/spreadsheets/d/18Gjj4A1KX_tZMzeM7jDsd4g-DvE7b2CWF1rWqoh5NPs',
         sheets: {
           gen_WazaGetDesc: {
             headers: '0',
@@ -111,344 +109,174 @@
           },
           gen_WazaDesc: {
             headers: '0',
-            gid: '87008284',
+            gid: '1224240823',
             sheet: 'gen_WazaDesc',
-            range: 'A:AE',
+            range: 'A:BJ',
           },
           gen_PiiDesc: {
             headers: '0',
             gid: '495489205',
             sheet: 'gen_PiiDesc',
             range: 'A:AB',
+          },
+          'gen_WazaDesc m_name': {
+            headers: '0',
+            gid: '1155071408',
+            sheet: 'gen_WazaDesc m_name',
+            range: 'A:I',
           }
         },
       };
 
-      function DamerauLevenshteinDistance(s, t) {
-        let d = []; //2d matrix
-
-        // Step 1
-        let n = s.length;
-        let m = t.length;
-
-        if (n == 0) return m;
-        if (m == 0) return n;
-
-        //Create an array of arrays in javascript (a descending loop is quicker)
-        for (let i = n; i >= 0; i--) d[i] = [];
-
-        // Step 2
-        for (let i = n; i >= 0; i--) d[i][0] = i;
-        for (let j = m; j >= 0; j--) d[0][j] = j;
-
-        // Step 3
-        for (let i = 1; i <= n; i++) {
-          let s_i = s.charAt(i - 1);
-
-          // Step 4
-          for (let j = 1; j <= m; j++) {
-
-            //Check the jagged ld total so far
-            if (i == j && d[i][j] > 4) return n;
-
-            let t_j = t.charAt(j - 1);
-            let cost = (s_i == t_j) ? 0 : 1; // Step 5
-
-            //Calculate the minimum
-            let mi = d[i - 1][j] + 1;
-            let b = d[i][j - 1] + 1;
-            let c = d[i - 1][j - 1] + cost;
-
-            if (b < mi) mi = b;
-            if (c < mi) mi = c;
-
-            d[i][j] = mi; // Step 6
-
-            //Damerau transposition
-            if (i > 1 && j > 1 && s_i == t.charAt(j - 2) && s.charAt(i - 2) == t_j) {
-              d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
-            }
-          }
-        }
-
-        // Step 7
-        return d[n][m];
-      }
-
-      function thClickListener(event) {
-        if (event.target.tagName === 'I') {
-          let evt = new Event('build');
-          event.target.parentElement.addEventListener('build', thClickListener, false);
-          event.target.parentElement.dispatchEvent(evt);
-        } else if (event.target.tagName === 'TH') {
-          let cellIndex = event.target.cellIndex, table = event.target.parentElement.parentElement, title = event.target.title;
-          let trs = table.querySelectorAll('tr');
-          /*
-          let trsClone = [];
-          for (let i = 0; i < trs.length; i++) {
-            trsClone.push(trs[i].cloneNode(true));
-          }
-          */
-          let multiplier = 1;
-          if (title === 'Sort descending') multiplier = -1;
-          let tdInnerTexts = [];
-          for (let i = 1; i < trs.length; i++) {
-            tdInnerText = trs[i].querySelectorAll('td')[cellIndex].innerText;
-            tdInnerTexts.push({ index: i, value: tdInnerText });
-          }
-          tdInnerTexts.sort(function (a, b) {
-            if (a.value === b.value) return multiplier * (a.index - b.index);
-            if (cellIndex !== 2) return a.value - b.value;
-            var valueA = a.value.toUpperCase(); // ignore upper and lowercase
-            var valueB = b.value.toUpperCase(); // ignore upper and lowercase
-            if (valueA < valueB) {
-              return -1;
-            }
-            if (valueA > valueB) {
-              return 1;
-            }
-
-            // values must be equal
-            return multiplier * (a.index - b.index);
-          });
-          tdInnerTexts = [''].concat(tdInnerTexts);
-          let newTable = document.createElement('table');
-          if (title === 'Sort ascending') {
-            for (let i = 1; i < trs.length; i++) {
-              let tr = trs[tdInnerTexts[i].index];
-              newTable.appendChild(tr);
-              // trs[i].innerHTML = trsClone[tdInnerTexts[i].index].innerHTML;
-            }
-            event.target.title = 'Sort descending';
-          } else if (title = 'Sort descending') {
-            for (let i = 1; i < trs.length; i++) {
-              let tr = trs[tdInnerTexts[trs.length - i].index];
-              newTable.appendChild(tr);
-              // trs[i].innerHTML = trsClone[tdInnerTexts[trs.length - i].index].innerHTML;
-            }
-            event.target.title = 'Sort ascending';
-          }
-          newTable.prepend(trs[0]);
-          table.innerHTML = newTable.innerHTML;
-          let tr = table.querySelector('tr');
-          let ths = tr.querySelectorAll('th');
-          for (let i = 0; i < ths.length; i++) {
-            ths[i].addEventListener('click', thClickListener);
-          }
-        }
-      }
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', { 'packages': ['corechart'] });
-      google.charts.setOnLoadCallback(function () {
-        let dataSourceUrl, optional_parameters;
-        dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
-        optional_parameters = ['gid', 'range'];
-        for (let i = 0; i < optional_parameters.length; i++) {
-          dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaGetDesc[optional_parameters[i]] + '&';
-        }
-        if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
-        let query;
-        query = new google.visualization.Query(dataSourceUrl);
-        query.send(function (QueryResponse) {
-          let gen_WazaGetDesc = QueryResponse.getDataTable();
-          dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
-          optional_parameters = ['gid', 'range'];
-          for (let i = 0; i < optional_parameters.length; i++) {
-            dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
-          }
-          if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
-          query = new google.visualization.Query(dataSourceUrl);
-          query.send(function (QueryResponse) {
-            let gen_WazaDesc = QueryResponse.getDataTable();
+      let callback = {
+        gen_WazaDesc: function (ID) {
+          if (ID === undefined) {
+            let dataSourceUrl, optional_parameters;
+            let queryString;
             dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
-            optional_parameters = ['gid', 'range'];
+            optional_parameters = ['gid'];
             for (let i = 0; i < optional_parameters.length; i++) {
-              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_PiiDesc[optional_parameters[i]] + '&';
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
             }
+            dataSourceUrl = dataSourceUrl + 'range' + '=' + 'A:B' + '&';
             if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            if (language !== undefined) {
+              queryString = encodeURIComponent('select A, ' + ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'][languages.indexOf(language)]);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['gen_WazaDesc m_name'][optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            }
+            let query;
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
-              let gen_PiiDesc = QueryResponse.getDataTable();
-              let div;
-              div = document.createElement('div');
-              div.innerHTML = 'Belief 1: Pokémon tend to learn nonzero m_star moves with m_getLevel less than or equal to 100 (by leveling up).';
-              div.innerHTML = div.innerHTML + '<br>Belief 2: Pokémon dont\'t learn moves with m_getLevel equal to 0 (which will not be listed) or m_star equal to 0.';
-              div.innerHTML = div.innerHTML + '<br>Data Last Update: Nov 12, 2019';
-              body.appendChild(div);
-              let input = document.createElement('input');
-              input.placeholder = 'Move';
-              input.addEventListener('input', inputInputListener);
-              p.remove();
-              clearInterval(loading);
-              body.appendChild(input);
-              input.focus();
-              function inputInputListener(event) {
-                let tables = document.querySelectorAll('table');
-                for (let i = 0; i < tables.length; i++) {
-                  tables[i].remove();
+              let gen_WazaDesc = QueryResponse.getDataTable();
+              let table = document.createElement('table');
+              body.appendChild(table);
+              let tr;
+
+              let thead = document.createElement('thead');
+              table.appendChild(thead);
+              tr = document.createElement('tr');
+              thead.appendChild(tr);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfColumns(); i++) {
+                let th = document.createElement('th');
+                tr.appendChild(th);
+                th.textContent = gen_WazaDesc.getColumnLabel(i);
+              }
+
+              let tbody = document.createElement('tbody');
+              table.appendChild(tbody);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfRows(); i++) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                for (let j = 0; j < gen_WazaDesc.getNumberOfColumns(); j++) {
+                  let td = document.createElement('td');
+                  tr.appendChild(td);
+                  let a = document.createElement('a');
+                  td.appendChild(a);
+                  a.setAttribute('href', (new URL(document.location)) + '&' + 'ID' + '=' + gen_WazaDesc.getValue(i, 0));
+                  a.textContent = gen_WazaDesc.getValue(i, j);
                 }
-                let ps = body.querySelectorAll('p');
-                for (let i = 0; i < ps.length; i++) {
-                  ps[i].remove();
-                }
-                let Move = event.target.value.trim();
-                let gen_WazaDescFilteredRows = gen_WazaDesc.getFilteredRows([{
-                  column: 1, test: function (cell_value) {
-                    if (cell_value === null) return false;
-                    cell_value = cell_value.toString();
-                    if (cell_value.toLowerCase() === Move.toLowerCase()) return true;
-                    return false;
-                  }
-                }]);
-                for (let i = 0; i < gen_WazaDescFilteredRows.length; i++) {
-                  let wazaID = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 0);
-                  let gen_WazaDescm_name = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 1);
-                  let m_star = gen_WazaDesc.getValue(gen_WazaDescFilteredRows[i], 30);
-                  let p = document.createElement('p');
-                  p.textContent = gen_WazaDescm_name + ' (m_star: ' + m_star + ', wazaID: ' + wazaID + ')';
-                  body.appendChild(p);
-                  if (wazaID + 3 > gen_WazaGetDesc.getNumberOfColumns() - 1) continue;
-                  let gen_WazaGetDescFilteredRows = gen_WazaGetDesc.getFilteredRows([{ column: wazaID + 3, minValue: 1 }]);
-                  let table = document.createElement('table');
-                  let tr = document.createElement('tr');
-                  let th;
-                  th = document.createElement('th');
-                  th.innerHTML = 'm_monsNo<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
-                  th.innerHTML = 'm_formNo<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
-                  th.innerHTML = 'Pokémon<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
-                  th.innerHTML = 'm_ap<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
-                  th.innerHTML = 'm_spd<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  th = document.createElement('th');
-                  th.innerHTML = 'm_getLevel<i class="material-icons md-18">&#xE164;</i>';
-                  th.setAttribute('title', 'Sort ascending');
-                  th.addEventListener('click', thClickListener);
-                  th.style.cursor = 'pointer';
-                  tr.appendChild(th);
-                  table.appendChild(tr);
-                  for (let j = 0; j < gen_WazaGetDescFilteredRows.length; j++) {
-                    let rowIndex = gen_WazaGetDescFilteredRows[j]
-                    let m_monsNo = gen_WazaGetDesc.getValue(rowIndex, 1), m_formNo = gen_WazaGetDesc.getValue(rowIndex, 2), m_getLevel = gen_WazaGetDesc.getValue(rowIndex, wazaID + 3);
-                    let gen_PiiDescFilteredRows = gen_PiiDesc.getFilteredRows([{ column: 1, value: m_monsNo }, { column: 2, value: m_formNo }]);
-                    let UMF = ['U', 'M', 'F'];
-                    let tr = document.createElement('tr');
-                    let td;
-                    td = document.createElement('td');
-                    td.textContent = m_monsNo;
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    td.textContent = m_formNo;
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    if (gen_PiiDescFilteredRows.length === 1) {
-                      let rowIndex = gen_PiiDescFilteredRows[0];
-                      let m_MonsName = gen_PiiDesc.getValue(rowIndex, 5), m_modelDiffSex = gen_PiiDesc.getValue(rowIndex, 16);
-                      td.innerHTML = '<img src="https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_monsNo.toString().padStart(3, '0') + '_' + UMF[m_modelDiffSex] + '_' + m_formNo.toString().padStart(2, '0') + '.png" style="width: 1em;"><span>' + m_MonsName + '</span>';
-                      img = td.querySelector('img');
-                      img.addEventListener('contextmenu', function (e) {
-                        e.preventDefault();
-                      });
-                      img.addEventListener('dragstart', function (e) {
-                        e.preventDefault();
-                      });
+              }
+            });
+          } else {
+            let dataSourceUrl, optional_parameters;
+            let queryString;
+            queryString = encodeURIComponent('where A = ' + ID);
+            dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+            optional_parameters = ['gid'];
+            for (let i = 0; i < optional_parameters.length; i++) {
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
+            }
+            dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+            if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            let query;
+            query = new google.visualization.Query(dataSourceUrl);
+            query.send(function (QueryResponse) {
+              let gen_WazaDesc = QueryResponse.getDataTable();
+              let table = document.createElement('table');
+              body.appendChild(table);
+              let tr;
+              let tbody = document.createElement('tbody');
+              table.appendChild(tbody);
+              for (let i = 0; i < gen_WazaDesc.getNumberOfColumns(); i++) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                let td;
+                td = document.createElement('td');
+                tr.appendChild(td);
+                let label = gen_WazaDesc.getColumnLabel(i);
+                td.textContent = label;
+                for (let j = 0; j < gen_WazaDesc.getNumberOfRows(); j++) {
+                  td = document.createElement('td');
+                  tr.appendChild(td);
+                  td.textContent = gen_WazaDesc.getValue(j, i);
+                  if (label === 'm_name') {
+                    queryString = encodeURIComponent('select ' + ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'][languages.indexOf(language)] + ' where A = ' + ID);
+                    dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+                    optional_parameters = ['gid'];
+                    for (let i = 0; i < optional_parameters.length; i++) {
+                      dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['gen_WazaDesc m_name'][optional_parameters[i]] + '&';
                     }
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    if (gen_PiiDescFilteredRows.length === 1) {
-                      let rowIndex = gen_PiiDescFilteredRows[0];
-                      let m_ap = gen_PiiDesc.getValue(rowIndex, 25);
-                      td.textContent = m_ap;
-                    }
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    if (gen_PiiDescFilteredRows.length === 1) {
-                      let rowIndex = gen_PiiDescFilteredRows[0];
-                      let m_spd = gen_PiiDesc.getValue(rowIndex, 27);
-                      td.textContent = m_spd;
-                    }
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    td.textContent = m_getLevel;
-                    tr.appendChild(td);
-                    table.appendChild(tr);
-                  }
-                  table.style.width = '100%';
-                  body.appendChild(table);
-                }
-                if (gen_WazaDescFilteredRows.length === 0) {
-                  let p;
-                  p = document.createElement('p');
-                  p.textContent = 'There were no results matching the query.';
-                  body.appendChild(p);
-                  let rowIndex = -1;
-                  let distanceMax = Infinity;
-                  for (let i = 0; i < gen_WazaDesc.getNumberOfRows(); i++) {
-                    let m_name = gen_WazaDesc.getValue(i, 1);
-                    if (m_name === null) continue;
-                    let distance = DamerauLevenshteinDistance(Move.toLowerCase(), m_name.toLowerCase());
-                    if (distance < distanceMax) {
-                      rowIndex = i;
-                      distanceMax = distance;
-                    }
-                  }
-                  if (rowIndex !== -1) {
-                    p = document.createElement('p');
-                    let a = document.createElement('a');
-                    a.textContent = gen_WazaDesc.getValue(rowIndex, 1);
-                    a.href = '#';
-                    a.addEventListener('click', function (event) {
-                      input.value = event.target.innerText;
-                      let evt = new Event('build');
-                      input.addEventListener('build', inputInputListener, false);
-                      input.dispatchEvent(evt);
+                    dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+                    if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+                    query = new google.visualization.Query(dataSourceUrl);
+                    query.send(function (QueryResponse) {
+                      let gen_WazaDescm_name = QueryResponse.getDataTable();
+                      if (gen_WazaDescm_name.getNumberOfRows() === 1 && gen_WazaDescm_name.getNumberOfColumns() === 1) {
+                        td.textContent = gen_WazaDescm_name.getValue(0, 0);
+                      }
                     });
-                    p.textContent = 'Suggestion: ';
-                    p.appendChild(a);
-                    p.append(' (m_star: ' + gen_WazaDesc.getValue(rowIndex, 30) + ', wazaID: ' + gen_WazaDesc.getValue(rowIndex, 0) + ')');
-                    body.appendChild(p);
                   }
                 }
               }
             });
-          });
-        });
-      });
+          }
+        },
+      }
+
+      if (params.has('query')) {
+        let q = params.get('query');
+        let cb;
+        if (q === 'gen_WazaDesc') {
+          title.textContent = 'gen_WazaDesc';
+          if (params.has('ID')) {
+            let ID = params.get('ID');
+            cb = function () {
+              callback.gen_WazaDesc(ID);
+            };
+          } else {
+            cb = callback.gen_WazaDesc;
+          }
+        }
+        google.charts.setOnLoadCallback(cb);
+      } else {
+        let a = document.createElement('a');
+        body.appendChild(a);
+        a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + 'query' + '=' + 'gen_WazaDesc');
+        a.textContent = 'gen_WazaDesc';
+      }
+      console.log(language);
+
+      function languagechangeHandler(event) {
+        // document.cookie = "language=" + whatLanguage;
+        if (storageAvailable('localStorage')) {
+          localStorage.setItem('language', event.target.value);
+        }
+        params.set('language', event.target.value);
+        select.value = language;
+        window.location = (new URL(document.location)).toString().split('?')[0] + '?' + params.toString();
+      }
+      console.log(select.value);
     });
   </script>
   <style>
     body * {
-      margin-bottom: 0.5em;
-      margin-top: 0.5em;
       font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-size: xx-large;
-    }
-
-    div {
-      font-size: large;
     }
 
     table {
@@ -458,16 +286,6 @@
     th,
     td {
       border: 1px solid black;
-      padding: 0.05em;
-    }
-
-    th {
-      font-size: medium;
-    }
-
-    td *,
-    th * {
-      vertical-align: middle;
     }
 
     /* Rules for sizing the icon. */
