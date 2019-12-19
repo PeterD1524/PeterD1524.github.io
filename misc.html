@@ -93,10 +93,8 @@
         option.value = languages[i];
       }
       if (language !== undefined) {
-        console.log(language);
         select.value = language;
       }
-      console.log(select.value);
 
       let Untitled_spreadsheet = {
         URL: 'https://docs.google.com/spreadsheets/d/18Gjj4A1KX_tZMzeM7jDsd4g-DvE7b2CWF1rWqoh5NPs',
@@ -260,7 +258,6 @@
         a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + 'query' + '=' + 'gen_WazaDesc');
         a.textContent = 'gen_WazaDesc';
       }
-      console.log(language);
 
       function languagechangeHandler(event) {
         // document.cookie = "language=" + whatLanguage;
@@ -271,7 +268,6 @@
         select.value = language;
         window.location = (new URL(document.location)).toString().split('?')[0] + '?' + params.toString();
       }
-      console.log(select.value);
     });
   </script>
   <style>
