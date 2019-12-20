@@ -384,13 +384,18 @@
                     let a = document.createElement('a');
                     td.appendChild(a);
                     a.setAttribute('href', (new URL(document.location)) + '&' + 'm_Monsno' + '=' + Pokémon.getValue(i, 1) + '&' + 'm_Formno' + '=' + Pokémon.getValue(i, 2));
-                    a.textContent = Pokémon.getValue(i, j);
                     if (j === 3) {
                       let img = document.createElement('img');
+                      let span = document.createElement('span');
+                      a.appendChild(span);
+                      span.textContent = Pokémon.getValue(i, j);
+                      span.style.verticalAlign = 'middle';
                       a.prepend(img);
-                      img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
-                      img.style.width = '1em';
+                      img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + Pokémon.getValue(i, 1).toString().padStart(3, '0') + '_' + 'U' + '_' + Pokémon.getValue(i, 2).toString().padStart(2, '0') + '.png';
+                      img.style.height = '1em';
                       img.style.verticalAlign = 'middle';
+                    } else {
+                      a.textContent = Pokémon.getValue(i, j);
                     }
                   } else {
                     td.textContent = Pokémon.getValue(i, j);
@@ -444,7 +449,7 @@
               divs[1].style.height = '200px';
               divs[1].style.textAlign = 'center';
               divs[1].style.padding = '1em';
-              img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/pii/p' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+              img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/Texture2D/pii-icons-full/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
 
               img.onload = function () {
 
@@ -558,8 +563,13 @@
     });
   </script>
   <style>
+    body {
+      background-color: mintcream;
+    }
+
     body * {
       font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: xx-large;
     }
 
     table {
