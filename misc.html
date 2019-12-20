@@ -316,9 +316,26 @@
                     let td;
                     td = document.createElement('td');
                     tr.appendChild(td);
+                    let a;
+                    a = document.createElement('a');
+                    td.appendChild(a);
+                    let tempParams = (new URL(document.location)).searchParams;
+                    tempParams.set('query', 'gen_PiiDesc');
+                    tempParams.set('m_Monsno', m_Monsno);
+                    tempParams.set('m_Formno', m_Formno);
+                    tempParams.delete('ID');
+                    a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + tempParams.toString());
                     for (let j = 0; j < Pokémon.getNumberOfRows(); j++) {
                       if (Pokémon.getValue(j, 1) === m_Monsno && Pokémon.getValue(j, 2) === m_Formno) {
-                        td.textContent = Pokémon.getValue(j, 3);
+                        let img = document.createElement('img');
+                        let span = document.createElement('span');
+                        a.appendChild(span);
+                        span.textContent = Pokémon.getValue(j, 3);
+                        span.style.verticalAlign = 'middle';
+                        a.prepend(img);
+                        img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                        img.style.height = '1em';
+                        img.style.verticalAlign = 'middle';
                       }
                     }
                     td = document.createElement('td');
