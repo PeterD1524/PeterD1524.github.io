@@ -242,9 +242,10 @@
             let n = Number(ID) + 4;
             let column = '';
             while (n > 0) {
-              column = String.fromCharCode('A'.charCodeAt(0) + n % 26 - 1) + column;
-              n = (n - n % 26) / 26;
+              column = String.fromCharCode('A'.charCodeAt(0) + (n - 1) % 26) + column;
+              n = (n - (n - 1) % 26 - 1) / 26;
             }
+            console.log(column);
 
             queryString = encodeURIComponent('select B, C, ' + column);
             dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
@@ -256,6 +257,7 @@
             if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
+              console.log(QueryResponse);
               let gen_WazaGetDesc = QueryResponse.getDataTable();
               let table = document.createElement('table');
               body.appendChild(table);
