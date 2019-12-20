@@ -113,15 +113,21 @@
           },
           gen_PiiDesc: {
             headers: '0',
-            gid: '495489205',
+            gid: '181327591',
             sheet: 'gen_PiiDesc',
-            range: 'A:AB',
+            range: 'A:BH',
           },
           'gen_WazaDesc m_name': {
             headers: '0',
             gid: '1155071408',
             sheet: 'gen_WazaDesc m_name',
             range: 'A:I',
+          },
+          Pokémon: {
+            headers: '0',
+            gid: '1618710016',
+            sheet: 'Pokémon',
+            range: 'A:K',
           }
         },
       };
@@ -235,12 +241,163 @@
             });
           }
         },
+        gen_PiiDesc: function (m_Monsno, m_Formno) {
+          if (m_Monsno === undefined) {
+            let dataSourceUrl, optional_parameters;
+            let queryString;
+            dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+            optional_parameters = ['gid'];
+            for (let i = 0; i < optional_parameters.length; i++) {
+              dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.Pokémon[optional_parameters[i]] + '&';
+            }
+            dataSourceUrl = dataSourceUrl + 'range' + '=' + 'A:D' + '&';
+            if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            if (language !== undefined) {
+              queryString = encodeURIComponent('select A, B, C, ' + ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'][languages.indexOf(language)]);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.Pokémon[optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+            }
+            let query;
+            query = new google.visualization.Query(dataSourceUrl);
+            query.send(function (QueryResponse) {
+              let Pokémon = QueryResponse.getDataTable();
+              let table = document.createElement('table');
+              body.appendChild(table);
+              let tr;
+
+              let thead = document.createElement('thead');
+              table.appendChild(thead);
+              tr = document.createElement('tr');
+              thead.appendChild(tr);
+              for (let i = 0; i < Pokémon.getNumberOfColumns(); i++) {
+                let th = document.createElement('th');
+                tr.appendChild(th);
+                th.textContent = Pokémon.getColumnLabel(i);
+                if (i === 3) {
+                  th.textContent = 'Pokémon';
+                }
+              }
+
+              let tbody = document.createElement('tbody');
+              table.appendChild(tbody);
+              for (let i = 0; i < Pokémon.getNumberOfRows(); i++) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                for (let j = 0; j < Pokémon.getNumberOfColumns(); j++) {
+                  let td = document.createElement('td');
+                  tr.appendChild(td);
+                  if (j === 0 || j === 3) {
+                    let a = document.createElement('a');
+                    td.appendChild(a);
+                    a.setAttribute('href', (new URL(document.location)) + '&' + 'm_Monsno' + '=' + Pokémon.getValue(i, 1) + '&' + 'm_Formno' + '=' + Pokémon.getValue(i, 2));
+                    a.textContent = Pokémon.getValue(i, j);
+                    if (j === 3) {
+                      let img = document.createElement('img');
+                      a.prepend(img);
+                      img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                      img.style.width = '1em';
+                      img.style.verticalAlign = 'middle';
+                    }
+                  } else {
+                    td.textContent = Pokémon.getValue(i, j);
+                  }
+                }
+              }
+            });
+          } else {
+            if (m_Formno === undefined) {
+
+            } else {
+              let dataSourceUrl, optional_parameters;
+              let queryString;
+              let query;
+              let div;
+              div = document.createElement('div');
+              body.appendChild(div);
+              queryString = encodeURIComponent('select ' + ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'][languages.indexOf(language)] + ' where B = ' + m_Monsno + ' and C = ' + m_Formno);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.Pokémon[optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                let Pokémon = QueryResponse.getDataTable();
+                if (Pokémon.getNumberOfRows() === 1 && Pokémon.getNumberOfColumns() === 1) {
+                  let img = document.createElement('img');
+                  div.textContent = Pokémon.getValue(0, 0);
+                  div.prepend(img);
+                  img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                  img.style.width = '1em';
+                  img.style.verticalAlign = 'middle';
+                }
+              });
+
+              queryString = encodeURIComponent('where B = ' + m_Monsno + ' and C = ' + m_Formno);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_PiiDesc[optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                let gen_PiiDesc = QueryResponse.getDataTable();
+                let table = document.createElement('table');
+                body.appendChild(table);
+                let tr;
+                let tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+                for (let i = 0; i < gen_PiiDesc.getNumberOfColumns(); i++) {
+                  tr = document.createElement('tr');
+                  tbody.appendChild(tr);
+                  let td;
+                  td = document.createElement('td');
+                  tr.appendChild(td);
+                  let label = gen_PiiDesc.getColumnLabel(i);
+                  td.textContent = label;
+                  for (let j = 0; j < gen_PiiDesc.getNumberOfRows(); j++) {
+                    td = document.createElement('td');
+                    tr.appendChild(td);
+                    td.textContent = gen_PiiDesc.getValue(j, i);
+                  }
+                }
+              });
+            }
+          }
+        },
+
       }
 
       if (params.has('query')) {
         let q = params.get('query');
         let cb;
-        if (q === 'gen_WazaDesc') {
+        if (q === 'gen_PiiDesc') {
+          title.textContent = 'gen_WazaDesc';
+          if (params.has('m_Monsno')) {
+            let m_Monsno = params.get('m_Monsno');
+            if (params.has('m_Formno')) {
+              let m_Formno = params.get('m_Formno');
+              cb = function () {
+                callback.gen_PiiDesc(m_Monsno, m_Formno);
+              };
+            } else {
+              cb = function () {
+                callback.gen_PiiDesc(m_Monsno);
+              };
+            }
+          } else {
+            cb = callback.gen_PiiDesc;
+          }
+        } else if (q === 'gen_WazaDesc') {
           title.textContent = 'gen_WazaDesc';
           if (params.has('ID')) {
             let ID = params.get('ID');
@@ -253,8 +410,16 @@
         }
         google.charts.setOnLoadCallback(cb);
       } else {
-        let a = document.createElement('a');
-        body.appendChild(a);
+        let div = document.createElement('div');
+        body.appendChild(div);
+        let a;
+        a = document.createElement('a');
+        div.appendChild(a);
+        a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + 'query' + '=' + 'gen_PiiDesc');
+        a.textContent = 'gen_PiiDesc';
+        div.append(' ');
+        a = document.createElement('a');
+        div.appendChild(a);
         a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + 'query' + '=' + 'gen_WazaDesc');
         a.textContent = 'gen_WazaDesc';
       }
