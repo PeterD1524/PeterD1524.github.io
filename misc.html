@@ -128,7 +128,13 @@
             gid: '1618710016',
             sheet: 'Pokémon',
             range: 'A:K',
-          }
+          },
+          'PokeWazaTypeDesc.msbt': {
+            headers: '0',
+            gid: '198197519',
+            sheet: 'PokeWazaTypeDesc.msbt',
+            range: 'A:M',
+          },
         },
       };
 
@@ -199,7 +205,7 @@
             dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
             if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
 
-            
+
 
             let divs = [];
             for (let i = 0; i < 2; i++) {
@@ -208,7 +214,7 @@
               divs.push(div);
             }
 
-            
+
             let query;
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
@@ -256,7 +262,6 @@
               column = String.fromCharCode('A'.charCodeAt(0) + (n - 1) % 26) + column;
               n = (n - (n - 1) % 26 - 1) / 26;
             }
-            console.log(column);
 
             queryString = encodeURIComponent('select B, C, ' + column);
             dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
@@ -268,7 +273,6 @@
             if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
-              console.log(QueryResponse);
               let gen_WazaGetDesc = QueryResponse.getDataTable();
               let table = document.createElement('table');
               divs[1].appendChild(table);
@@ -439,6 +443,45 @@
               let queryString;
               let query;
 
+              let gen_WazaDesc, PokeWazaTypeDescmsbt, gen_WazaDescm_name;
+
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaDesc[optional_parameters[i]] + '&';
+              }
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                gen_WazaDesc = QueryResponse.getDataTable();
+              });
+
+              queryString = encodeURIComponent('select A, ' + ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'][languages.indexOf(language)]);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['PokeWazaTypeDesc.msbt'][optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                PokeWazaTypeDescmsbt = QueryResponse.getDataTable();
+              });
+
+              queryString = encodeURIComponent('select A, ' + ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'][languages.indexOf(language)]);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['gen_WazaDesc m_name'][optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                gen_WazaDescm_name = QueryResponse.getDataTable();
+              });
+
               let divs = [];
               for (let i = 0; i < 4; i++) {
                 let div = document.createElement('div');
@@ -481,11 +524,13 @@
 
               img.onload = function () {
 
+                /*
                 console.log(img.style.width);
                 console.log(img.style.height);
                 console.log(img.width);
                 console.log(img.height);
                 console.log(divs[1].style.width, divs[1].style.height, divs[1].width, divs[1].height);
+                */
 
                 if (img.width >= img.height) {
                   img.style.maxWidth = '100%';
@@ -538,9 +583,6 @@
                       tempParams.set('ID', gen_PiiDesc.getValue(j, i));
                       tempParams.delete('m_Monsno');
                       tempParams.delete('m_Formno');
-                      for (let i of params.keys()) {
-                        console.log(i);
-                      }
                       a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + tempParams.toString());
                       a.textContent = gen_PiiDesc.getValue(j, i);
 
@@ -559,11 +601,141 @@
                           a.textContent = gen_WazaDescm_name.getValue(0, 0);
                         }
                       });
+                    } else if (label === 'm_type1' || label === 'm_type2') {
+                      let a = document.createElement('a');
+                      td.appendChild(a);
+                      let tempParams = (new URL(document.location)).searchParams;;
+                      tempParams.set('query', 'gen_PokeWazaTypeDesc');
+                      tempParams.set('ID', gen_PiiDesc.getValue(j, i));
+                      tempParams.delete('m_Monsno');
+                      tempParams.delete('m_Formno');
+                      a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + tempParams.toString());
+                      a.textContent = gen_PiiDesc.getValue(j, i);
+
+                      queryString = encodeURIComponent('select ' + ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'][languages.indexOf(language)] + ' where A = ' + gen_PiiDesc.getValue(j, i));
+                      dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+                      optional_parameters = ['gid'];
+                      for (let i = 0; i < optional_parameters.length; i++) {
+                        dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['PokeWazaTypeDesc.msbt'][optional_parameters[i]] + '&';
+                      }
+                      dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+                      if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+                      query = new google.visualization.Query(dataSourceUrl);
+                      query.send(function (QueryResponse) {
+                        let PokeWazaTypeDescmsbt = QueryResponse.getDataTable();
+                        if (PokeWazaTypeDescmsbt.getNumberOfRows() === 1 && PokeWazaTypeDescmsbt.getNumberOfColumns() === 1) {
+                          a.textContent = PokeWazaTypeDescmsbt.getValue(0, 0);
+                        }
+                      });
                     } else {
                       td.textContent = gen_PiiDesc.getValue(j, i);
                     }
                   }
                 }
+              });
+
+              let div;
+              div = document.createElement('div');
+              divs[3].appendChild(div);
+              div.textContent = 'Learnset';
+              queryString = encodeURIComponent('where B = ' + m_Monsno + ' and C = ' + m_Formno);
+              dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+              optional_parameters = ['gid'];
+              for (let i = 0; i < optional_parameters.length; i++) {
+                dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets.gen_WazaGetDesc[optional_parameters[i]] + '&';
+              }
+              dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              query = new google.visualization.Query(dataSourceUrl);
+              query.send(function (QueryResponse) {
+                let gen_WazaGetDesc = QueryResponse.getDataTable();
+                let learnset = [];
+                if (gen_WazaGetDesc.getNumberOfRows() === 1) {
+                  for (let i = 0; i < gen_WazaGetDesc.getNumberOfColumns(); i++) {
+                    if (gen_WazaGetDesc.getColumnLabel(i).startsWith('m_getLevel')) {
+                      if (gen_WazaGetDesc.getValue(0, i) > 0) {
+                        learnset.push([Number(gen_WazaGetDesc.getColumnLabel(i).split('[')[1].split(']')[0]), '', '', '', gen_WazaGetDesc.getValue(0, i)]);
+                      }
+                    }
+                  }
+                }
+                let learnsetHeaders = ['ID', 'm_star', 'm_type', 'm_name', 'm_getLevel'];
+                async function a() {
+                  while (gen_WazaDesc === undefined || PokeWazaTypeDescmsbt === undefined || gen_WazaDescm_name === undefined) {
+                    await resolveAfter(1000);
+                  }
+                  for (let i = 0; i < learnset.length; i++) {
+                    for (let j = 0; j < gen_WazaDesc.getNumberOfRows(); j++) {
+                      if (gen_WazaDesc.getValue(j, 0) === learnset[i][0]) {
+                        for (let k = 0; k < gen_WazaDesc.getNumberOfColumns(); k++) {
+                          if (gen_WazaDesc.getColumnLabel(k) === learnsetHeaders[1]) {
+                            learnset[i][1] = gen_WazaDesc.getValue(j, k);
+                          }
+                          if (gen_WazaDesc.getColumnLabel(k) === learnsetHeaders[2]) {
+                            learnset[i][2] = gen_WazaDesc.getValue(j, k);
+                          }
+                        }
+                        break;
+                      }
+                    }
+                    for (let j = 0; j < PokeWazaTypeDescmsbt.getNumberOfRows(); j++) {
+                      if (PokeWazaTypeDescmsbt.getValue(j, 0) === learnset[i][2]) {
+                        learnset[i][2] = PokeWazaTypeDescmsbt.getValue(j, 1);
+                        break;
+                      }
+                    }
+                    for (let j = 0; j < gen_WazaDescm_name.getNumberOfRows(); j++) {
+                      if (gen_WazaDescm_name.getValue(j, 0) === learnset[i][0]) {
+                        learnset[i][3] = gen_WazaDescm_name.getValue(j, 1);
+                        break;
+                      }
+                    }
+                  }
+
+                  learnset.sort(function (a, b) {
+                    return a[4] - b[4];
+                  });
+
+                  learnset.sort(function (a, b) {
+                    return b[1] - a[1];
+                  });
+
+                  let table = document.createElement('table');
+                  divs[3].appendChild(table);
+                  let thead = document.createElement('thead');
+                  table.appendChild(thead);
+                  let tr = document.createElement('tr');
+                  thead.appendChild(tr);
+                  for (let i = 0; i < learnsetHeaders.length; i++) {
+                    let th = document.createElement('th');
+                    tr.appendChild(th);
+                    th.textContent = learnsetHeaders[i];
+                  }
+                  let tbody = document.createElement('tbody');
+                  table.appendChild(tbody);
+                  for (let i = 0; i < learnset.length; i++) {
+                    let tr = document.createElement('tr');
+                    tbody.appendChild(tr);
+                    for (let j = 0; j < learnset[i].length; j++) {
+                      let td = document.createElement('td');
+                      tr.appendChild(td);
+                      if (learnsetHeaders[j] === 'm_name') {
+                        let a = document.createElement('a');
+                        td.appendChild(a);
+                        let tempParams = (new URL(document.location)).searchParams;;
+                        tempParams.set('query', 'gen_WazaDesc');
+                        tempParams.set('ID', learnset[i][0]);
+                        tempParams.delete('m_Monsno');
+                        tempParams.delete('m_Formno');
+                        a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + tempParams.toString());
+                        a.textContent = learnset[i][j];
+                      } else {
+                        td.textContent = learnset[i][j];
+                      }
+                    }
+                  }
+                }
+                a();
               });
             }
           }
@@ -639,7 +811,7 @@
       font-size: xx-large;
     }
 
-    body > * {
+    body>* {
       margin: 1em;
     }
 
