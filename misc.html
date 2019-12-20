@@ -198,12 +198,23 @@
             }
             dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
             if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+
+            
+
+            let divs = [];
+            for (let i = 0; i < 2; i++) {
+              let div = document.createElement('div');
+              body.appendChild(div);
+              divs.push(div);
+            }
+
+            
             let query;
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
               let gen_WazaDesc = QueryResponse.getDataTable();
               let table = document.createElement('table');
-              body.appendChild(table);
+              divs[0].appendChild(table);
               let tr;
               let tbody = document.createElement('tbody');
               table.appendChild(tbody);
@@ -260,7 +271,7 @@
               console.log(QueryResponse);
               let gen_WazaGetDesc = QueryResponse.getDataTable();
               let table = document.createElement('table');
-              body.appendChild(table);
+              divs[1].appendChild(table);
               let tr;
 
               let thead = document.createElement('thead');
@@ -626,6 +637,10 @@
     body * {
       font-family: 'Roboto Mono', 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       font-size: xx-large;
+    }
+
+    body > * {
+      margin: 1em;
     }
 
     table {
