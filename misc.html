@@ -405,9 +405,14 @@
               let dataSourceUrl, optional_parameters;
               let queryString;
               let query;
-              let div;
-              div = document.createElement('div');
-              body.appendChild(div);
+
+              let divs = [];
+              for (let i = 0; i < 4; i++) {
+                let div = document.createElement('div');
+                divs.push(div);
+                body.appendChild(div);
+              }
+
               queryString = encodeURIComponent('select ' + ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'][languages.indexOf(language)] + ' where B = ' + m_Monsno + ' and C = ' + m_Formno);
               dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
               optional_parameters = ['gid'];
@@ -421,13 +426,37 @@
                 let Pokémon = QueryResponse.getDataTable();
                 if (Pokémon.getNumberOfRows() === 1 && Pokémon.getNumberOfColumns() === 1) {
                   let img = document.createElement('img');
-                  div.textContent = Pokémon.getValue(0, 0);
-                  div.prepend(img);
+                  divs[0].textContent = Pokémon.getValue(0, 0);
+                  divs[0].prepend(img);
                   img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
                   img.style.width = '1em';
                   img.style.verticalAlign = 'middle';
                 }
               });
+
+              let img = document.createElement('img');
+              divs[1].appendChild(img);
+              divs[1].style.width = '200px';
+              divs[1].style.height = '200px';
+              divs[1].style.textAlign = 'center';
+              divs[1].style.padding = '1em';
+              img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/pii/p' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+
+              img.onload = function () {
+
+                console.log(img.style.width);
+                console.log(img.style.height);
+                console.log(img.width);
+                console.log(img.height);
+                console.log(divs[1].style.width, divs[1].style.height, divs[1].width, divs[1].height);
+
+                if (img.width >= img.height) {
+                  img.style.maxWidth = '100%';
+                } else {
+                  img.style.maxHeight = '100%';
+                }
+                img.style.marginTop = ((Number(divs[1].style.height.split('px')[0]) - img.height) / 2).toString() + 'px';
+              };
 
               queryString = encodeURIComponent('where B = ' + m_Monsno + ' and C = ' + m_Formno);
               dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
@@ -441,7 +470,7 @@
               query.send(function (QueryResponse) {
                 let gen_PiiDesc = QueryResponse.getDataTable();
                 let table = document.createElement('table');
-                body.appendChild(table);
+                divs[2].appendChild(table);
                 let tr;
                 let tbody = document.createElement('tbody');
                 table.appendChild(tbody);
