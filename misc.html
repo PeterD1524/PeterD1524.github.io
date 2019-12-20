@@ -630,6 +630,10 @@
                     } else {
                       td.textContent = gen_PiiDesc.getValue(j, i);
                     }
+                    if (label === 'm_maxHP' || label === 'm_ap' || label === 'm_dp' || label === 'm_spd') {
+                      td.style.backgroundColor = 'gray';
+                      td.parentElement.querySelector('td').style.backgroundColor = 'gray';
+                    }
                   }
                 }
               });
