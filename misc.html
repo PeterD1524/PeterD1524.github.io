@@ -426,13 +426,17 @@
                 let Pokémon = QueryResponse.getDataTable();
                 if (Pokémon.getNumberOfRows() === 1 && Pokémon.getNumberOfColumns() === 1) {
                   let img = document.createElement('img');
-                  divs[0].textContent = Pokémon.getValue(0, 0);
+                  let span = document.createElement('span');
+                  divs[0].appendChild(span);
+                  span.textContent = Pokémon.getValue(0, 0);
+                  span.style.verticalAlign = 'middle';
                   divs[0].prepend(img);
-                  img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
-                  img.style.width = '1em';
+                  img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                  img.style.height = '1em';
                   img.style.verticalAlign = 'middle';
                 }
               });
+
 
               let img = document.createElement('img');
               divs[1].appendChild(img);
