@@ -274,6 +274,9 @@
             query = new google.visualization.Query(dataSourceUrl);
             query.send(function (QueryResponse) {
               let gen_WazaGetDesc = QueryResponse.getDataTable();
+              let div = document.createElement('div');
+              divs[1].appendChild(div);
+              div.textContent = 'Learnset';
               let table = document.createElement('table');
               divs[1].appendChild(table);
               let tr;
@@ -318,8 +321,10 @@
               query = new google.visualization.Query(dataSourceUrl);
               query.send(function (QueryResponse) {
                 let Pokémon = QueryResponse.getDataTable();
+                let nothing = true;
                 for (let i = 0; i < gen_WazaGetDesc.getNumberOfRows(); i++) {
                   if (gen_WazaGetDesc.getValue(i, 2) > 0) {
+                    nothing = false;
                     tr = document.createElement('tr');
                     tbody.appendChild(tr);
                     let m_Monsno = gen_WazaGetDesc.getValue(i, 0), m_Formno = gen_WazaGetDesc.getValue(i, 1);
@@ -367,6 +372,15 @@
                     tr.appendChild(td);
                     td.textContent = gen_WazaGetDesc.getValue(i, 2);
                   }
+                }
+
+                if (nothing === true) {
+                  tr = document.createElement('tr');
+                  tbody.appendChild(tr);
+                  let td = document.createElement('td');
+                  tr.appendChild(td);
+                  td.setAttribute('colspan', 4);
+                  td.textContent = 'No information available.';
                 }
               });
             });
@@ -758,6 +772,14 @@
                   }
                   let tbody = document.createElement('tbody');
                   table.appendChild(tbody);
+                  if (learnset.length === 0) {
+                    let tr = document.createElement('tr');
+                    tbody.appendChild(tr);
+                    let td = document.createElement('td');
+                    tr.appendChild(td);
+                    td.setAttribute('colspan', 5);
+                    td.textContent = 'No information available.';
+                  }
                   for (let i = 0; i < learnset.length; i++) {
                     let tr = document.createElement('tr');
                     tbody.appendChild(tr);
