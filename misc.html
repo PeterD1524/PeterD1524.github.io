@@ -855,6 +855,11 @@
         div.appendChild(a);
         a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + 'query' + '=' + 'gen_WazaDesc');
         a.textContent = 'gen_WazaDesc';
+        div.append(' ');
+        a = document.createElement('a');
+        div.appendChild(a);
+        a.setAttribute('href', 'https://peterd1524.github.io/test');
+        a.textContent = 'old';
       }
 
       function languagechangeHandler(event) {
