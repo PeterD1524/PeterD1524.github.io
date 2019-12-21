@@ -252,6 +252,30 @@
                         td.textContent = gen_WazaDescm_name.getValue(0, 0);
                       }
                     });
+                  } else if (label === 'm_type') {
+                    let a = document.createElement('a');
+                    let tempParams = (new URL(document.location)).searchParams;;
+                    tempParams.set('query', 'gen_PokeWazaTypeDesc');
+                    tempParams.set('ID', gen_WazaDesc.getValue(j, i));
+                    a.setAttribute('href', (new URL(document.location)).toString().split('?')[0] + '?' + tempParams.toString());
+
+                    queryString = encodeURIComponent('select ' + ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'][languages.indexOf(language)] + ' where A = ' + gen_WazaDesc.getValue(j, i));
+                    dataSourceUrl = Untitled_spreadsheet.URL + '/gviz/tq?';
+                    optional_parameters = ['gid'];
+                    for (let i = 0; i < optional_parameters.length; i++) {
+                      dataSourceUrl = dataSourceUrl + optional_parameters[i] + '=' + Untitled_spreadsheet.sheets['PokeWazaTypeDesc.msbt'][optional_parameters[i]] + '&';
+                    }
+                    dataSourceUrl = dataSourceUrl + 'tq' + '=' + queryString + '&';
+                    if (dataSourceUrl[dataSourceUrl.length - 1] === '&') dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+                    query = new google.visualization.Query(dataSourceUrl);
+                    query.send(function (QueryResponse) {
+                      let PokeWazaTypeDescmsbt = QueryResponse.getDataTable();
+                      if (PokeWazaTypeDescmsbt.getNumberOfRows() === 1 && PokeWazaTypeDescmsbt.getNumberOfColumns() === 1) {
+                        a.textContent = PokeWazaTypeDescmsbt.getValue(0, 0);
+                        td.textContent = '';
+                        td.appendChild(a);
+                      }
+                    });
                   }
                 }
               }
