@@ -348,7 +348,17 @@
                         span.textContent = Pokémon.getValue(j, 3);
                         span.style.verticalAlign = 'middle';
                         a.prepend(img);
-                        img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                        let UMF = ['U', 'M', 'F'], index = 0;
+                        img.onerror = function () {
+                          index = index + 1;
+                          if (index < 3) {
+                            img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                          } else {
+                            img.onerror = '';
+                            img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                          }
+                        }
+                        img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
                         img.style.height = '1em';
                         img.style.verticalAlign = 'middle';
                       }
@@ -423,7 +433,17 @@
                       span.textContent = Pokémon.getValue(i, j);
                       span.style.verticalAlign = 'middle';
                       a.prepend(img);
-                      img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + Pokémon.getValue(i, 1).toString().padStart(3, '0') + '_' + 'U' + '_' + Pokémon.getValue(i, 2).toString().padStart(2, '0') + '.png';
+                      let UMF = ['U', 'M', 'F'], index = 0;
+                      img.onerror = function () {
+                        index = index + 1;
+                        if (index < 3) {
+                          img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + Pokémon.getValue(i, 1).toString().padStart(3, '0') + '_' + UMF[index] + '_' + Pokémon.getValue(i, 2).toString().padStart(2, '0') + '.png';
+                        } else {
+                          img.onerror = '';
+                          img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                        }
+                      }
+                      img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + Pokémon.getValue(i, 1).toString().padStart(3, '0') + '_' + UMF[index] + '_' + Pokémon.getValue(i, 2).toString().padStart(2, '0') + '.png';
                       img.style.height = '1em';
                       img.style.verticalAlign = 'middle';
                     } else {
@@ -507,7 +527,17 @@
                   span.textContent = Pokémon.getValue(0, 0);
                   span.style.verticalAlign = 'middle';
                   divs[0].prepend(img);
-                  img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                  let UMF = ['U', 'M', 'F'], index = 0;
+                  img.onerror = function () {
+                    index = index + 1;
+                    if (index < 3) {
+                      img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                    } else {
+                      img.onerror = '';
+                      img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                    }
+                  }
+                  img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/icon/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
                   img.style.height = '1em';
                   img.style.verticalAlign = 'middle';
                 }
@@ -520,7 +550,18 @@
               divs[1].style.height = '200px';
               divs[1].style.textAlign = 'center';
               divs[1].style.padding = '1em';
-              img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/Texture2D/pii-icons-full/' + m_Monsno.toString().padStart(3, '0') + '_' + 'U' + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+
+              let UMF = ['U', 'M', 'F'], index = 0;
+              img.onerror = function () {
+                index = index + 1;
+                if (index < 3) {
+                  img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/Texture2D/pii-icons-full/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
+                } else {
+                  img.onerror = '';
+                  img.src = 'https://cdn.discordapp.com/emojis/402867992930680833.png';
+                }
+              }
+              img.src = 'https://raw.githubusercontent.com/PeterD1524/test/master/Texture2D/pii-icons-full/' + m_Monsno.toString().padStart(3, '0') + '_' + UMF[index] + '_' + m_Formno.toString().padStart(2, '0') + '.png';
 
               img.onload = function () {
 
