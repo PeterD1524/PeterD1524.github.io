@@ -206,7 +206,7 @@
         map_layer_ctx.fillStyle = 'rgb(1, 56, 203)';
       }
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
-      if (Date.now() > date) {
+      if (Date.now() < date) {
         map_layer_ctx.textAlign = 'center';
         map_layer_ctx.font = '72px Roboto';
         map_layer_ctx.fillStyle = 'black';
