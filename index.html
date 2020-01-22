@@ -17,15 +17,15 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       "use strict";
-      let current = '1132991803';
-      let currentMap = '2133522370';
-      let currentImage = 'ggggg.png';
+      let current = '1163282922';
+      let currentMap = '492125540';
+      let currentImage = 'MyslandChart.png';
       let currentColor = 'rgb(1, 56, 203)';
-      let next = '1163282922';
-      let nextMap = '492125540';
-      let nextImage = 'MyslandChart.png';
+      let next = '1666141842';
+      let nextMap = '2084734540';
+      let nextImage = 'ggggg.png';
       let nextColor = 'rgb(1, 56, 203)';
-      let date = 1578463200000;
+      let date = 1579672800000;
 
       let whatLanguage;
 
@@ -208,7 +208,7 @@
         map_layer_ctx.fillStyle = nextColor;
       }
       map_layer_ctx.fillRect(0, 0, map_layer.width, map_layer.height);
-      if (Date.now() < date) {
+      if (Date.now() > date) {
         map_layer_ctx.textAlign = 'center';
         map_layer_ctx.font = '72px Roboto';
         map_layer_ctx.fillStyle = 'black';
