@@ -313,20 +313,21 @@
               }
 
               let data = response.getDataTable();
+              console.log(data);
 
-              for (let i = 0; i < data.wg.length; i++) {
-                if (data.wg[i].c[0] !== null) {
+              for (let i = 0; i < data.Hg.length; i++) {
+                if (data.Hg[i].c[0] !== null) {
                   let option = document.createElement('option');
                   if (language.value !== 'en-us') {
-                    if ((3 <= Number(event.target.value) && Number(event.target.value) <= 6 || Number(event.target.value) === 8) && enTo[data.wg[i].c[0].v] !== undefined) {
-                      option.value = enTo[data.wg[i].c[0].v];
-                    } else if (Number(event.target.value) === 7 && biomeenTo[data.wg[i].c[0].v] !== undefined) {
-                      option.value = biomeenTo[data.wg[i].c[0].v];
+                    if ((3 <= Number(event.target.value) && Number(event.target.value) <= 6 || Number(event.target.value) === 8) && enTo[data.Hg[i].c[0].v] !== undefined) {
+                      option.value = enTo[data.Hg[i].c[0].v];
+                    } else if (Number(event.target.value) === 7 && biomeenTo[data.Hg[i].c[0].v] !== undefined) {
+                      option.value = biomeenTo[data.Hg[i].c[0].v];
                     } else {
-                      option.value = data.wg[i].c[0].v;
+                      option.value = data.Hg[i].c[0].v;
                     }
                   } else {
-                    option.value = data.wg[i].c[0].v;
+                    option.value = data.Hg[i].c[0].v;
                   }
                   datalist.appendChild(option);
                 }
@@ -355,18 +356,18 @@
 
               let data = response.getDataTable();
 
-              for (let i = 0; i < data.wg.length; i++) {
-                for (let j = 0; j < data.wg[i].c.length; j++) {
-                  if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
+              for (let i = 0; i < data.Hg.length; i++) {
+                for (let j = 0; j < data.Hg[i].c.length; j++) {
+                  if (data.Hg[i].c[j] !== null && data.Hg[i].c[j].v !== null) {
                     let datalist = Values_divs[j].querySelector('datalist');
                     let option = document.createElement('option');
                     if (language.value !== 'en-us') {
-                      option.value = data.wg[i].c[j].v.split('/').map(function (x) {
+                      option.value = data.Hg[i].c[j].v.split('/').map(function (x) {
                         if (enTo[x] !== undefined) return enTo[x];
                         return x;
                       }).join('/');
                     } else {
-                      option.value = data.wg[i].c[j].v;
+                      option.value = data.Hg[i].c[j].v;
                     }
                     datalist.appendChild(option);
                   }
@@ -398,21 +399,21 @@
 
               let data = response.getDataTable();
 
-              for (let i = 0; i < data.wg.length; i++) {
-                for (let j = 0; j < data.wg[i].c.length; j++) {
-                  if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
+              for (let i = 0; i < data.Hg.length; i++) {
+                for (let j = 0; j < data.Hg[i].c.length; j++) {
+                  if (data.Hg[i].c[j] !== null && data.Hg[i].c[j].v !== null) {
                     let datalist = Values_divs[j].querySelector('datalist');
                     let option = document.createElement('option');
                     if (language.value !== 'en-us') {
-                      if (3 <= j && j <= 6 && enTo[data.wg[i].c[j].v] !== undefined) {
-                        option.value = enTo[data.wg[i].c[j].v];
-                      } else if (j === 7 && biomeenTo[data.wg[i].c[j].v] !== undefined) {
-                        option.value = biomeenTo[data.wg[i].c[j].v];
+                      if (3 <= j && j <= 6 && enTo[data.Hg[i].c[j].v] !== undefined) {
+                        option.value = enTo[data.Hg[i].c[j].v];
+                      } else if (j === 7 && biomeenTo[data.Hg[i].c[j].v] !== undefined) {
+                        option.value = biomeenTo[data.Hg[i].c[j].v];
                       } else {
-                        option.value = data.wg[i].c[j].v;
+                        option.value = data.Hg[i].c[j].v;
                       }
                     } else {
-                      option.value = data.wg[i].c[j].v;
+                      option.value = data.Hg[i].c[j].v;
                     }
                     datalist.appendChild(option);
                   }
@@ -461,11 +462,11 @@
 
             dataTable = [];
 
-            for (let i = 0; i < data.wg.length; i++) {
+            for (let i = 0; i < data.Hg.length; i++) {
               dataTable.push([]);
-              for (let j = 0; j < data.wg[i].c.length; j++) {
-                if (data.wg[i].c[j] !== null && data.wg[i].c[j].v !== null) {
-                  dataTable[i].push(data.wg[i].c[j].v);
+              for (let j = 0; j < data.Hg[i].c.length; j++) {
+                if (data.Hg[i].c[j] !== null && data.Hg[i].c[j].v !== null) {
+                  dataTable[i].push(data.Hg[i].c[j].v);
                 } else {
                   dataTable[i].push('');
                 }
