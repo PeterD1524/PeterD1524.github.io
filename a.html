@@ -1,0 +1,328 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149860612-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-149860612-1');
+  </script>
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      "use strict";
+
+      if (!String.prototype.startsWith) {
+        Object.defineProperty(String.prototype, 'startsWith', {
+          value: function (search, rawPos) {
+            var pos = rawPos > 0 ? rawPos | 0 : 0;
+            return this.substring(pos, pos + search.length) === search;
+          }
+        });
+      }
+
+      let googleChartsLoaded = false, ready = false;
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', { 'packages': ['corechart'] });
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(callback);
+
+      const Event = {
+        '05 Feb 2020 06:00:00 GMT': {
+          mainSheet: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            gid: 1306127858,
+            sheet: 'Butterfree Sea',
+          },
+          Map: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            gid: 1793204655,
+            sheet: 'Butterfree Sea Map',
+            ranges: {
+              '0': 'AA:AA',
+              '1': 'AB:AB',
+              '2': 'AC:AC',
+              '3': 'AD:AD',
+              '4': 'AE:AE',
+              '5': 'AF:AF',
+              '6': 'AG:AG',
+              '7': 'AH:AH',
+              '8': 'AI:AI',
+              '9': 'AJ:AK',
+              '10': 'AA:AH',
+            },
+            headerss: {
+              '0': 1,
+              '1': 1,
+              '2': 1,
+              '3': 1,
+              '4': 1,
+              '5': 1,
+              '6': 1,
+              '7': 1,
+              '8': 1,
+              '9': 1,
+              '10': 1,
+            },
+          },
+          image: 'ggggg.png',
+          color: 'rgb(1, 56, 203)',
+        },
+        '19 Feb 2020 06:00:00 GMT': {
+          mainSheet: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            gid: 396877320,
+            sheet: '20 Charizard Sea',
+          },
+          Map: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            gid: null,
+            sheet: '20 Charizard Sea Map',
+          },
+          image: 'MyslandChart.png',
+          color: 'rgb(1, 56, 203)',
+        },
+      };
+      const languages = [
+        { key: 'en-us', value: 'English', },
+        { key: 'fr', value: 'Français', },
+        { key: 'it', value: 'Italiano', },
+        { key: 'de', value: 'Deutsch', },
+        { key: 'es', value: 'Español', },
+        { key: 'zh-tw', value: '中文（繁體）', },
+        { key: 'ko', value: '한국어', },
+        { key: 'ja', value: '日本語', },
+      ];
+      const modes = [
+        { value: '0', textContent: 'Star', },
+        { value: '1', textContent: 'X', },
+        { value: '2', textContent: 'Y', },
+        { value: '3', textContent: 'Boss', },
+        { value: '4', textContent: 'Sub-Boss', },
+        { value: '5', textContent: 'Common', },
+        { value: '6', textContent: 'Uncommon', },
+        { value: '7', textContent: 'Biome', },
+        { value: '8', textContent: 'Where is', },
+        { value: '9', textContent: 'Combination', },
+        { value: '10', textContent: 'Free', },
+        { value: '11', textContent: 'Draw', },
+      ];
+      const strings = {
+        'description': {
+          'en-us': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'fr': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'it': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'de': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'es': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'zh-tw': '<p>數據來自<a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>如果您發現自己的位置可以為他人提供幫助，請隨時添加。不完整的數據也是可以接受的。<br>海部分當前僅是單色背景。<br>某些位置只有在達到特定階段後才能解鎖。</p><p>首先，選擇模式。<br>並輸入一個值。<br>然後點擊按鈕。</p><p>搜索結果也將列在地圖下方。</p><p>Value的選單（&lt;datalist&gt;），Safari好像要12.1以上才支援喔，我也不是很懂哈哈，沒有選單自己輸入應該也是可以但是要完全打對。</p>',
+          'ko': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+          'ja': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
+        },
+        'announcement': {
+          'en-us': 'The website is very unstable recently. Sorry for the inconvenience.',
+          'fr': 'Le site Web est très instable récemment. Désolé pour le dérangement.',
+          'it': 'Il sito web è molto instabile di recente. Ci dispiace per l\'inconvenienza.',
+          'de': 'Die Website ist in letzter Zeit sehr instabil. Entschuldigung für die Unannehmlichkeiten.',
+          'es': 'El sitio web es muy inestable recientemente. Lo siento por los inconvenientes ocasionados.',
+          'zh-tw': '該網站最近非常不穩定。 抱歉給你帶來不便。',
+          'ko': '최근 웹 사이트가 매우 불안정합니다. 불편을 드려 죄송합니다.',
+          'ja': 'ウェブサイトは最近非常に不安定です。 ご不便おかけしてすみません。',
+        }
+      };
+      const defaultLanguage = 'en-us';
+
+      let language = defaultLanguage;
+      if (storageAvailable('localStorage')) {
+        // Yippee! We can use localStorage awesomeness
+        if (localStorage.getItem('language') === null) {
+          for (let i = 0; i < languages.length; i++) {
+            if (navigator.language.split('-')[0].startsWith(languages[i].key.split('-')[0])) {
+              language = languages[i].key;
+              break;
+            }
+          }
+        } else {
+          let localStorageLanguage = localStorage.getItem('language');
+          for (let i = 0; i < languages.length; i++) {
+            if (localStorageLanguage === languages[i].key) {
+              language = languages[i].key;
+              break;
+            }
+          }
+        }
+      }
+      else {
+        // Too bad, no localStorage for us
+        for (let i = 0; i < languages.length; i++) {
+          if (navigator.language.split('-')[0].startsWith(languages[i].key.split('-')[0])) {
+            language = languages[i].key;
+            break;
+          }
+        }
+      }
+
+      const body = document.getElementsByTagName('body')[0];
+      const header = document.createElement('div');
+      const languageDiv = document.createElement('div');
+      const languageSelect = document.createElement('select');
+      for (let i = 0; i < languages.length; i++) {
+        let option = document.createElement('option');
+        option.value = languages[i].key;
+        option.textContent = languages[i].value;
+        languageSelect.appendChild(option);
+      }
+      languageDiv.appendChild(languageSelect);
+      header.appendChild(languageDiv);
+      body.appendChild(header);
+      const description = document.createElement('div');
+      description.id = 'description';
+      body.appendChild(description);
+      const announcementDiv = document.createElement('div');
+      const announcementa = document.createElement('p');
+      announcementa.innerHTML = 'Please check out the poll on the spreadsheet.<br>Link: <a href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393</a>';
+      const announcement = document.createElement('p');
+      announcement.id = 'announcement';
+      announcement.style.fontSize = '24px';
+      announcementDiv.appendChild(announcement);
+      body.appendChild(announcementDiv);
+
+      languageSelect.value = language;
+      languageChange(language);
+
+      languageSelect.addEventListener('change', languageSelectChange);
+
+      function storageAvailable(type) {
+        var storage;
+        try {
+          storage = window[type];
+          var x = '__storage_test__';
+          storage.setItem(x, x);
+          storage.removeItem(x);
+          return true;
+        }
+        catch (e) {
+          return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+        }
+      }
+
+      function languageSelectChange(event) {
+        let eventTargetValue = event.target.value;
+        for (let i = 0; i < languages.length; i++) {
+          if (eventTargetValue === languages[i].key) {
+            language = event.target.value;
+            languageChange(language);
+            if (storageAvailable('localStorage')) {
+              // Yippee! We can use localStorage awesomeness
+              localStorage.setItem('language', language);
+            }
+            break;
+          }
+        }
+      }
+
+      function languageChange(language) {
+        for (let i in strings) {
+          let element = document.getElementById(i);
+          element.innerHTML = strings[i][language];
+        }
+      }
+
+      function modeSelectChange(event) {
+        let eventTargetValue = event.target.value;
+        for (let i = 0; i < modes.length; i++) {
+          if (eventTargetValue === modes[i].value) {
+            mode = eventTargetValue;
+            modeChange(mode);
+            break;
+          }
+        }
+      }
+
+      function modeChange(mode) {
+        for (let i = 0; i < modes.length; i++) {
+          if (mode === modes[i].value) {
+            if (0 <= mode <= 10) {
+              if (googleChartsLoaded === true) {
+                let URL = Event[EventKey].Map.URL;
+                let optionalParameters = {
+                  headers: Event[EventKey].Map.headerss[mode],
+                  gid: Event[EventKey].Map.gid,
+                  range: Event[EventKey].Map.ranges[mode],
+                };
+                let gid = Event[EventKey].Map.gid;
+                let dataSourceUrl = URL + '/gviz/tq?';
+                for (let i in optionalParameters) {
+                  dataSourceUrl = dataSourceUrl + i + '=' + optionalParameters[i].toString() + '&';
+                }
+                if (dataSourceUrl[dataSourceUrl.length - 1] === '&') {
+                  dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+                }
+                let query = new google.visualization.Query(dataSourceUrl);
+                query.send(handleQueryResponse);
+                function handleQueryResponse(response) {
+                  let data = response.getDataTable();
+                  console.log(data);
+                  for (let columnIndex = 0; columnIndex < data.getNumberOfColumns(); columnIndex++) {
+                    console.log(data.getColumnLabel(columnIndex));
+                  }
+                }
+              }
+            }
+            break;
+          }
+        }
+      }
+
+      function callback() {
+        googleChartsLoaded = true;
+      }
+
+      function loadingBackground(element) {
+        let a = 255, b = -2;
+        let interval = setInterval(function () {
+          element.style.backgroundColor = 'rgb(' + a.toString() + ', ' + a.toString() + ', ' + a.toString() + ')';
+          if (a + b < 172 || a + b > 255) {
+            b = b * -1;
+          }
+          a = a + b;
+        }, 25);
+        return interval;
+      }
+
+      function dateChange() {
+        let DateNow;
+        DateNow = Date.now();
+        let min = -1;
+        for (let i in Event) {
+          let DateParseI = Date.parse(i);
+          if (DateParseI > min && DateParseI < DateNow) {
+            EventKey = i;
+            min = DateParseI;
+          }
+        }
+      }
+    });
+  </script>
+</head>
+
+<body></body>
+
+</html>
