@@ -1,7 +1,8 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Noto+Sans+TC:400,700">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149860612-1"></script>
   <script>
@@ -26,7 +27,21 @@
         });
       }
 
-      let googleChartsLoaded = false, ready = false;
+      let WebFontLoaded = false, googleChartsLoaded = false, ready = false;
+
+      WebFont.load({
+        google: {
+          families: ['Roboto:400,700', 'Noto+Sans+TC:400,700'],
+        },
+        active: function () {
+          WebFontLoaded = true;
+          textLayer.style.display = 'none';
+          textLayerCtx.textAlign = 'center';
+          textLayerCtx.fillStyle = 'red';
+          textLayerCtx.font = '72px Roboto';
+          textLayerCtx.fillText('Loading...', textLayer.width / 2, textLayer.height / 2);
+        },
+      });
 
       // Load the Visualization API and the corechart package.
       google.charts.load('current', { 'packages': ['corechart'] });
@@ -38,11 +53,26 @@
         '05 Feb 2020 06:00:00 GMT': {
           mainSheet: {
             URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            headers: 0,
             gid: 1306127858,
             sheet: 'Butterfree Sea',
+            range: 'A3:J',
           },
           Map: {
             URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            headerss: {
+              '0': 1,
+              '1': 1,
+              '2': 1,
+              '3': 1,
+              '4': 1,
+              '5': 1,
+              '6': 1,
+              '7': 1,
+              '8': 1,
+              '9': 1,
+              '10': 1,
+            },
             gid: 1793204655,
             sheet: 'Butterfree Sea Map',
             ranges: {
@@ -58,6 +88,32 @@
               '9': 'AJ:AK',
               '10': 'AA:AH',
             },
+          },
+          image: 'https://raw.githubusercontent.com/PeterD1524/PeterD1524.github.io/master/ggggg.png',
+          color: 'rgb(1, 56, 203)',
+          width: 1000,
+          height: 1000,
+          translation: {
+            Pii: {
+              e2a: { "de": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Lohgock", "Budew": "Knospi", "Butterfree": "Smettbo", "Camerupt": "Camerupt", "Carvanha": "Kanivanha", "Caterpie": "Raupy", "Charizard": "Glurak", "Charmander": "Glumanda", "Charmeleon": "Glutexo", "Clamperl": "Perlu", "Combusken": "Jungglut", "Feebas": "Barschwa", "Gallade": "Galagladi", "Gardevoir": "Guardevoir", "Gorebyss": "Saganabyss", "Grovyle": "Reptain", "Grumpig": "Groink", "Gulpin": "Schluppuck", "Heracross": "Skaraborn", "Huntail": "Aalabyss", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunastein", "Luvdisc": "Liebiskus", "Magmar": "Magmar", "Marshtomp": "Moorabbel", "Masquerain": "Maskeregen", "Meowstic (Female)": "Psiaugon (Weiblich)", "Meowstic (Male)": "Psiaugon (Männlich)", "Metapod": "Safcon", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Hydropi", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Vulnona", "Ninetales (Alola Form)": "Vulnona (Alola-Form)", "Ninjask": "Ninjask", "Numel": "Camaub", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponita", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu (Alola-Form)", "Ralts": "Trasla", "Rapidash": "Gallopa", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Gewaldro", "Seviper": "Vipitis", "Sharpedo": "Tohaido", "Shedinja": "Ninjatom", "Slurpuff": "Sabbaione", "Solrock": "Sonnfel", "Spoink": "Spoink", "Surskit": "Gehweiher", "Swalot": "Schlukwech", "Swampert": "Sumpex", "Sylveon": "Feelinara", "Torchic": "Flemmli", "Torkoal": "Qurtel", "Treecko": "Geckarbor", "Venomoth": "Omot", "Venonat": "Bluzuk", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola Form)": "Vulpix (Alola-Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Sengo", }, "en-us": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic (Female)": "Meowstic (Female)", "Meowstic (Male)": "Meowstic (Male)", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales (Alola Form)": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu (Alola Form)", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola Form)": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "es": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic (Female)": "Meowstic (Hembra)", "Meowstic (Male)": "Meowstic (Macho)", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales (Alola Form)": "Ninetales (Forma de Alola)", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu (Forma de Alola)", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola Form)": "Vulpix (Forma de Alola)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "fr": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Braségali", "Budew": "Rozbouton", "Butterfree": "Papilusion", "Camerupt": "Camérupt", "Carvanha": "Carvanha", "Caterpie": "Chenipan", "Charizard": "Dracaufeu", "Charmander": "Salamèche", "Charmeleon": "Reptincel", "Clamperl": "Coquiperl", "Combusken": "Galifeu", "Feebas": "Barpau", "Gallade": "Gallame", "Gardevoir": "Gardevoir", "Gorebyss": "Rosabyss", "Grovyle": "Massko", "Grumpig": "Groret", "Gulpin": "Gloupti", "Heracross": "Scarhino", "Huntail": "Serpang", "Illumise": "Lumivole", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lokhlass", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Séléroc", "Luvdisc": "Lovdisc", "Magmar": "Magmar", "Marshtomp": "Flobio", "Masquerain": "Maskadra", "Meowstic (Female)": "Mistigrix Femelle", "Meowstic (Male)": "Mistigrix Mâle", "Metapod": "Chrysacier", "Milotic": "Milobellus", "Minun": "Négapi", "Mudkip": "Gobou", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Ningale", "Ninetales": "Feunard", "Ninetales (Alola Form)": "Feunard (Forme d'Alola)", "Ninjask": "Ninjask", "Numel": "Chamallot", "Pelipper": "Bekipan", "Pikachu": "Pikachu", "Pinsir": "Scarabrute", "Plusle": "Posipi", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu (Forme d'Alola)", "Ralts": "Tarsal", "Rapidash": "Galopa", "Roselia": "Rosélia", "Roserade": "Roserade", "Sceptile": "Jungko", "Seviper": "Séviper", "Sharpedo": "Sharpedo", "Shedinja": "Munja", "Slurpuff": "Cupcanaille", "Solrock": "Solaroc", "Spoink": "Spoink", "Surskit": "Arakdo", "Swalot": "Avaltout", "Swampert": "Laggron", "Sylveon": "Nymphali", "Torchic": "Poussifeu", "Torkoal": "Chartor", "Treecko": "Arcko", "Venomoth": "Aéromite", "Venonat": "Mimitoss", "Volbeat": "Muciole", "Vulpix": "Goupix", "Vulpix (Alola Form)": "Goupix (Forme d'Alola)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Goélise", "Zangoose": "Mangriff", }, "it": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic (Female)": "Meowstic Femmina", "Meowstic (Male)": "Meowstic Maschio", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales (Alola Form)": "Ninetales Forma di Alola", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu Forma di Alola", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola Form)": "Vulpix Forma di Alola", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "ja": { "Anorith": "アノプス", "Armaldo": "アーマルド", "Blaziken": "バシャーモ", "Budew": "スボミー", "Butterfree": "バタフリー", "Camerupt": "バクーダ", "Carvanha": "キバニア", "Caterpie": "キャタピー", "Charizard": "リザードン", "Charmander": "ヒトカゲ", "Charmeleon": "リザード", "Clamperl": "パールル", "Combusken": "ワカシャモ", "Feebas": "ヒンバス", "Gallade": "エルレイド", "Gardevoir": "サーナイト", "Gorebyss": "サクラビス", "Grovyle": "ジュプトル", "Grumpig": "ブーピッグ", "Gulpin": "ゴクリン", "Heracross": "ヘラクロス", "Huntail": "ハンテール", "Illumise": "イルミーゼ", "Jirachi": "ジラーチ", "Kecleon": "カクレオン", "Kirlia": "キルリア", "Lapras": "ラプラス", "Latias": "ラティアス", "Latios": "ラティオス", "Lunatone": "ルナトーン", "Luvdisc": "ラブカス", "Magmar": "ブーバー", "Marshtomp": "ヌマクロー", "Masquerain": "アメモース", "Meowstic (Female)": "ニャオニクス メスのすがた", "Meowstic (Male)": "ニャオニクス オスのすがた", "Metapod": "トランセル", "Milotic": "ミロカロス", "Minun": "マイナン", "Mudkip": "ミズゴロウ", "Nidoking": "ニドキング", "Nidoqueen": "ニドクイン", "Nidoran♀": "ニドラン♀", "Nidoran♂": "ニドラン♂", "Nidorina": "ニドリーナ", "Nidorino": "ニドリーノ", "Nincada": "ツチニン", "Ninetales": "キュウコン", "Ninetales (Alola Form)": "キュウコン アローラのすがた", "Ninjask": "テッカニン", "Numel": "ドンメル", "Pelipper": "ペリッパー", "Pikachu": "ピカチュウ", "Pinsir": "カイロス", "Plusle": "プラスル", "Ponyta": "ポニータ", "Raichu": "ライチュウ", "Raichu (Alola Form)": "ライチュウ アローラのすがた", "Ralts": "ラルトス", "Rapidash": "ギャロップ", "Roselia": "ロゼリア", "Roserade": "ロズレイド", "Sceptile": "ジュカイン", "Seviper": "ハブネーク", "Sharpedo": "サメハダー", "Shedinja": "ヌケニン", "Slurpuff": "ペロリーム", "Solrock": "ソルロック", "Spoink": "バネブー", "Surskit": "アメタマ", "Swalot": "マルノーム", "Swampert": "ラグラージ", "Sylveon": "ニンフィア", "Torchic": "アチャモ", "Torkoal": "コータス", "Treecko": "キモリ", "Venomoth": "モルフォン", "Venonat": "コンパン", "Volbeat": "バルビート", "Vulpix": "ロコン", "Vulpix (Alola Form)": "ロコン アローラのすがた", "Wailmer": "ホエルコ", "Wailord": "ホエルオー", "Wingull": "キャモメ", "Zangoose": "ザングース", }, "ko": { "Anorith": "아노딥스", "Armaldo": "아말도", "Blaziken": "번치코", "Budew": "꼬몽울", "Butterfree": "버터플", "Camerupt": "폭타", "Carvanha": "샤프니아", "Caterpie": "캐터피", "Charizard": "리자몽", "Charmander": "파이리", "Charmeleon": "리자드", "Clamperl": "진주몽", "Combusken": "영치코", "Feebas": "빈티나", "Gallade": "엘레이드", "Gardevoir": "가디안", "Gorebyss": "분홍장이", "Grovyle": "나무돌이", "Grumpig": "피그킹", "Gulpin": "꼴깍몬", "Heracross": "헤라크로스", "Huntail": "헌테일", "Illumise": "네오비트", "Jirachi": "지라치", "Kecleon": "켈리몬", "Kirlia": "킬리아", "Lapras": "라프라스", "Latias": "라티아스", "Latios": "라티오스", "Lunatone": "루나톤", "Luvdisc": "사랑동이", "Magmar": "마그마", "Marshtomp": "늪짱이", "Masquerain": "비나방", "Meowstic (Female)": "암컷의 모습", "Meowstic (Male)": "수컷의 모습", "Metapod": "단데기", "Milotic": "밀로틱", "Minun": "마이농", "Mudkip": "물짱이", "Nidoking": "니드킹", "Nidoqueen": "니드퀸", "Nidoran♀": "니드런♀", "Nidoran♂": "니드런♂", "Nidorina": "니드리나", "Nidorino": "니드리노", "Nincada": "토중몬", "Ninetales": "나인테일", "Ninetales (Alola Form)": "나인테일(알로라의 모습)", "Ninjask": "아이스크", "Numel": "둔타", "Pelipper": "패리퍼", "Pikachu": "피카츄", "Pinsir": "쁘사이저", "Plusle": "플러시", "Ponyta": "포니타", "Raichu": "라이츄", "Raichu (Alola Form)": "라이츄(알로라의 모습)", "Ralts": "랄토스", "Rapidash": "날쌩마", "Roselia": "로젤리아", "Roserade": "로즈레이드", "Sceptile": "나무킹", "Seviper": "세비퍼", "Sharpedo": "샤크니아", "Shedinja": "껍질몬", "Slurpuff": "나루림", "Solrock": "솔록", "Spoink": "피그점프", "Surskit": "비구술", "Swalot": "꿀꺽몬", "Swampert": "대짱이", "Sylveon": "님피아", "Torchic": "아차모", "Torkoal": "코터스", "Treecko": "나무지기", "Venomoth": "도나리", "Venonat": "콘팡", "Volbeat": "볼비트", "Vulpix": "식스테일", "Vulpix (Alola Form)": "식스테일(알로라의 모습)", "Wailmer": "고래왕자", "Wailord": "고래왕", "Wingull": "갈모매", "Zangoose": "쟝고", }, "zh-tw": { "Anorith": "太古羽蟲", "Armaldo": "太古盔甲", "Blaziken": "火焰雞", "Budew": "含羞苞", "Butterfree": "巴大蝶", "Camerupt": "噴火駝", "Carvanha": "利牙魚", "Caterpie": "綠毛蟲", "Charizard": "噴火龍", "Charmander": "小火龍", "Charmeleon": "火恐龍", "Clamperl": "珍珠貝", "Combusken": "力壯雞", "Feebas": "醜醜魚", "Gallade": "艾路雷朵", "Gardevoir": "沙奈朵", "Gorebyss": "櫻花魚", "Grovyle": "森林蜥蜴", "Grumpig": "噗噗豬", "Gulpin": "溶食獸", "Heracross": "赫拉克羅斯", "Huntail": "獵斑魚", "Illumise": "甜甜螢", "Jirachi": "基拉祈", "Kecleon": "變隱龍", "Kirlia": "奇魯莉安", "Lapras": "拉普拉斯", "Latias": "拉帝亞斯", "Latios": "拉帝歐斯", "Lunatone": "月石", "Luvdisc": "愛心魚", "Magmar": "鴨嘴火獸", "Marshtomp": "沼躍魚", "Masquerain": "雨翅蛾", "Meowstic (Female)": "超能妙喵 雌性的樣子", "Meowstic (Male)": "超能妙喵 雄性的樣子", "Metapod": "鐵甲蛹", "Milotic": "美納斯", "Minun": "負電拍拍", "Mudkip": "水躍魚", "Nidoking": "尼多王", "Nidoqueen": "尼多后", "Nidoran♀": "尼多蘭", "Nidoran♂": "尼多朗", "Nidorina": "尼多娜", "Nidorino": "尼多力諾", "Nincada": "土居忍士", "Ninetales": "九尾", "Ninetales (Alola Form)": "九尾 阿羅拉的樣子", "Ninjask": "鐵面忍者", "Numel": "呆火駝", "Pelipper": "大嘴鷗", "Pikachu": "皮卡丘", "Pinsir": "凱羅斯", "Plusle": "正電拍拍", "Ponyta": "小火馬", "Raichu": "雷丘", "Raichu (Alola Form)": "雷丘 阿羅拉的樣子", "Ralts": "拉魯拉絲", "Rapidash": "烈焰馬", "Roselia": "毒薔薇", "Roserade": "羅絲雷朵", "Sceptile": "蜥蜴王", "Seviper": "飯匙蛇", "Sharpedo": "巨牙鯊", "Shedinja": "脫殼忍者", "Slurpuff": "胖甜妮", "Solrock": "太陽岩", "Spoink": "跳跳豬", "Surskit": "溜溜糖球", "Swalot": "吞食獸", "Swampert": "巨沼怪", "Sylveon": "仙子伊布", "Torchic": "火稚雞", "Torkoal": "煤炭龜", "Treecko": "木守宮", "Venomoth": "摩魯蛾", "Venonat": "毛球", "Volbeat": "電螢蟲", "Vulpix": "六尾", "Vulpix (Alola Form)": "六尾 阿羅拉的樣子", "Wailmer": "吼吼鯨", "Wailord": "吼鯨王", "Wingull": "長翅鷗", "Zangoose": "貓鼬斬", }, },
+              a2e: { "de": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Lohgock": "Blaziken", "Knospi": "Budew", "Smettbo": "Butterfree", "Camerupt": "Camerupt", "Kanivanha": "Carvanha", "Raupy": "Caterpie", "Glurak": "Charizard", "Glumanda": "Charmander", "Glutexo": "Charmeleon", "Perlu": "Clamperl", "Jungglut": "Combusken", "Barschwa": "Feebas", "Galagladi": "Gallade", "Guardevoir": "Gardevoir", "Saganabyss": "Gorebyss", "Reptain": "Grovyle", "Groink": "Grumpig", "Schluppuck": "Gulpin", "Skaraborn": "Heracross", "Aalabyss": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunastein": "Lunatone", "Liebiskus": "Luvdisc", "Magmar": "Magmar", "Moorabbel": "Marshtomp", "Maskeregen": "Masquerain", "Psiaugon (Weiblich)": "Meowstic (Female)", "Psiaugon (Männlich)": "Meowstic (Male)", "Safcon": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Hydropi": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Vulnona": "Ninetales", "Vulnona (Alola-Form)": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Camaub": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponita": "Ponyta", "Raichu": "Raichu", "Raichu (Alola-Form)": "Raichu (Alola Form)", "Trasla": "Ralts", "Gallopa": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Gewaldro": "Sceptile", "Vipitis": "Seviper", "Tohaido": "Sharpedo", "Ninjatom": "Shedinja", "Sabbaione": "Slurpuff", "Sonnfel": "Solrock", "Spoink": "Spoink", "Gehweiher": "Surskit", "Schlukwech": "Swalot", "Sumpex": "Swampert", "Feelinara": "Sylveon", "Flemmli": "Torchic", "Qurtel": "Torkoal", "Geckarbor": "Treecko", "Omot": "Venomoth", "Bluzuk": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola-Form)": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Sengo": "Zangoose", }, "en-us": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic (Female)": "Meowstic (Female)", "Meowstic (Male)": "Meowstic (Male)", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales (Alola Form)": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Alola Form)": "Raichu (Alola Form)", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Alola Form)": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "es": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic (Hembra)": "Meowstic (Female)", "Meowstic (Macho)": "Meowstic (Male)", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales (Forma de Alola)": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Forma de Alola)": "Raichu (Alola Form)", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix (Forma de Alola)": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "fr": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Braségali": "Blaziken", "Rozbouton": "Budew", "Papilusion": "Butterfree", "Camérupt": "Camerupt", "Carvanha": "Carvanha", "Chenipan": "Caterpie", "Dracaufeu": "Charizard", "Salamèche": "Charmander", "Reptincel": "Charmeleon", "Coquiperl": "Clamperl", "Galifeu": "Combusken", "Barpau": "Feebas", "Gallame": "Gallade", "Gardevoir": "Gardevoir", "Rosabyss": "Gorebyss", "Massko": "Grovyle", "Groret": "Grumpig", "Gloupti": "Gulpin", "Scarhino": "Heracross", "Serpang": "Huntail", "Lumivole": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lokhlass": "Lapras", "Latias": "Latias", "Latios": "Latios", "Séléroc": "Lunatone", "Lovdisc": "Luvdisc", "Magmar": "Magmar", "Flobio": "Marshtomp", "Maskadra": "Masquerain", "Mistigrix Femelle": "Meowstic (Female)", "Mistigrix Mâle": "Meowstic (Male)", "Chrysacier": "Metapod", "Milobellus": "Milotic", "Négapi": "Minun", "Gobou": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Ningale": "Nincada", "Feunard": "Ninetales", "Feunard (Forme d'Alola)": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Chamallot": "Numel", "Bekipan": "Pelipper", "Pikachu": "Pikachu", "Scarabrute": "Pinsir", "Posipi": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu (Forme d'Alola)": "Raichu (Alola Form)", "Tarsal": "Ralts", "Galopa": "Rapidash", "Rosélia": "Roselia", "Roserade": "Roserade", "Jungko": "Sceptile", "Séviper": "Seviper", "Sharpedo": "Sharpedo", "Munja": "Shedinja", "Cupcanaille": "Slurpuff", "Solaroc": "Solrock", "Spoink": "Spoink", "Arakdo": "Surskit", "Avaltout": "Swalot", "Laggron": "Swampert", "Nymphali": "Sylveon", "Poussifeu": "Torchic", "Chartor": "Torkoal", "Arcko": "Treecko", "Aéromite": "Venomoth", "Mimitoss": "Venonat", "Muciole": "Volbeat", "Goupix": "Vulpix", "Goupix (Forme d'Alola)": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Goélise": "Wingull", "Mangriff": "Zangoose", }, "it": { "Anorith": "Anorith", "Armaldo": "Armaldo", "Blaziken": "Blaziken", "Budew": "Budew", "Butterfree": "Butterfree", "Camerupt": "Camerupt", "Carvanha": "Carvanha", "Caterpie": "Caterpie", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Clamperl": "Clamperl", "Combusken": "Combusken", "Feebas": "Feebas", "Gallade": "Gallade", "Gardevoir": "Gardevoir", "Gorebyss": "Gorebyss", "Grovyle": "Grovyle", "Grumpig": "Grumpig", "Gulpin": "Gulpin", "Heracross": "Heracross", "Huntail": "Huntail", "Illumise": "Illumise", "Jirachi": "Jirachi", "Kecleon": "Kecleon", "Kirlia": "Kirlia", "Lapras": "Lapras", "Latias": "Latias", "Latios": "Latios", "Lunatone": "Lunatone", "Luvdisc": "Luvdisc", "Magmar": "Magmar", "Marshtomp": "Marshtomp", "Masquerain": "Masquerain", "Meowstic Femmina": "Meowstic (Female)", "Meowstic Maschio": "Meowstic (Male)", "Metapod": "Metapod", "Milotic": "Milotic", "Minun": "Minun", "Mudkip": "Mudkip", "Nidoking": "Nidoking", "Nidoqueen": "Nidoqueen", "Nidoran♀": "Nidoran♀", "Nidoran♂": "Nidoran♂", "Nidorina": "Nidorina", "Nidorino": "Nidorino", "Nincada": "Nincada", "Ninetales": "Ninetales", "Ninetales Forma di Alola": "Ninetales (Alola Form)", "Ninjask": "Ninjask", "Numel": "Numel", "Pelipper": "Pelipper", "Pikachu": "Pikachu", "Pinsir": "Pinsir", "Plusle": "Plusle", "Ponyta": "Ponyta", "Raichu": "Raichu", "Raichu Forma di Alola": "Raichu (Alola Form)", "Ralts": "Ralts", "Rapidash": "Rapidash", "Roselia": "Roselia", "Roserade": "Roserade", "Sceptile": "Sceptile", "Seviper": "Seviper", "Sharpedo": "Sharpedo", "Shedinja": "Shedinja", "Slurpuff": "Slurpuff", "Solrock": "Solrock", "Spoink": "Spoink", "Surskit": "Surskit", "Swalot": "Swalot", "Swampert": "Swampert", "Sylveon": "Sylveon", "Torchic": "Torchic", "Torkoal": "Torkoal", "Treecko": "Treecko", "Venomoth": "Venomoth", "Venonat": "Venonat", "Volbeat": "Volbeat", "Vulpix": "Vulpix", "Vulpix Forma di Alola": "Vulpix (Alola Form)", "Wailmer": "Wailmer", "Wailord": "Wailord", "Wingull": "Wingull", "Zangoose": "Zangoose", }, "ja": { "アノプス": "Anorith", "アーマルド": "Armaldo", "バシャーモ": "Blaziken", "スボミー": "Budew", "バタフリー": "Butterfree", "バクーダ": "Camerupt", "キバニア": "Carvanha", "キャタピー": "Caterpie", "リザードン": "Charizard", "ヒトカゲ": "Charmander", "リザード": "Charmeleon", "パールル": "Clamperl", "ワカシャモ": "Combusken", "ヒンバス": "Feebas", "エルレイド": "Gallade", "サーナイト": "Gardevoir", "サクラビス": "Gorebyss", "ジュプトル": "Grovyle", "ブーピッグ": "Grumpig", "ゴクリン": "Gulpin", "ヘラクロス": "Heracross", "ハンテール": "Huntail", "イルミーゼ": "Illumise", "ジラーチ": "Jirachi", "カクレオン": "Kecleon", "キルリア": "Kirlia", "ラプラス": "Lapras", "ラティアス": "Latias", "ラティオス": "Latios", "ルナトーン": "Lunatone", "ラブカス": "Luvdisc", "ブーバー": "Magmar", "ヌマクロー": "Marshtomp", "アメモース": "Masquerain", "ニャオニクス メスのすがた": "Meowstic (Female)", "ニャオニクス オスのすがた": "Meowstic (Male)", "トランセル": "Metapod", "ミロカロス": "Milotic", "マイナン": "Minun", "ミズゴロウ": "Mudkip", "ニドキング": "Nidoking", "ニドクイン": "Nidoqueen", "ニドラン♀": "Nidoran♀", "ニドラン♂": "Nidoran♂", "ニドリーナ": "Nidorina", "ニドリーノ": "Nidorino", "ツチニン": "Nincada", "キュウコン": "Ninetales", "キュウコン アローラのすがた": "Ninetales (Alola Form)", "テッカニン": "Ninjask", "ドンメル": "Numel", "ペリッパー": "Pelipper", "ピカチュウ": "Pikachu", "カイロス": "Pinsir", "プラスル": "Plusle", "ポニータ": "Ponyta", "ライチュウ": "Raichu", "ライチュウ アローラのすがた": "Raichu (Alola Form)", "ラルトス": "Ralts", "ギャロップ": "Rapidash", "ロゼリア": "Roselia", "ロズレイド": "Roserade", "ジュカイン": "Sceptile", "ハブネーク": "Seviper", "サメハダー": "Sharpedo", "ヌケニン": "Shedinja", "ペロリーム": "Slurpuff", "ソルロック": "Solrock", "バネブー": "Spoink", "アメタマ": "Surskit", "マルノーム": "Swalot", "ラグラージ": "Swampert", "ニンフィア": "Sylveon", "アチャモ": "Torchic", "コータス": "Torkoal", "キモリ": "Treecko", "モルフォン": "Venomoth", "コンパン": "Venonat", "バルビート": "Volbeat", "ロコン": "Vulpix", "ロコン アローラのすがた": "Vulpix (Alola Form)", "ホエルコ": "Wailmer", "ホエルオー": "Wailord", "キャモメ": "Wingull", "ザングース": "Zangoose", }, "ko": { "아노딥스": "Anorith", "아말도": "Armaldo", "번치코": "Blaziken", "꼬몽울": "Budew", "버터플": "Butterfree", "폭타": "Camerupt", "샤프니아": "Carvanha", "캐터피": "Caterpie", "리자몽": "Charizard", "파이리": "Charmander", "리자드": "Charmeleon", "진주몽": "Clamperl", "영치코": "Combusken", "빈티나": "Feebas", "엘레이드": "Gallade", "가디안": "Gardevoir", "분홍장이": "Gorebyss", "나무돌이": "Grovyle", "피그킹": "Grumpig", "꼴깍몬": "Gulpin", "헤라크로스": "Heracross", "헌테일": "Huntail", "네오비트": "Illumise", "지라치": "Jirachi", "켈리몬": "Kecleon", "킬리아": "Kirlia", "라프라스": "Lapras", "라티아스": "Latias", "라티오스": "Latios", "루나톤": "Lunatone", "사랑동이": "Luvdisc", "마그마": "Magmar", "늪짱이": "Marshtomp", "비나방": "Masquerain", "암컷의 모습": "Meowstic (Female)", "수컷의 모습": "Meowstic (Male)", "단데기": "Metapod", "밀로틱": "Milotic", "마이농": "Minun", "물짱이": "Mudkip", "니드킹": "Nidoking", "니드퀸": "Nidoqueen", "니드런♀": "Nidoran♀", "니드런♂": "Nidoran♂", "니드리나": "Nidorina", "니드리노": "Nidorino", "토중몬": "Nincada", "나인테일": "Ninetales", "나인테일(알로라의 모습)": "Ninetales (Alola Form)", "아이스크": "Ninjask", "둔타": "Numel", "패리퍼": "Pelipper", "피카츄": "Pikachu", "쁘사이저": "Pinsir", "플러시": "Plusle", "포니타": "Ponyta", "라이츄": "Raichu", "라이츄(알로라의 모습)": "Raichu (Alola Form)", "랄토스": "Ralts", "날쌩마": "Rapidash", "로젤리아": "Roselia", "로즈레이드": "Roserade", "나무킹": "Sceptile", "세비퍼": "Seviper", "샤크니아": "Sharpedo", "껍질몬": "Shedinja", "나루림": "Slurpuff", "솔록": "Solrock", "피그점프": "Spoink", "비구술": "Surskit", "꿀꺽몬": "Swalot", "대짱이": "Swampert", "님피아": "Sylveon", "아차모": "Torchic", "코터스": "Torkoal", "나무지기": "Treecko", "도나리": "Venomoth", "콘팡": "Venonat", "볼비트": "Volbeat", "식스테일": "Vulpix", "식스테일(알로라의 모습)": "Vulpix (Alola Form)", "고래왕자": "Wailmer", "고래왕": "Wailord", "갈모매": "Wingull", "쟝고": "Zangoose", }, "zh-tw": { "太古羽蟲": "Anorith", "太古盔甲": "Armaldo", "火焰雞": "Blaziken", "含羞苞": "Budew", "巴大蝶": "Butterfree", "噴火駝": "Camerupt", "利牙魚": "Carvanha", "綠毛蟲": "Caterpie", "噴火龍": "Charizard", "小火龍": "Charmander", "火恐龍": "Charmeleon", "珍珠貝": "Clamperl", "力壯雞": "Combusken", "醜醜魚": "Feebas", "艾路雷朵": "Gallade", "沙奈朵": "Gardevoir", "櫻花魚": "Gorebyss", "森林蜥蜴": "Grovyle", "噗噗豬": "Grumpig", "溶食獸": "Gulpin", "赫拉克羅斯": "Heracross", "獵斑魚": "Huntail", "甜甜螢": "Illumise", "基拉祈": "Jirachi", "變隱龍": "Kecleon", "奇魯莉安": "Kirlia", "拉普拉斯": "Lapras", "拉帝亞斯": "Latias", "拉帝歐斯": "Latios", "月石": "Lunatone", "愛心魚": "Luvdisc", "鴨嘴火獸": "Magmar", "沼躍魚": "Marshtomp", "雨翅蛾": "Masquerain", "超能妙喵 雌性的樣子": "Meowstic (Female)", "超能妙喵 雄性的樣子": "Meowstic (Male)", "鐵甲蛹": "Metapod", "美納斯": "Milotic", "負電拍拍": "Minun", "水躍魚": "Mudkip", "尼多王": "Nidoking", "尼多后": "Nidoqueen", "尼多蘭": "Nidoran♀", "尼多朗": "Nidoran♂", "尼多娜": "Nidorina", "尼多力諾": "Nidorino", "土居忍士": "Nincada", "九尾": "Ninetales", "九尾 阿羅拉的樣子": "Ninetales (Alola Form)", "鐵面忍者": "Ninjask", "呆火駝": "Numel", "大嘴鷗": "Pelipper", "皮卡丘": "Pikachu", "凱羅斯": "Pinsir", "正電拍拍": "Plusle", "小火馬": "Ponyta", "雷丘": "Raichu", "雷丘 阿羅拉的樣子": "Raichu (Alola Form)", "拉魯拉絲": "Ralts", "烈焰馬": "Rapidash", "毒薔薇": "Roselia", "羅絲雷朵": "Roserade", "蜥蜴王": "Sceptile", "飯匙蛇": "Seviper", "巨牙鯊": "Sharpedo", "脫殼忍者": "Shedinja", "胖甜妮": "Slurpuff", "太陽岩": "Solrock", "跳跳豬": "Spoink", "溜溜糖球": "Surskit", "吞食獸": "Swalot", "巨沼怪": "Swampert", "仙子伊布": "Sylveon", "火稚雞": "Torchic", "煤炭龜": "Torkoal", "木守宮": "Treecko", "摩魯蛾": "Venomoth", "毛球": "Venonat", "電螢蟲": "Volbeat", "六尾": "Vulpix", "六尾 阿羅拉的樣子": "Vulpix (Alola Form)", "吼吼鯨": "Wailmer", "吼鯨王": "Wailord", "長翅鷗": "Wingull", "貓鼬斬": "Zangoose", }, },
+            },
+            Ground: {
+              e2a: { 'de': { 'Grassland': 'Wiese', 'Forest': 'Wald', 'Tower': 'Turm', 'Shore': 'Ufer', 'Cave': 'Höhle', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Grassland': 'Pradera', 'Forest': 'Bosque', 'Tower': 'Torre', 'Shore': 'Orilla', 'Cave': 'Cueva', }, 'fr': { 'Grassland': 'Prairie', 'Forest': 'Forêt', 'Tower': 'Tour', 'Shore': 'Rive', 'Cave': 'Grotte', }, 'it': { 'Grassland': 'Prateria', 'Forest': 'Bosco', 'Tower': 'Torre', 'Shore': 'Riva', 'Cave': 'Grotta', }, 'ja': { 'Grassland': '草原', 'Forest': '森', 'Tower': '塔', 'Shore': '水辺', 'Cave': '洞窟', }, 'ko': { 'Grassland': '초원', 'Forest': '숲', 'Tower': '탑', 'Shore': '물가', 'Cave': '동굴', }, 'zh-tw': { 'Grassland': '草原', 'Forest': '森林', 'Tower': '塔', 'Shore': '水岸', 'Cave': '洞窟', }, },
+              a2e: { 'de': { 'Wiese': 'Grassland', 'Wald': 'Forest', 'Turm': 'Tower', 'Ufer': 'Shore', 'Höhle': 'Cave', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Pradera': 'Grassland', 'Bosque': 'Forest', 'Torre': 'Tower', 'Orilla': 'Shore', 'Cueva': 'Cave', }, 'fr': { 'Prairie': 'Grassland', 'Forêt': 'Forest', 'Tour': 'Tower', 'Rive': 'Shore', 'Grotte': 'Cave', }, 'it': { 'Prateria': 'Grassland', 'Bosco': 'Forest', 'Torre': 'Tower', 'Riva': 'Shore', 'Grotta': 'Cave', }, 'ja': { '草原': 'Grassland', '森': 'Forest', '塔': 'Tower', '水辺': 'Shore', '洞窟': 'Cave', }, 'ko': { '초원': 'Grassland', '숲': 'Forest', '탑': 'Tower', '물가': 'Shore', '동굴': 'Cave', }, 'zh-tw': { '草原': 'Grassland', '森林': 'Forest', '塔': 'Tower', '水岸': 'Shore', '洞窟': 'Cave', }, },
+            },
+          },
+        },
+        '19 Feb 2020 06:00:00 GMT': {
+          mainSheet: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
+            headers: 0,
+            gid: 396877320,
+            sheet: '20 Charizard Sea',
+            range: 'A3:J',
+          },
+          Map: {
+            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
             headerss: {
               '0': 1,
               '1': 1,
@@ -71,23 +127,36 @@
               '9': 1,
               '10': 1,
             },
-          },
-          image: 'ggggg.png',
-          color: 'rgb(1, 56, 203)',
-        },
-        '19 Feb 2020 06:00:00 GMT': {
-          mainSheet: {
-            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
-            gid: 396877320,
-            sheet: '20 Charizard Sea',
-          },
-          Map: {
-            URL: 'https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ',
-            gid: null,
+            gid: 1127805664,
             sheet: '20 Charizard Sea Map',
+            ranges: {
+              '0': 'AA:AA',
+              '1': 'AB:AB',
+              '2': 'AC:AC',
+              '3': 'AD:AD',
+              '4': 'AE:AE',
+              '5': 'AF:AF',
+              '6': 'AG:AG',
+              '7': 'AH:AH',
+              '8': 'AI:AI',
+              '9': 'AJ:AK',
+              '10': 'AA:AH',
+            },
           },
-          image: 'MyslandChart.png',
+          image: 'https://raw.githubusercontent.com/PeterD1524/PeterD1524.github.io/master/MyslandChart.png',
           color: 'rgb(1, 56, 203)',
+          width: 1000,
+          height: 1000,
+          translation: {
+            Pii: {
+              e2a: { "de": { "Aipom": "Griffel", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bollterus", "Bayleef": "Lorblatt", "Bellossom": "Blubella", "Blastoise": "Turtok", "Blissey": "Heiteira", "Bonsly": "Mobai", "Bulbasaur": "Bisasam", "Carnivine": "Venuflibis", "Celebi": "Celebi", "Charizard": "Glurak", "Charmander": "Glumanda", "Charmeleon": "Glutexo", "Chikorita": "Endivie", "Chinchou": "Lampi", "Cleffa": "Pii", "Corsola": "Corasonn", "Cranidos": "Koknodon", "Crobat": "Iksbat", "Croconaw": "Tyracroc", "Cyndaquil": "Feurigel", "Delibird": "Botogel", "Donphan": "Donphan", "Dunsparce": "Dummisel", "Electabuzz": "Elektek", "Electivire": "Elevoltek", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Psiana", "Feraligatr": "Impergator", "Flaaffy": "Waaty", "Forretress": "Forstellka", "Furret": "Wiesenior", "Girafarig": "Girafarig", "Gligar": "Skorgla", "Gloom": "Duflor", "Granbull": "Granbull", "Heracross": "Skaraborn", "Hitmontop": "Kapoera", "Hoothoot": "Hoothoot", "Hoppip": "Hoppspross", "Houndoom": "Hundemon", "Houndour": "Hunduster", "Igglybuff": "Fluffeluff", "Ivysaur": "Bisaknosp", "Jumpluff": "Papungha", "Kingdra": "Seedraking", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Leufeo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxtra", "Lycanroc (Midday Form)": "Wolwerock (Tagform)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magbrant", "Mantine": "Mantax", "Mareep": "Voltilamm", "Marill": "Marill", "Meganium": "Meganie", "Miltank": "Miltank", "Misdreavus": "Traunfugil", "Murkrow": "Kramurx", "Natu": "Natu", "Noctowl": "Noctuh", "Octillery": "Octillery", "Oddish": "Myrapla", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Keifel", "Pineco": "Tannza", "Politoed": "Quaxo", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroleo", "Quagsire": "Morlord", "Quilava": "Igelavar", "Qwilfish": "Baldorfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rameidon", "Remoraid": "Remoraid", "Rockruff": "Wuffels", "Scizor": "Scherox", "Sentret": "Wiesor", "Shieldon": "Schilterus", "Shinx": "Sheinux", "Shuckle": "Pottrott", "Skarmory": "Panzaeron", "Skiploom": "Hubelupf", "Slowking": "Laschoking", "Slugma": "Schneckmag", "Smeargle": "Farbeagle", "Smoochum": "Kussilla", "Sneasel": "Sniebel", "Snubbull": "Snubbull", "Spinarak": "Webarak", "Squirtle": "Schiggy", "Stantler": "Damhirplex", "Steelix": "Stahlos", "Sudowoodo": "Mogelbaum", "Suicune": "Suicune", "Sunflora": "Sonnflora", "Sunkern": "Sonnkern", "Swinub": "Quiekel", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Boreos (Inkarnationsform)", "Totodile": "Karnimani", "Typhlosion": "Tornupto", "Tyranitar": "Despotar", "Tyrogue": "Rabauz", "Umbreon": "Nachtara", "Unown": "Icognito", "Ursaring": "Ursaring", "Venusaur": "Bisaflor", "Wartortle": "Schillok", "Wobbuffet": "Woingenau", "Wooper": "Felino", "Xatu": "Xatu", "Yanma": "Yanma", }, "en-us": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Midday Form)": "Lycanroc (Midday Form)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Tornadus (Incarnate Forme)", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "es": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Midday Form)": "Lycanroc (Forma Diurna)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Tornadus (Forma Avatar)", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "fr": { "Aipom": "Capumain", "Ampharos": "Pharamp", "Ariados": "Migalos", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Macronium", "Bellossom": "Joliflor", "Blastoise": "Tortank", "Blissey": "Leuphorie", "Bonsly": "Manzaï", "Bulbasaur": "Bulbizarre", "Carnivine": "Vortente", "Celebi": "Celebi", "Charizard": "Dracaufeu", "Charmander": "Salamèche", "Charmeleon": "Reptincel", "Chikorita": "Germignon", "Chinchou": "Loupio", "Cleffa": "Mélo", "Corsola": "Corayon", "Cranidos": "Kranidos", "Crobat": "Nostenfer", "Croconaw": "Crocrodil", "Cyndaquil": "Héricendre", "Delibird": "Cadoizo", "Donphan": "Donphan", "Dunsparce": "Insolourdo", "Electabuzz": "Élektek", "Electivire": "Élekable", "Elekid": "Élekid", "Entei": "Entei", "Espeon": "Mentali", "Feraligatr": "Aligatueur", "Flaaffy": "Lainergie", "Forretress": "Foretress", "Furret": "Fouinar", "Girafarig": "Girafarig", "Gligar": "Scorplane", "Gloom": "Ortide", "Granbull": "Granbull", "Heracross": "Scarhino", "Hitmontop": "Kapoera", "Hoothoot": "Hoothoot", "Hoppip": "Granivol", "Houndoom": "Démolosse", "Houndour": "Malosse", "Igglybuff": "Toudoudou", "Ivysaur": "Herbizarre", "Jumpluff": "Cotovol", "Kingdra": "Hyporoi", "Lanturn": "Lanturn", "Larvitar": "Embrylex", "Ledian": "Coxyclaque", "Ledyba": "Coxy", "Litleo": "Hélionceau", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Midday Form)": "Lougaroc (Forme Diurne)", "Magby": "Magby", "Magcargo": "Volcaropod", "Magmar": "Magmar", "Magmortar": "Maganon", "Mantine": "Démanta", "Mareep": "Wattouat", "Marill": "Marill", "Meganium": "Méganium", "Miltank": "Écrémeuh", "Misdreavus": "Feuforêve", "Murkrow": "Cornèbre", "Natu": "Natu", "Noctowl": "Noarfang", "Octillery": "Octillery", "Oddish": "Mystherbe", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Cochignon", "Pineco": "Pomdepik", "Politoed": "Tarpaud", "Porygon2": "Porygon2", "Pupitar": "Ymphect", "Pyroar": "Némélios", "Quagsire": "Maraiste", "Quilava": "Feurisson", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Charkos", "Remoraid": "Rémoraid", "Rockruff": "Rocabot", "Scizor": "Cizayox", "Sentret": "Fouinette", "Shieldon": "Dinoclier", "Shinx": "Lixy", "Shuckle": "Caratroc", "Skarmory": "Airmure", "Skiploom": "Floravol", "Slowking": "Roigada", "Slugma": "Limagma", "Smeargle": "Queulorior", "Smoochum": "Lippouti", "Sneasel": "Farfuret", "Snubbull": "Snubbull", "Spinarak": "Mimigal", "Squirtle": "Carapuce", "Stantler": "Cerfrousse", "Steelix": "Steelix", "Sudowoodo": "Simularbre", "Suicune": "Suicune", "Sunflora": "Héliatronc", "Sunkern": "Tournegrin", "Swinub": "Marcacrin", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Boréas Forme Avatar", "Totodile": "Kaiminus", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranocif", "Tyrogue": "Debugant", "Umbreon": "Noctali", "Unown": "Zarbi", "Ursaring": "Ursaring", "Venusaur": "Florizarre", "Wartortle": "Carabaffe", "Wobbuffet": "Qulbutoké", "Wooper": "Axoloto", "Xatu": "Xatu", "Yanma": "Yanma", }, "it": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Midday Form)": "Lycanroc Forma Giorno", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Tornadus Forma Incarnazione", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "ja": { "Aipom": "エイパム", "Ampharos": "デンリュウ", "Ariados": "アリアドス", "Azumarill": "マリルリ", "Bastiodon": "トリデプス", "Bayleef": "ベイリーフ", "Bellossom": "キレイハナ", "Blastoise": "カメックス", "Blissey": "ハピナス", "Bonsly": "ウソハチ", "Bulbasaur": "フシギダネ", "Carnivine": "マスキッパ", "Celebi": "セレビィ", "Charizard": "リザードン", "Charmander": "ヒトカゲ", "Charmeleon": "リザード", "Chikorita": "チコリータ", "Chinchou": "チョンチー", "Cleffa": "ピィ", "Corsola": "サニーゴ", "Cranidos": "ズガイドス", "Crobat": "クロバット", "Croconaw": "アリゲイツ", "Cyndaquil": "ヒノアラシ", "Delibird": "デリバード", "Donphan": "ドンファン", "Dunsparce": "ノコッチ", "Electabuzz": "エレブー", "Electivire": "エレキブル", "Elekid": "エレキッド", "Entei": "エンテイ", "Espeon": "エーフィ", "Feraligatr": "オーダイル", "Flaaffy": "モココ", "Forretress": "フォレトス", "Furret": "オオタチ", "Girafarig": "キリンリキ", "Gligar": "グライガー", "Gloom": "クサイハナ", "Granbull": "グランブル", "Heracross": "ヘラクロス", "Hitmontop": "カポエラー", "Hoothoot": "ホーホー", "Hoppip": "ハネッコ", "Houndoom": "ヘルガー", "Houndour": "デルビル", "Igglybuff": "ププリン", "Ivysaur": "フシギソウ", "Jumpluff": "ワタッコ", "Kingdra": "キングドラ", "Lanturn": "ランターン", "Larvitar": "ヨーギラス", "Ledian": "レディアン", "Ledyba": "レディバ", "Litleo": "シシコ", "Lugia": "ルギア", "Luxio": "ルクシオ", "Luxray": "レントラー", "Lycanroc (Midday Form)": "ルガルガン まひるのすがた", "Magby": "ブビィ", "Magcargo": "マグカルゴ", "Magmar": "ブーバー", "Magmortar": "ブーバーン", "Mantine": "マンタイン", "Mareep": "メリープ", "Marill": "マリル", "Meganium": "メガニウム", "Miltank": "ミルタンク", "Misdreavus": "ムウマ", "Murkrow": "ヤミカラス", "Natu": "ネイティ", "Noctowl": "ヨルノズク", "Octillery": "オクタン", "Oddish": "ナゾノクサ", "Pachirisu": "パチリス", "Phanpy": "ゴマゾウ", "Pichu": "ピチュー", "Pikachu": "ピカチュウ", "Piloswine": "イノムー", "Pineco": "クヌギダマ", "Politoed": "ニョロトノ", "Porygon2": "ポリゴン２", "Pupitar": "サナギラス", "Pyroar": "カエンジシ", "Quagsire": "ヌオー", "Quilava": "マグマラシ", "Qwilfish": "ハリーセン", "Raichu": "ライチュウ", "Raikou": "ライコウ", "Rampardos": "ラムパルド", "Remoraid": "テッポウオ", "Rockruff": "イワンコ", "Scizor": "ハッサム", "Sentret": "オタチ", "Shieldon": "タテトプス", "Shinx": "コリンク", "Shuckle": "ツボツボ", "Skarmory": "エアームド", "Skiploom": "ポポッコ", "Slowking": "ヤドキング", "Slugma": "マグマッグ", "Smeargle": "ドーブル", "Smoochum": "ムチュール", "Sneasel": "ニューラ", "Snubbull": "ブルー", "Spinarak": "イトマル", "Squirtle": "ゼニガメ", "Stantler": "オドシシ", "Steelix": "ハガネール", "Sudowoodo": "ウソッキー", "Suicune": "スイクン", "Sunflora": "キマワリ", "Sunkern": "ヒマナッツ", "Swinub": "ウリムー", "Teddiursa": "ヒメグマ", "Togepi": "トゲピー", "Togetic": "トゲチック", "Tornadus (Incarnate Forme)": "トルネロス けしんフォルム", "Totodile": "ワニノコ", "Typhlosion": "バクフーン", "Tyranitar": "バンギラス", "Tyrogue": "バルキー", "Umbreon": "ブラッキー", "Unown": "アンノーン", "Ursaring": "リングマ", "Venusaur": "フシギバナ", "Wartortle": "カメール", "Wobbuffet": "ソーナンス", "Wooper": "ウパー", "Xatu": "ネイティオ", "Yanma": "ヤンヤンマ", }, "ko": { "Aipom": "에이팜", "Ampharos": "전룡", "Ariados": "아리아도스", "Azumarill": "마릴리", "Bastiodon": "바리톱스", "Bayleef": "베이리프", "Bellossom": "아르코", "Blastoise": "거북왕", "Blissey": "해피너스", "Bonsly": "꼬지지", "Bulbasaur": "이상해씨", "Carnivine": "무스틈니", "Celebi": "세레비", "Charizard": "리자몽", "Charmander": "파이리", "Charmeleon": "리자드", "Chikorita": "치코리타", "Chinchou": "초라기", "Cleffa": "삐", "Corsola": "코산호", "Cranidos": "두개도스", "Crobat": "크로뱃", "Croconaw": "엘리게이", "Cyndaquil": "브케인", "Delibird": "딜리버드", "Donphan": "코리갑", "Dunsparce": "노고치", "Electabuzz": "에레브", "Electivire": "에레키블", "Elekid": "에레키드", "Entei": "앤테이", "Espeon": "에브이", "Feraligatr": "장크로다일", "Flaaffy": "보송송", "Forretress": "쏘콘", "Furret": "다꼬리", "Girafarig": "키링키", "Gligar": "글라이거", "Gloom": "냄새꼬", "Granbull": "그랑블루", "Heracross": "헤라크로스", "Hitmontop": "카포에라", "Hoothoot": "부우부", "Hoppip": "통통코", "Houndoom": "헬가", "Houndour": "델빌", "Igglybuff": "푸푸린", "Ivysaur": "이상해풀", "Jumpluff": "솜솜코", "Kingdra": "킹드라", "Lanturn": "랜턴", "Larvitar": "애버라스", "Ledian": "레디안", "Ledyba": "레디바", "Litleo": "레오꼬", "Lugia": "루기아", "Luxio": "럭시오", "Luxray": "렌트라", "Lycanroc (Midday Form)": "한낮의 모습", "Magby": "마그비", "Magcargo": "마그카르고", "Magmar": "마그마", "Magmortar": "마그마번", "Mantine": "만타인", "Mareep": "메리프", "Marill": "마릴", "Meganium": "메가니움", "Miltank": "밀탱크", "Misdreavus": "무우마", "Murkrow": "니로우", "Natu": "네이티", "Noctowl": "야부엉", "Octillery": "대포무노", "Oddish": "뚜벅쵸", "Pachirisu": "파치리스", "Phanpy": "코코리", "Pichu": "피츄", "Pikachu": "피카츄", "Piloswine": "메꾸리", "Pineco": "피콘", "Politoed": "왕구리", "Porygon2": "폴리곤2", "Pupitar": "데기라스", "Pyroar": "화염레오", "Quagsire": "누오", "Quilava": "마그케인", "Qwilfish": "침바루", "Raichu": "라이츄", "Raikou": "라이코", "Rampardos": "램펄드", "Remoraid": "총어", "Rockruff": "암멍이", "Scizor": "핫삼", "Sentret": "꼬리선", "Shieldon": "방패톱스", "Shinx": "꼬링크", "Shuckle": "단단지", "Skarmory": "무장조", "Skiploom": "두코", "Slowking": "야도킹", "Slugma": "마그마그", "Smeargle": "루브도", "Smoochum": "뽀뽀라", "Sneasel": "포푸니", "Snubbull": "블루", "Spinarak": "페이검", "Squirtle": "꼬부기", "Stantler": "노라키", "Steelix": "강철톤", "Sudowoodo": "꼬지모", "Suicune": "스이쿤", "Sunflora": "해루미", "Sunkern": "해너츠", "Swinub": "꾸꾸리", "Teddiursa": "깜지곰", "Togepi": "토게피", "Togetic": "토게틱", "Tornadus (Incarnate Forme)": "화신폼", "Totodile": "리아코", "Typhlosion": "블레이범", "Tyranitar": "마기라스", "Tyrogue": "배루키", "Umbreon": "블래키", "Unown": "형태별 모습", "Ursaring": "링곰", "Venusaur": "이상해꽃", "Wartortle": "어니부기", "Wobbuffet": "마자용", "Wooper": "우파", "Xatu": "네이티오", "Yanma": "왕자리", }, "zh-tw": { "Aipom": "長尾怪手", "Ampharos": "電龍", "Ariados": "阿利多斯", "Azumarill": "瑪力露麗", "Bastiodon": "護城龍", "Bayleef": "月桂葉", "Bellossom": "美麗花", "Blastoise": "水箭龜", "Blissey": "幸福蛋", "Bonsly": "盆才怪", "Bulbasaur": "妙蛙種子", "Carnivine": "尖牙籠", "Celebi": "時拉比", "Charizard": "噴火龍", "Charmander": "小火龍", "Charmeleon": "火恐龍", "Chikorita": "菊草葉", "Chinchou": "燈籠魚", "Cleffa": "皮寶寶", "Corsola": "太陽珊瑚", "Cranidos": "頭蓋龍", "Crobat": "叉字蝠", "Croconaw": "藍鱷", "Cyndaquil": "火球鼠", "Delibird": "信使鳥", "Donphan": "頓甲", "Dunsparce": "土龍弟弟", "Electabuzz": "電擊獸", "Electivire": "電擊魔獸", "Elekid": "電擊怪", "Entei": "炎帝", "Espeon": "太陽伊布", "Feraligatr": "大力鱷", "Flaaffy": "茸茸羊", "Forretress": "佛烈托斯", "Furret": "大尾立", "Girafarig": "麒麟奇", "Gligar": "天蠍", "Gloom": "臭臭花", "Granbull": "布魯皇", "Heracross": "赫拉克羅斯", "Hitmontop": "戰舞郎", "Hoothoot": "咕咕", "Hoppip": "毽子草", "Houndoom": "黑魯加", "Houndour": "戴魯比", "Igglybuff": "寶寶丁", "Ivysaur": "妙蛙草", "Jumpluff": "毽子棉", "Kingdra": "刺龍王", "Lanturn": "電燈怪", "Larvitar": "幼基拉斯", "Ledian": "安瓢蟲", "Ledyba": "芭瓢蟲", "Litleo": "小獅獅", "Lugia": "洛奇亞", "Luxio": "勒克貓", "Luxray": "倫琴貓", "Lycanroc (Midday Form)": "鬃岩狼人 白晝的樣子", "Magby": "鴨嘴寶寶", "Magcargo": "熔岩蝸牛", "Magmar": "鴨嘴火獸", "Magmortar": "鴨嘴炎獸", "Mantine": "巨翅飛魚", "Mareep": "咩利羊", "Marill": "瑪力露", "Meganium": "大竺葵", "Miltank": "大奶罐", "Misdreavus": "夢妖", "Murkrow": "黑暗鴉", "Natu": "天然雀", "Noctowl": "貓頭夜鷹", "Octillery": "章魚桶", "Oddish": "走路草", "Pachirisu": "帕奇利茲", "Phanpy": "小小象", "Pichu": "皮丘", "Pikachu": "皮卡丘", "Piloswine": "長毛豬", "Pineco": "榛果球", "Politoed": "蚊香蛙皇", "Porygon2": "多邊獸Ⅱ", "Pupitar": "沙基拉斯", "Pyroar": "火炎獅", "Quagsire": "沼王", "Quilava": "火岩鼠", "Qwilfish": "千針魚", "Raichu": "雷丘", "Raikou": "雷公", "Rampardos": "戰槌龍", "Remoraid": "鐵炮魚", "Rockruff": "岩狗狗", "Scizor": "巨鉗螳螂", "Sentret": "尾立", "Shieldon": "盾甲龍", "Shinx": "小貓怪", "Shuckle": "壺壺", "Skarmory": "盔甲鳥", "Skiploom": "毽子花", "Slowking": "呆呆王", "Slugma": "熔岩蟲", "Smeargle": "圖圖犬", "Smoochum": "迷唇娃", "Sneasel": "狃拉", "Snubbull": "布魯", "Spinarak": "圓絲蛛", "Squirtle": "傑尼龜", "Stantler": "驚角鹿", "Steelix": "大鋼蛇", "Sudowoodo": "樹才怪", "Suicune": "水君", "Sunflora": "向日花怪", "Sunkern": "向日種子", "Swinub": "小山豬", "Teddiursa": "熊寶寶", "Togepi": "波克比", "Togetic": "波克基古", "Tornadus (Incarnate Forme)": "龍捲雲 化身形態", "Totodile": "小鋸鱷", "Typhlosion": "火爆獸", "Tyranitar": "班基拉斯", "Tyrogue": "無畏小子", "Umbreon": "月亮伊布", "Unown": "未知圖騰", "Ursaring": "圈圈熊", "Venusaur": "妙蛙花", "Wartortle": "卡咪龜", "Wobbuffet": "果然翁", "Wooper": "烏波", "Xatu": "天然鳥", "Yanma": "蜻蜻蜓", }, },
+              a2e: { "de": { "Griffel": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bollterus": "Bastiodon", "Lorblatt": "Bayleef", "Blubella": "Bellossom", "Turtok": "Blastoise", "Heiteira": "Blissey", "Mobai": "Bonsly", "Bisasam": "Bulbasaur", "Venuflibis": "Carnivine", "Celebi": "Celebi", "Glurak": "Charizard", "Glumanda": "Charmander", "Glutexo": "Charmeleon", "Endivie": "Chikorita", "Lampi": "Chinchou", "Pii": "Cleffa", "Corasonn": "Corsola", "Koknodon": "Cranidos", "Iksbat": "Crobat", "Tyracroc": "Croconaw", "Feurigel": "Cyndaquil", "Botogel": "Delibird", "Donphan": "Donphan", "Dummisel": "Dunsparce", "Elektek": "Electabuzz", "Elevoltek": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Psiana": "Espeon", "Impergator": "Feraligatr", "Waaty": "Flaaffy", "Forstellka": "Forretress", "Wiesenior": "Furret", "Girafarig": "Girafarig", "Skorgla": "Gligar", "Duflor": "Gloom", "Granbull": "Granbull", "Skaraborn": "Heracross", "Kapoera": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppspross": "Hoppip", "Hundemon": "Houndoom", "Hunduster": "Houndour", "Fluffeluff": "Igglybuff", "Bisaknosp": "Ivysaur", "Papungha": "Jumpluff", "Seedraking": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Leufeo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxtra": "Luxray", "Wolwerock (Tagform)": "Lycanroc (Midday Form)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magbrant": "Magmortar", "Mantax": "Mantine", "Voltilamm": "Mareep", "Marill": "Marill", "Meganie": "Meganium", "Miltank": "Miltank", "Traunfugil": "Misdreavus", "Kramurx": "Murkrow", "Natu": "Natu", "Noctuh": "Noctowl", "Octillery": "Octillery", "Myrapla": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Keifel": "Piloswine", "Tannza": "Pineco", "Quaxo": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroleo": "Pyroar", "Morlord": "Quagsire", "Igelavar": "Quilava", "Baldorfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rameidon": "Rampardos", "Remoraid": "Remoraid", "Wuffels": "Rockruff", "Scherox": "Scizor", "Wiesor": "Sentret", "Schilterus": "Shieldon", "Sheinux": "Shinx", "Pottrott": "Shuckle", "Panzaeron": "Skarmory", "Hubelupf": "Skiploom", "Laschoking": "Slowking", "Schneckmag": "Slugma", "Farbeagle": "Smeargle", "Kussilla": "Smoochum", "Sniebel": "Sneasel", "Snubbull": "Snubbull", "Webarak": "Spinarak", "Schiggy": "Squirtle", "Damhirplex": "Stantler", "Stahlos": "Steelix", "Mogelbaum": "Sudowoodo", "Suicune": "Suicune", "Sonnflora": "Sunflora", "Sonnkern": "Sunkern", "Quiekel": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Boreos (Inkarnationsform)": "Tornadus (Incarnate Forme)", "Karnimani": "Totodile", "Tornupto": "Typhlosion", "Despotar": "Tyranitar", "Rabauz": "Tyrogue", "Nachtara": "Umbreon", "Icognito": "Unown", "Ursaring": "Ursaring", "Bisaflor": "Venusaur", "Schillok": "Wartortle", "Woingenau": "Wobbuffet", "Felino": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "en-us": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Midday Form)": "Lycanroc (Midday Form)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Incarnate Forme)": "Tornadus (Incarnate Forme)", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "es": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc (Forma Diurna)": "Lycanroc (Midday Form)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus (Forma Avatar)": "Tornadus (Incarnate Forme)", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "fr": { "Capumain": "Aipom", "Pharamp": "Ampharos", "Migalos": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Macronium": "Bayleef", "Joliflor": "Bellossom", "Tortank": "Blastoise", "Leuphorie": "Blissey", "Manzaï": "Bonsly", "Bulbizarre": "Bulbasaur", "Vortente": "Carnivine", "Celebi": "Celebi", "Dracaufeu": "Charizard", "Salamèche": "Charmander", "Reptincel": "Charmeleon", "Germignon": "Chikorita", "Loupio": "Chinchou", "Mélo": "Cleffa", "Corayon": "Corsola", "Kranidos": "Cranidos", "Nostenfer": "Crobat", "Crocrodil": "Croconaw", "Héricendre": "Cyndaquil", "Cadoizo": "Delibird", "Donphan": "Donphan", "Insolourdo": "Dunsparce", "Élektek": "Electabuzz", "Élekable": "Electivire", "Élekid": "Elekid", "Entei": "Entei", "Mentali": "Espeon", "Aligatueur": "Feraligatr", "Lainergie": "Flaaffy", "Foretress": "Forretress", "Fouinar": "Furret", "Girafarig": "Girafarig", "Scorplane": "Gligar", "Ortide": "Gloom", "Granbull": "Granbull", "Scarhino": "Heracross", "Kapoera": "Hitmontop", "Hoothoot": "Hoothoot", "Granivol": "Hoppip", "Démolosse": "Houndoom", "Malosse": "Houndour", "Toudoudou": "Igglybuff", "Herbizarre": "Ivysaur", "Cotovol": "Jumpluff", "Hyporoi": "Kingdra", "Lanturn": "Lanturn", "Embrylex": "Larvitar", "Coxyclaque": "Ledian", "Coxy": "Ledyba", "Hélionceau": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lougaroc (Forme Diurne)": "Lycanroc (Midday Form)", "Magby": "Magby", "Volcaropod": "Magcargo", "Magmar": "Magmar", "Maganon": "Magmortar", "Démanta": "Mantine", "Wattouat": "Mareep", "Marill": "Marill", "Méganium": "Meganium", "Écrémeuh": "Miltank", "Feuforêve": "Misdreavus", "Cornèbre": "Murkrow", "Natu": "Natu", "Noarfang": "Noctowl", "Octillery": "Octillery", "Mystherbe": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Cochignon": "Piloswine", "Pomdepik": "Pineco", "Tarpaud": "Politoed", "Porygon2": "Porygon2", "Ymphect": "Pupitar", "Némélios": "Pyroar", "Maraiste": "Quagsire", "Feurisson": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Charkos": "Rampardos", "Rémoraid": "Remoraid", "Rocabot": "Rockruff", "Cizayox": "Scizor", "Fouinette": "Sentret", "Dinoclier": "Shieldon", "Lixy": "Shinx", "Caratroc": "Shuckle", "Airmure": "Skarmory", "Floravol": "Skiploom", "Roigada": "Slowking", "Limagma": "Slugma", "Queulorior": "Smeargle", "Lippouti": "Smoochum", "Farfuret": "Sneasel", "Snubbull": "Snubbull", "Mimigal": "Spinarak", "Carapuce": "Squirtle", "Cerfrousse": "Stantler", "Steelix": "Steelix", "Simularbre": "Sudowoodo", "Suicune": "Suicune", "Héliatronc": "Sunflora", "Tournegrin": "Sunkern", "Marcacrin": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Boréas Forme Avatar": "Tornadus (Incarnate Forme)", "Kaiminus": "Totodile", "Typhlosion": "Typhlosion", "Tyranocif": "Tyranitar", "Debugant": "Tyrogue", "Noctali": "Umbreon", "Zarbi": "Unown", "Ursaring": "Ursaring", "Florizarre": "Venusaur", "Carabaffe": "Wartortle", "Qulbutoké": "Wobbuffet", "Axoloto": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "it": { "Aipom": "Aipom", "Ampharos": "Ampharos", "Ariados": "Ariados", "Azumarill": "Azumarill", "Bastiodon": "Bastiodon", "Bayleef": "Bayleef", "Bellossom": "Bellossom", "Blastoise": "Blastoise", "Blissey": "Blissey", "Bonsly": "Bonsly", "Bulbasaur": "Bulbasaur", "Carnivine": "Carnivine", "Celebi": "Celebi", "Charizard": "Charizard", "Charmander": "Charmander", "Charmeleon": "Charmeleon", "Chikorita": "Chikorita", "Chinchou": "Chinchou", "Cleffa": "Cleffa", "Corsola": "Corsola", "Cranidos": "Cranidos", "Crobat": "Crobat", "Croconaw": "Croconaw", "Cyndaquil": "Cyndaquil", "Delibird": "Delibird", "Donphan": "Donphan", "Dunsparce": "Dunsparce", "Electabuzz": "Electabuzz", "Electivire": "Electivire", "Elekid": "Elekid", "Entei": "Entei", "Espeon": "Espeon", "Feraligatr": "Feraligatr", "Flaaffy": "Flaaffy", "Forretress": "Forretress", "Furret": "Furret", "Girafarig": "Girafarig", "Gligar": "Gligar", "Gloom": "Gloom", "Granbull": "Granbull", "Heracross": "Heracross", "Hitmontop": "Hitmontop", "Hoothoot": "Hoothoot", "Hoppip": "Hoppip", "Houndoom": "Houndoom", "Houndour": "Houndour", "Igglybuff": "Igglybuff", "Ivysaur": "Ivysaur", "Jumpluff": "Jumpluff", "Kingdra": "Kingdra", "Lanturn": "Lanturn", "Larvitar": "Larvitar", "Ledian": "Ledian", "Ledyba": "Ledyba", "Litleo": "Litleo", "Lugia": "Lugia", "Luxio": "Luxio", "Luxray": "Luxray", "Lycanroc Forma Giorno": "Lycanroc (Midday Form)", "Magby": "Magby", "Magcargo": "Magcargo", "Magmar": "Magmar", "Magmortar": "Magmortar", "Mantine": "Mantine", "Mareep": "Mareep", "Marill": "Marill", "Meganium": "Meganium", "Miltank": "Miltank", "Misdreavus": "Misdreavus", "Murkrow": "Murkrow", "Natu": "Natu", "Noctowl": "Noctowl", "Octillery": "Octillery", "Oddish": "Oddish", "Pachirisu": "Pachirisu", "Phanpy": "Phanpy", "Pichu": "Pichu", "Pikachu": "Pikachu", "Piloswine": "Piloswine", "Pineco": "Pineco", "Politoed": "Politoed", "Porygon2": "Porygon2", "Pupitar": "Pupitar", "Pyroar": "Pyroar", "Quagsire": "Quagsire", "Quilava": "Quilava", "Qwilfish": "Qwilfish", "Raichu": "Raichu", "Raikou": "Raikou", "Rampardos": "Rampardos", "Remoraid": "Remoraid", "Rockruff": "Rockruff", "Scizor": "Scizor", "Sentret": "Sentret", "Shieldon": "Shieldon", "Shinx": "Shinx", "Shuckle": "Shuckle", "Skarmory": "Skarmory", "Skiploom": "Skiploom", "Slowking": "Slowking", "Slugma": "Slugma", "Smeargle": "Smeargle", "Smoochum": "Smoochum", "Sneasel": "Sneasel", "Snubbull": "Snubbull", "Spinarak": "Spinarak", "Squirtle": "Squirtle", "Stantler": "Stantler", "Steelix": "Steelix", "Sudowoodo": "Sudowoodo", "Suicune": "Suicune", "Sunflora": "Sunflora", "Sunkern": "Sunkern", "Swinub": "Swinub", "Teddiursa": "Teddiursa", "Togepi": "Togepi", "Togetic": "Togetic", "Tornadus Forma Incarnazione": "Tornadus (Incarnate Forme)", "Totodile": "Totodile", "Typhlosion": "Typhlosion", "Tyranitar": "Tyranitar", "Tyrogue": "Tyrogue", "Umbreon": "Umbreon", "Unown": "Unown", "Ursaring": "Ursaring", "Venusaur": "Venusaur", "Wartortle": "Wartortle", "Wobbuffet": "Wobbuffet", "Wooper": "Wooper", "Xatu": "Xatu", "Yanma": "Yanma", }, "ja": { "エイパム": "Aipom", "デンリュウ": "Ampharos", "アリアドス": "Ariados", "マリルリ": "Azumarill", "トリデプス": "Bastiodon", "ベイリーフ": "Bayleef", "キレイハナ": "Bellossom", "カメックス": "Blastoise", "ハピナス": "Blissey", "ウソハチ": "Bonsly", "フシギダネ": "Bulbasaur", "マスキッパ": "Carnivine", "セレビィ": "Celebi", "リザードン": "Charizard", "ヒトカゲ": "Charmander", "リザード": "Charmeleon", "チコリータ": "Chikorita", "チョンチー": "Chinchou", "ピィ": "Cleffa", "サニーゴ": "Corsola", "ズガイドス": "Cranidos", "クロバット": "Crobat", "アリゲイツ": "Croconaw", "ヒノアラシ": "Cyndaquil", "デリバード": "Delibird", "ドンファン": "Donphan", "ノコッチ": "Dunsparce", "エレブー": "Electabuzz", "エレキブル": "Electivire", "エレキッド": "Elekid", "エンテイ": "Entei", "エーフィ": "Espeon", "オーダイル": "Feraligatr", "モココ": "Flaaffy", "フォレトス": "Forretress", "オオタチ": "Furret", "キリンリキ": "Girafarig", "グライガー": "Gligar", "クサイハナ": "Gloom", "グランブル": "Granbull", "ヘラクロス": "Heracross", "カポエラー": "Hitmontop", "ホーホー": "Hoothoot", "ハネッコ": "Hoppip", "ヘルガー": "Houndoom", "デルビル": "Houndour", "ププリン": "Igglybuff", "フシギソウ": "Ivysaur", "ワタッコ": "Jumpluff", "キングドラ": "Kingdra", "ランターン": "Lanturn", "ヨーギラス": "Larvitar", "レディアン": "Ledian", "レディバ": "Ledyba", "シシコ": "Litleo", "ルギア": "Lugia", "ルクシオ": "Luxio", "レントラー": "Luxray", "ルガルガン まひるのすがた": "Lycanroc (Midday Form)", "ブビィ": "Magby", "マグカルゴ": "Magcargo", "ブーバー": "Magmar", "ブーバーン": "Magmortar", "マンタイン": "Mantine", "メリープ": "Mareep", "マリル": "Marill", "メガニウム": "Meganium", "ミルタンク": "Miltank", "ムウマ": "Misdreavus", "ヤミカラス": "Murkrow", "ネイティ": "Natu", "ヨルノズク": "Noctowl", "オクタン": "Octillery", "ナゾノクサ": "Oddish", "パチリス": "Pachirisu", "ゴマゾウ": "Phanpy", "ピチュー": "Pichu", "ピカチュウ": "Pikachu", "イノムー": "Piloswine", "クヌギダマ": "Pineco", "ニョロトノ": "Politoed", "ポリゴン２": "Porygon2", "サナギラス": "Pupitar", "カエンジシ": "Pyroar", "ヌオー": "Quagsire", "マグマラシ": "Quilava", "ハリーセン": "Qwilfish", "ライチュウ": "Raichu", "ライコウ": "Raikou", "ラムパルド": "Rampardos", "テッポウオ": "Remoraid", "イワンコ": "Rockruff", "ハッサム": "Scizor", "オタチ": "Sentret", "タテトプス": "Shieldon", "コリンク": "Shinx", "ツボツボ": "Shuckle", "エアームド": "Skarmory", "ポポッコ": "Skiploom", "ヤドキング": "Slowking", "マグマッグ": "Slugma", "ドーブル": "Smeargle", "ムチュール": "Smoochum", "ニューラ": "Sneasel", "ブルー": "Snubbull", "イトマル": "Spinarak", "ゼニガメ": "Squirtle", "オドシシ": "Stantler", "ハガネール": "Steelix", "ウソッキー": "Sudowoodo", "スイクン": "Suicune", "キマワリ": "Sunflora", "ヒマナッツ": "Sunkern", "ウリムー": "Swinub", "ヒメグマ": "Teddiursa", "トゲピー": "Togepi", "トゲチック": "Togetic", "トルネロス けしんフォルム": "Tornadus (Incarnate Forme)", "ワニノコ": "Totodile", "バクフーン": "Typhlosion", "バンギラス": "Tyranitar", "バルキー": "Tyrogue", "ブラッキー": "Umbreon", "アンノーン": "Unown", "リングマ": "Ursaring", "フシギバナ": "Venusaur", "カメール": "Wartortle", "ソーナンス": "Wobbuffet", "ウパー": "Wooper", "ネイティオ": "Xatu", "ヤンヤンマ": "Yanma", }, "ko": { "에이팜": "Aipom", "전룡": "Ampharos", "아리아도스": "Ariados", "마릴리": "Azumarill", "바리톱스": "Bastiodon", "베이리프": "Bayleef", "아르코": "Bellossom", "거북왕": "Blastoise", "해피너스": "Blissey", "꼬지지": "Bonsly", "이상해씨": "Bulbasaur", "무스틈니": "Carnivine", "세레비": "Celebi", "리자몽": "Charizard", "파이리": "Charmander", "리자드": "Charmeleon", "치코리타": "Chikorita", "초라기": "Chinchou", "삐": "Cleffa", "코산호": "Corsola", "두개도스": "Cranidos", "크로뱃": "Crobat", "엘리게이": "Croconaw", "브케인": "Cyndaquil", "딜리버드": "Delibird", "코리갑": "Donphan", "노고치": "Dunsparce", "에레브": "Electabuzz", "에레키블": "Electivire", "에레키드": "Elekid", "앤테이": "Entei", "에브이": "Espeon", "장크로다일": "Feraligatr", "보송송": "Flaaffy", "쏘콘": "Forretress", "다꼬리": "Furret", "키링키": "Girafarig", "글라이거": "Gligar", "냄새꼬": "Gloom", "그랑블루": "Granbull", "헤라크로스": "Heracross", "카포에라": "Hitmontop", "부우부": "Hoothoot", "통통코": "Hoppip", "헬가": "Houndoom", "델빌": "Houndour", "푸푸린": "Igglybuff", "이상해풀": "Ivysaur", "솜솜코": "Jumpluff", "킹드라": "Kingdra", "랜턴": "Lanturn", "애버라스": "Larvitar", "레디안": "Ledian", "레디바": "Ledyba", "레오꼬": "Litleo", "루기아": "Lugia", "럭시오": "Luxio", "렌트라": "Luxray", "한낮의 모습": "Lycanroc (Midday Form)", "마그비": "Magby", "마그카르고": "Magcargo", "마그마": "Magmar", "마그마번": "Magmortar", "만타인": "Mantine", "메리프": "Mareep", "마릴": "Marill", "메가니움": "Meganium", "밀탱크": "Miltank", "무우마": "Misdreavus", "니로우": "Murkrow", "네이티": "Natu", "야부엉": "Noctowl", "대포무노": "Octillery", "뚜벅쵸": "Oddish", "파치리스": "Pachirisu", "코코리": "Phanpy", "피츄": "Pichu", "피카츄": "Pikachu", "메꾸리": "Piloswine", "피콘": "Pineco", "왕구리": "Politoed", "폴리곤2": "Porygon2", "데기라스": "Pupitar", "화염레오": "Pyroar", "누오": "Quagsire", "마그케인": "Quilava", "침바루": "Qwilfish", "라이츄": "Raichu", "라이코": "Raikou", "램펄드": "Rampardos", "총어": "Remoraid", "암멍이": "Rockruff", "핫삼": "Scizor", "꼬리선": "Sentret", "방패톱스": "Shieldon", "꼬링크": "Shinx", "단단지": "Shuckle", "무장조": "Skarmory", "두코": "Skiploom", "야도킹": "Slowking", "마그마그": "Slugma", "루브도": "Smeargle", "뽀뽀라": "Smoochum", "포푸니": "Sneasel", "블루": "Snubbull", "페이검": "Spinarak", "꼬부기": "Squirtle", "노라키": "Stantler", "강철톤": "Steelix", "꼬지모": "Sudowoodo", "스이쿤": "Suicune", "해루미": "Sunflora", "해너츠": "Sunkern", "꾸꾸리": "Swinub", "깜지곰": "Teddiursa", "토게피": "Togepi", "토게틱": "Togetic", "화신폼": "Tornadus (Incarnate Forme)", "리아코": "Totodile", "블레이범": "Typhlosion", "마기라스": "Tyranitar", "배루키": "Tyrogue", "블래키": "Umbreon", "형태별 모습": "Unown", "링곰": "Ursaring", "이상해꽃": "Venusaur", "어니부기": "Wartortle", "마자용": "Wobbuffet", "우파": "Wooper", "네이티오": "Xatu", "왕자리": "Yanma", }, "zh-tw": { "長尾怪手": "Aipom", "電龍": "Ampharos", "阿利多斯": "Ariados", "瑪力露麗": "Azumarill", "護城龍": "Bastiodon", "月桂葉": "Bayleef", "美麗花": "Bellossom", "水箭龜": "Blastoise", "幸福蛋": "Blissey", "盆才怪": "Bonsly", "妙蛙種子": "Bulbasaur", "尖牙籠": "Carnivine", "時拉比": "Celebi", "噴火龍": "Charizard", "小火龍": "Charmander", "火恐龍": "Charmeleon", "菊草葉": "Chikorita", "燈籠魚": "Chinchou", "皮寶寶": "Cleffa", "太陽珊瑚": "Corsola", "頭蓋龍": "Cranidos", "叉字蝠": "Crobat", "藍鱷": "Croconaw", "火球鼠": "Cyndaquil", "信使鳥": "Delibird", "頓甲": "Donphan", "土龍弟弟": "Dunsparce", "電擊獸": "Electabuzz", "電擊魔獸": "Electivire", "電擊怪": "Elekid", "炎帝": "Entei", "太陽伊布": "Espeon", "大力鱷": "Feraligatr", "茸茸羊": "Flaaffy", "佛烈托斯": "Forretress", "大尾立": "Furret", "麒麟奇": "Girafarig", "天蠍": "Gligar", "臭臭花": "Gloom", "布魯皇": "Granbull", "赫拉克羅斯": "Heracross", "戰舞郎": "Hitmontop", "咕咕": "Hoothoot", "毽子草": "Hoppip", "黑魯加": "Houndoom", "戴魯比": "Houndour", "寶寶丁": "Igglybuff", "妙蛙草": "Ivysaur", "毽子棉": "Jumpluff", "刺龍王": "Kingdra", "電燈怪": "Lanturn", "幼基拉斯": "Larvitar", "安瓢蟲": "Ledian", "芭瓢蟲": "Ledyba", "小獅獅": "Litleo", "洛奇亞": "Lugia", "勒克貓": "Luxio", "倫琴貓": "Luxray", "鬃岩狼人 白晝的樣子": "Lycanroc (Midday Form)", "鴨嘴寶寶": "Magby", "熔岩蝸牛": "Magcargo", "鴨嘴火獸": "Magmar", "鴨嘴炎獸": "Magmortar", "巨翅飛魚": "Mantine", "咩利羊": "Mareep", "瑪力露": "Marill", "大竺葵": "Meganium", "大奶罐": "Miltank", "夢妖": "Misdreavus", "黑暗鴉": "Murkrow", "天然雀": "Natu", "貓頭夜鷹": "Noctowl", "章魚桶": "Octillery", "走路草": "Oddish", "帕奇利茲": "Pachirisu", "小小象": "Phanpy", "皮丘": "Pichu", "皮卡丘": "Pikachu", "長毛豬": "Piloswine", "榛果球": "Pineco", "蚊香蛙皇": "Politoed", "多邊獸Ⅱ": "Porygon2", "沙基拉斯": "Pupitar", "火炎獅": "Pyroar", "沼王": "Quagsire", "火岩鼠": "Quilava", "千針魚": "Qwilfish", "雷丘": "Raichu", "雷公": "Raikou", "戰槌龍": "Rampardos", "鐵炮魚": "Remoraid", "岩狗狗": "Rockruff", "巨鉗螳螂": "Scizor", "尾立": "Sentret", "盾甲龍": "Shieldon", "小貓怪": "Shinx", "壺壺": "Shuckle", "盔甲鳥": "Skarmory", "毽子花": "Skiploom", "呆呆王": "Slowking", "熔岩蟲": "Slugma", "圖圖犬": "Smeargle", "迷唇娃": "Smoochum", "狃拉": "Sneasel", "布魯": "Snubbull", "圓絲蛛": "Spinarak", "傑尼龜": "Squirtle", "驚角鹿": "Stantler", "大鋼蛇": "Steelix", "樹才怪": "Sudowoodo", "水君": "Suicune", "向日花怪": "Sunflora", "向日種子": "Sunkern", "小山豬": "Swinub", "熊寶寶": "Teddiursa", "波克比": "Togepi", "波克基古": "Togetic", "龍捲雲 化身形態": "Tornadus (Incarnate Forme)", "小鋸鱷": "Totodile", "火爆獸": "Typhlosion", "班基拉斯": "Tyranitar", "無畏小子": "Tyrogue", "月亮伊布": "Umbreon", "未知圖騰": "Unown", "圈圈熊": "Ursaring", "妙蛙花": "Venusaur", "卡咪龜": "Wartortle", "果然翁": "Wobbuffet", "烏波": "Wooper", "天然鳥": "Xatu", "蜻蜻蜓": "Yanma", }, },
+            },
+            Ground: {
+              e2a: { 'de': { 'Grassland': 'Wiese', 'Forest': 'Wald', 'Tower': 'Turm', 'Shore': 'Ufer', 'Cave': 'Höhle', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Grassland': 'Pradera', 'Forest': 'Bosque', 'Tower': 'Torre', 'Shore': 'Orilla', 'Cave': 'Cueva', }, 'fr': { 'Grassland': 'Prairie', 'Forest': 'Forêt', 'Tower': 'Tour', 'Shore': 'Rive', 'Cave': 'Grotte', }, 'it': { 'Grassland': 'Prateria', 'Forest': 'Bosco', 'Tower': 'Torre', 'Shore': 'Riva', 'Cave': 'Grotta', }, 'ja': { 'Grassland': '草原', 'Forest': '森', 'Tower': '塔', 'Shore': '水辺', 'Cave': '洞窟', }, 'ko': { 'Grassland': '초원', 'Forest': '숲', 'Tower': '탑', 'Shore': '물가', 'Cave': '동굴', }, 'zh-tw': { 'Grassland': '草原', 'Forest': '森林', 'Tower': '塔', 'Shore': '水岸', 'Cave': '洞窟', }, },
+              a2e: { 'de': { 'Wiese': 'Grassland', 'Wald': 'Forest', 'Turm': 'Tower', 'Ufer': 'Shore', 'Höhle': 'Cave', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Pradera': 'Grassland', 'Bosque': 'Forest', 'Torre': 'Tower', 'Orilla': 'Shore', 'Cueva': 'Cave', }, 'fr': { 'Prairie': 'Grassland', 'Forêt': 'Forest', 'Tour': 'Tower', 'Rive': 'Shore', 'Grotte': 'Cave', }, 'it': { 'Prateria': 'Grassland', 'Bosco': 'Forest', 'Torre': 'Tower', 'Riva': 'Shore', 'Grotta': 'Cave', }, 'ja': { '草原': 'Grassland', '森': 'Forest', '塔': 'Tower', '水辺': 'Shore', '洞窟': 'Cave', }, 'ko': { '초원': 'Grassland', '숲': 'Forest', '탑': 'Tower', '물가': 'Shore', '동굴': 'Cave', }, 'zh-tw': { '草原': 'Grassland', '森林': 'Forest', '塔': 'Tower', '水岸': 'Shore', '洞窟': 'Cave', }, },
+            },
+          },
         },
       };
       const languages = [
@@ -101,21 +170,21 @@
         { key: 'ja', value: '日本語', },
       ];
       const modes = [
-        { value: '0', textContent: 'Star', },
-        { value: '1', textContent: 'X', },
-        { value: '2', textContent: 'Y', },
-        { value: '3', textContent: 'Boss', },
-        { value: '4', textContent: 'Sub-Boss', },
-        { value: '5', textContent: 'Common', },
-        { value: '6', textContent: 'Uncommon', },
-        { value: '7', textContent: 'Biome', },
-        { value: '8', textContent: 'Where is', },
-        { value: '9', textContent: 'Combination', },
-        { value: '10', textContent: 'Free', },
-        { value: '11', textContent: 'Draw', },
+        { value: '0', textContent: 'Star', valueTitles: ['Value'], columnIndexs: [0], },
+        { value: '1', textContent: 'X', valueTitles: ['Value'], columnIndexs: [1], },
+        { value: '2', textContent: 'Y', valueTitles: ['Value'], columnIndexs: [2], },
+        { value: '3', textContent: 'Boss', valueTitles: ['Value'], columnIndexs: [3], },
+        { value: '4', textContent: 'Sub-Boss', valueTitles: ['Value'], columnIndexs: [4], },
+        { value: '5', textContent: 'Common', valueTitles: ['Value'], columnIndexs: [5], },
+        { value: '6', textContent: 'Uncommon', valueTitles: ['Value'], columnIndexs: [6], },
+        { value: '7', textContent: 'Biome', valueTitles: ['Value'], columnIndexs: [7], },
+        { value: '8', textContent: 'Where is', valueTitles: ['Value'], columnIndexs: [3, 4, 5, 6], },
+        { value: '9', textContent: 'Combination', valueTitles: ['Boss/Sub-Boss', 'Common/Uncommon'], columnIndexs: [3, 4, 5, 6], },
+        { value: '10', textContent: 'Free', valueTitles: ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome'], columnIndexs: [0, 1, 2, 3, 4, 5, 6, 7], },
+        { value: '11', textContent: 'Draw', valueTitles: ['X', 'Y'], },
       ];
       const strings = {
-        'description': {
+        '#description': {
           'en-us': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
           'fr': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
           'it': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
@@ -125,7 +194,7 @@
           'ko': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
           'ja': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
         },
-        'announcement': {
+        '#announcement': {
           'en-us': 'The website is very unstable recently. Sorry for the inconvenience.',
           'fr': 'Le site Web est très instable récemment. Désolé pour le dérangement.',
           'it': 'Il sito web è molto instabile di recente. Ci dispiace per l\'inconvenienza.',
@@ -134,11 +203,44 @@
           'zh-tw': '該網站最近非常不穩定。 抱歉給你帶來不便。',
           'ko': '최근 웹 사이트가 매우 불안정합니다. 불편을 드려 죄송합니다.',
           'ja': 'ウェブサイトは最近非常に不安定です。 ご不便おかけしてすみません。',
-        }
+        },
+        '#mode': {
+          'en-us': 'Mode',
+          'fr': 'Mode',
+          'it': 'Mode',
+          'de': 'Mode',
+          'es': 'Mode',
+          'zh-tw': '模式',
+          'ko': 'Mode',
+          'ja': 'Mode',
+        },
+        '#button': {
+          'en-us': 'Click to generate map or refresh map',
+          'fr': 'Cliquez pour générer la carte ou mettre à jour la carte',
+          'it': 'Fare clic per generare la mappa o aggiornare la mappa',
+          'de': 'Klicken Sie hier, um eine Karte zu erstellen oder eine Karte zu aktualisieren',
+          'es': 'Haga clic para generar el mapa o actualizar el mapa',
+          'zh-tw': '點擊生成地圖或刷新地圖',
+          'ko': '지도를 만들거나지도를 새로 고침하려면 클릭',
+          'ja': 'クリックしてマップを生成するか、マップを更新します',
+        },
+        '#resultDescription': {
+          'de': 'Search result: (click header to sort)',
+          'en-us': 'Search result: (click header to sort)',
+          'es': 'Search result: (click header to sort)',
+          'fr': 'Search result: (click header to sort)',
+          'it': 'Search result: (click header to sort)',
+          'ja': 'Search result: (click header to sort)',
+          'ko': 'Search result: (click header to sort)',
+          'zh-tw': '搜索結果：（單擊標題進行排序）',
+        },
       };
       const defaultLanguage = 'en-us';
 
+      let EventKey;
+      dateChange();
       let language = defaultLanguage;
+      let mode = '-1';
       if (storageAvailable('localStorage')) {
         // Yippee! We can use localStorage awesomeness
         if (localStorage.getItem('language') === null) {
@@ -185,18 +287,187 @@
       description.id = 'description';
       body.appendChild(description);
       const announcementDiv = document.createElement('div');
+      announcementDiv.style.fontSize = '24px';
       const announcementa = document.createElement('p');
-      announcementa.innerHTML = 'Please check out the poll on the spreadsheet.<br>Link: <a href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393</a>';
+      announcementa.innerHTML = 'Please check out the poll on the spreadsheet.<br>Link: <a href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393</a><br><font color="red">Some features are temporarily disabled, including Sorting, Draw, Click Response, etc.</font>';
+      announcementDiv.appendChild(announcementa);
       const announcement = document.createElement('p');
       announcement.id = 'announcement';
-      announcement.style.fontSize = '24px';
       announcementDiv.appendChild(announcement);
       body.appendChild(announcementDiv);
+      const modeValueDiv = document.createElement('div');
+      const modeDiv = document.createElement('div');
+      const modeSelect = document.createElement('select');
+      let option;
+      option = document.createElement('option');
+      option.id = 'mode';
+      option.value = -1;
+      modeSelect.appendChild(option);
+      for (let i = 0; i < modes.length; i++) {
+        let option = document.createElement('option');
+        option.value = modes[i].value;
+        option.textContent = modes[i].textContent;
+        modeSelect.appendChild(option);
+      }
+      modeSelect.addEventListener('change', modeSelectChange);
+      modeDiv.appendChild(modeSelect);
+      modeValueDiv.appendChild(modeDiv);
+      const ValuesDiv = document.createElement('div');
+      ValuesDiv.style.visibility = 'hidden';
+      ValuesDiv.className = 'grid-container';
+      let maxValueTitlesLength = -1;
+      for (let i = 0; i < modes.length; i++) {
+        if (modes[i].valueTitles !== undefined) {
+          let valueTitleslength = modes[i].valueTitles.length;
+          if (valueTitleslength > maxValueTitlesLength) {
+            maxValueTitlesLength = valueTitleslength;
+          }
+        }
+      }
+      let Values = [];
+      let valueTitleDivs = [];
+      let inputs = [];
+      let datalists = [];
+      for (let i = 0; i < maxValueTitlesLength; i++) {
+        let div = document.createElement('div');
+        div.style.display = 'none';
+        let valueTitleDiv = document.createElement('div');
+        valueTitleDivs.push(valueTitleDiv);
+        div.appendChild(valueTitleDiv);
+        let input = document.createElement('input');
+        input.setAttribute('list', 'datalist' + i);
+        inputs.push(input);
+        div.appendChild(input);
+        let datalist = document.createElement('datalist');
+        datalist.id = 'datalist' + i;
+        datalists.push(datalist);
+        div.appendChild(datalist);
+        Values.push(div);
+        ValuesDiv.appendChild(div);
+      }
+      modeValueDiv.appendChild(ValuesDiv);
+      body.appendChild(modeValueDiv);
+
+      const buttonDiv = document.createElement('div');
+      const button = document.createElement('button');
+      button.id = 'button';
+      button.addEventListener('click', buttonClick);
+      buttonDiv.appendChild(button);
+      body.appendChild(buttonDiv);
+      const gridButtonDiv = document.createElement('div');
+      const gridButton = document.createElement('button');
+      gridButton.id = 'gridButton';
+      gridButton.textContent = 'show grid';
+      gridButton.addEventListener('click', gridButtonClick);
+      gridButtonDiv.appendChild(gridButton);
+      body.appendChild(gridButtonDiv);
+      const mapDiv = document.createElement('div');
+      let canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1000;
+      mapDiv.appendChild(canvas);
+      const log = document.createElement('div');
+      log.id = 'log';
+      log.textContent = 'Click Response:';
+      mapDiv.appendChild(log);
+      const mapLayer = document.createElement('canvas');
+      mapLayer.className = 'canvas';
+      mapLayer.style.zIndex = 0;
+      mapLayer.width = Event[EventKey].width;
+      mapLayer.height = Event[EventKey].height;
+      const mapLayerCtx = mapLayer.getContext('2d');
+      mapLayerCtx.fillStyle = Event[EventKey].color;
+      mapLayerCtx.fillRect(0, 0, mapLayer.width, mapLayer.height);
+      const image = new Image(mapLayer.width, mapLayer.height);
+      image.src = Event[EventKey].image;
+      image.onload = function () {
+        mapLayerCtx.drawImage(this, 0, 0, this.width, this.height)
+      };
+      mapDiv.appendChild(mapLayer);
+      const gridLayer = document.createElement('canvas');
+      gridLayer.className = 'canvas';
+      gridLayer.style.zIndex = 1;
+      gridLayer.width = Event[EventKey].width;
+      gridLayer.height = Event[EventKey].height;
+      const gridLayerCtx = gridLayer.getContext('2d');
+      gridLayerCtx.strokeStyle = 'gray';
+      for (let i = 0; i <= gridLayer.width; i = i + gridLayer.width / 50) {
+        gridLayerCtx.beginPath();
+        gridLayerCtx.moveTo(i, 0);
+        gridLayerCtx.lineTo(i, gridLayer.height);
+        gridLayerCtx.stroke();
+        gridLayerCtx.beginPath();
+        gridLayerCtx.moveTo(0, i);
+        gridLayerCtx.lineTo(gridLayer.height, i);
+        gridLayerCtx.stroke();
+      }
+      gridLayerCtx.strokeStyle = 'black';
+      for (let i = 0; i <= gridLayer.width; i = i + gridLayer.width / 10) {
+        gridLayerCtx.beginPath();
+        gridLayerCtx.moveTo(i, 0);
+        gridLayerCtx.lineTo(i, gridLayer.height);
+        gridLayerCtx.stroke();
+        gridLayerCtx.beginPath();
+        gridLayerCtx.moveTo(0, i);
+        gridLayerCtx.lineTo(gridLayer.height, i);
+        gridLayerCtx.stroke();
+      }
+      gridLayer.style.display = 'none';
+      mapDiv.appendChild(gridLayer);
+      const textLayer = document.createElement('canvas');
+      textLayer.className = 'canvas';
+      textLayer.style.zIndex = 2;
+      textLayer.width = Event[EventKey].width;
+      textLayer.height = Event[EventKey].height;
+      const textLayerCtx = textLayer.getContext('2d');
+      mapDiv.appendChild(textLayer);
+      const pointLayer = document.createElement('canvas');
+      pointLayer.className = 'canvas';
+      pointLayer.style.zIndex = 3;
+      pointLayer.width = Event[EventKey].width;
+      pointLayer.height = Event[EventKey].height;
+      const pointLayerCtx = pointLayer.getContext('2d');
+      mapDiv.appendChild(pointLayer);
+      const fakeLayer = document.createElement('canvas');
+      fakeLayer.className = 'canvas';
+      fakeLayer.style.zIndex = 4;
+      fakeLayer.width = Event[EventKey].width;
+      fakeLayer.height = Event[EventKey].height;
+      const fakeLayerCtx = fakeLayer.getContext('2d');
+      mapDiv.appendChild(fakeLayer);
+      body.appendChild(mapDiv);
+      const result = document.createElement('div');
+      result.style.display = 'none';
+      result.id = 'result';
+      let resultDescription = document.createElement('div');
+      resultDescription.id = 'resultDescription';
+      result.appendChild(resultDescription);
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const headers = ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)'];
+      let tr;
+      tr = document.createElement('tr');
+      for (let i = 0; i < headers.length; i++) {
+        let th = document.createElement('th');
+        th.textContent = headers[i];
+        tr.appendChild(th);
+      }
+      thead.appendChild(tr);
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+      table.appendChild(tbody);
+      result.appendChild(table);
+      body.appendChild(result);
+
+      let dataTable;
+      let matchTable;
 
       languageSelect.value = language;
       languageChange(language);
 
       languageSelect.addEventListener('change', languageSelectChange);
+
+      ready = true;
 
       function storageAvailable(type) {
         var storage;
@@ -227,7 +498,7 @@
         let eventTargetValue = event.target.value;
         for (let i = 0; i < languages.length; i++) {
           if (eventTargetValue === languages[i].key) {
-            language = event.target.value;
+            language = eventTargetValue;
             languageChange(language);
             if (storageAvailable('localStorage')) {
               // Yippee! We can use localStorage awesomeness
@@ -240,9 +511,10 @@
 
       function languageChange(language) {
         for (let i in strings) {
-          let element = document.getElementById(i);
+          let element = document.querySelector(i);
           element.innerHTML = strings[i][language];
         }
+        modeChange(mode);
       }
 
       function modeSelectChange(event) {
@@ -257,17 +529,28 @@
       }
 
       function modeChange(mode) {
+        let snapshotLanguage = language;
         for (let i = 0; i < modes.length; i++) {
           if (mode === modes[i].value) {
-            if (0 <= mode <= 10) {
-              if (googleChartsLoaded === true) {
+            ValuesDiv.style.visibility = 'hidden';
+            let valueTitles = modes[mode].valueTitles;
+            for (let j = 0; j < valueTitles.length; j++) {
+              Values[j].style.display = null;
+              inputs[j].value = '';
+              datalists[j].innerHTML = '';
+              valueTitleDivs[j].textContent = valueTitles[j];
+            }
+            for (let j = valueTitles.length; j < maxValueTitlesLength; j++) {
+              Values[j].style.display = 'none';
+            }
+            if (0 <= mode && mode <= 10) {
+              if (googleChartsLoaded === true && ready === true) {
                 let URL = Event[EventKey].Map.URL;
                 let optionalParameters = {
                   headers: Event[EventKey].Map.headerss[mode],
                   gid: Event[EventKey].Map.gid,
                   range: Event[EventKey].Map.ranges[mode],
                 };
-                let gid = Event[EventKey].Map.gid;
                 let dataSourceUrl = URL + '/gviz/tq?';
                 for (let i in optionalParameters) {
                   dataSourceUrl = dataSourceUrl + i + '=' + optionalParameters[i].toString() + '&';
@@ -278,16 +561,376 @@
                 let query = new google.visualization.Query(dataSourceUrl);
                 query.send(handleQueryResponse);
                 function handleQueryResponse(response) {
-                  let data = response.getDataTable();
-                  console.log(data);
-                  for (let columnIndex = 0; columnIndex < data.getNumberOfColumns(); columnIndex++) {
-                    console.log(data.getColumnLabel(columnIndex));
+                  if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;
                   }
+                  let data = response.getDataTable();
+                  for (let columnIndex = 0; columnIndex < data.getNumberOfColumns(); columnIndex++) {
+                    for (let rowIndex = 0; rowIndex < data.getNumberOfRows(); rowIndex++) {
+                      let value = data.getValue(rowIndex, columnIndex);
+                      if (value === null) {
+                        break;
+                      } else {
+                        let option = document.createElement('option');
+                        if (snapshotLanguage === 'en-us') {
+                          option.value = value;
+                        } else {
+                          if (0 <= mode && mode <= 2) {
+                            option.value = value;
+                          } else if ((3 <= mode && mode <= 6) || Number(mode) === 8) {
+                            let translationValue = Event[EventKey].translation.Pii.e2a[snapshotLanguage][value];
+                            if (translationValue !== undefined) {
+                              option.value = translationValue;
+                            } else {
+                              option.value = value;
+                            }
+                          } else if (Number(mode) === 7) {
+                            let translationValue = Event[EventKey].translation.Ground.e2a[snapshotLanguage][value];
+                            if (translationValue !== undefined) {
+                              option.value = translationValue;
+                            } else {
+                              option.value = value;
+                            }
+                          } else if (Number(mode) === 9) {
+                            let splitValue = value.split('/');
+                            for (let i = 0; i < splitValue.length; i++) {
+                              let translationValue = Event[EventKey].translation.Pii.e2a[snapshotLanguage][splitValue[i]];
+                              if (translationValue !== undefined) {
+                                splitValue[i] = translationValue;
+                              } else {
+                              }
+                              option.value = splitValue.join('/');
+                            }
+                          } else if (Number(mode) === 10) {
+                            if (0 <= columnIndex && columnIndex <= 2) {
+                              option.value = value;
+                            } else if (3 <= columnIndex && columnIndex <= 6) {
+                              let translationValue = Event[EventKey].translation.Pii.e2a[snapshotLanguage][value];
+                              if (translationValue !== undefined) {
+                                option.value = translationValue;
+                              } else {
+                                option.value = value;
+                              }
+                            } else if (columnIndex === 7) {
+                              let translationValue = Event[EventKey].translation.Ground.e2a[snapshotLanguage][value];
+                              if (translationValue !== undefined) {
+                                option.value = translationValue;
+                              } else {
+                                option.value = value;
+                              }
+                            }
+                          }
+                        }
+                        datalists[columnIndex].appendChild(option);
+                      }
+                    }
+                  }
+                  ValuesDiv.style.visibility = null;
                 }
               }
             }
             break;
           }
+        }
+      }
+
+      function buttonClick(event) {
+        let snapshotMode = mode;
+        let snapshotLanguage = language;
+        if (0 <= snapshotMode && snapshotMode <= 11) {
+          let snapshotValues = [];
+          for (let i = 0; i < inputs.length; i++) {
+            snapshotValues.push(inputs[i].value);
+          }
+          pointLayer.style.display = 'none';
+          fakeLayer.style.display = 'none';
+          if (0 <= snapshotMode && snapshotMode <= 10) {
+            textLayer.style.display = null;
+            if (googleChartsLoaded === true && ready === true) {
+              let URL = Event[EventKey].mainSheet.URL;
+              let optionalParameters = {
+                headers: Event[EventKey].mainSheet.headers,
+                gid: Event[EventKey].mainSheet.gid,
+                range: Event[EventKey].mainSheet.range,
+              };
+              let dataSourceUrl = URL + '/gviz/tq?';
+              for (let i in optionalParameters) {
+                dataSourceUrl = dataSourceUrl + i + '=' + optionalParameters[i].toString() + '&';
+              }
+              if (dataSourceUrl[dataSourceUrl.length - 1] === '&') {
+                dataSourceUrl = dataSourceUrl.slice(0, dataSourceUrl.length - 1);
+              }
+              let query = new google.visualization.Query(dataSourceUrl);
+              query.send(handleQueryResponse);
+              function handleQueryResponse(response) {
+                if (response.isError()) {
+                  alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                  return;
+                }
+                let data = response.getDataTable();
+                dataTable = [];
+                for (let rowIndex = 0; rowIndex < data.getNumberOfRows(); rowIndex++) {
+                  dataTable.push([]);
+                  for (let columnIndex = 0; columnIndex < data.getNumberOfColumns(); columnIndex++) {
+                    let value = data.getValue(rowIndex, columnIndex);
+                    if (value === null) {
+                      value = '';
+                    } else {
+                    }
+                    dataTable[dataTable.length - 1].push(value);
+                  }
+                }
+                let columnIndexs;
+                let valueTitleslength;
+                for (let i = 0; i < modes.length; i++) {
+                  if (snapshotMode === modes[i].value) {
+                    columnIndexs = modes[i].columnIndexs;
+                    valueTitleslength = modes[i].valueTitles.length;
+                    break
+                  }
+                }
+                let values = [];
+                if (snapshotLanguage === 'en-us') {
+                  for (let i = 0; i < valueTitleslength; i++) {
+                    values.push(snapshotValues[i]);
+                  }
+                } else {
+                  if (0 <= snapshotMode && snapshotMode <= 2) {
+                    for (let i = 0; i < valueTitleslength; i++) {
+                      values.push(snapshotValues[i]);
+                    }
+                  } else if (3 <= snapshotMode && snapshotMode <= 8) {
+                    let translationDictionary;
+                    if ((3 <= snapshotMode && snapshotMode <= 6) || Number(snapshotMode) === 8) {
+                      translationDictionary = Event[EventKey].translation.Pii.a2e[snapshotLanguage];
+                    }
+                    else if (Number(snapshotMode) === 7) {
+                      translationDictionary = Event[EventKey].translation.Ground.a2e[snapshotLanguage];
+                    }
+                    for (let i = 0; i < valueTitleslength; i++) {
+                      values.push(snapshotValues[i]);
+                      let translationValue = translationDictionary[values[i]];
+                      if (translationValue !== undefined) {
+                        values[i] = translationValue;
+                      }
+                    }
+                  } else if (Number(snapshotMode) === 9) {
+                    let translationDictionary = Event[EventKey].translation.Pii.a2e[snapshotLanguage];
+                    for (let i = 0; i < valueTitleslength; i++) {
+                      values.push([]);
+                      let splitValue = snapshotValues[i].split('/');
+                      for (let j = 0; j < splitValue.length; j++) {
+                        let translationValue = translationDictionary[splitValue[j]];
+                        if (translationValue !== undefined) {
+                          values[i].push(translationValue);
+                        } else {
+                          values[i].push(splitValue[j]);
+                        }
+                      }
+                    }
+                  } else if (Number(snapshotMode) === 10) {
+                    for (let i = 0; i < valueTitleslength; i++) {
+                      values.push(snapshotValues[i]);
+                      if (0 <= i && i <= 2) {
+
+                      } else if (3 <= i && i <= 7) {
+                        let translationDictionary;
+                        if (0 <= 3 && i <= 6) {
+                          translationDictionary = Event[EventKey].translation.Pii.a2e[snapshotLanguage];
+                        }
+                        else if (i === 7) {
+                          translationDictionary = Event[EventKey].translation.Ground.a2e[snapshotLanguage];
+                        }
+                        let translationValue = translationDictionary[values[i]];
+                        if (translationValue !== undefined) {
+                          values[i] = translationValue;
+                        }
+                      }
+                    }
+                  }
+                }
+                let temporarymatchTable = [];
+                pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
+                fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
+                pointLayerCtx.fillStyle = 'white';
+                fakeLayerCtx.fillStyle = 'rgb(244, 8, 136)';
+                if (0 <= snapshotMode && snapshotMode <= 8) {
+                  for (let i = 0; i < dataTable.length; i++) {
+                    for (let j = 0; j < columnIndexs.length; j++) {
+                      let value = dataTable[i][columnIndexs[j]].toString().toLowerCase();
+                      if (values[0].toString().toLowerCase() === value) {
+                        temporarymatchTable.push(translateArray(dataTable[i], snapshotLanguage));
+                        let x = dataTable[i][1];
+                        let y = dataTable[i][2];
+                        drawPoint(pointLayerCtx, x, y, 3, 'convert');
+                        drawPoint(fakeLayerCtx, x, y, 2, 'convert');
+                        break;
+                      }
+                    }
+                  }
+                } else if (Number(snapshotMode) === 9) {
+                  let empty = [];
+                  for (let i = 0; i < valueTitleslength; i++) {
+                    if (values[i].length === 1) {
+                      if (values[i][0] === '') {
+                        empty.push(true);
+                        continue;
+                      }
+                    }
+                    empty.push(false);
+                  }
+                  if ((empty[0] === true || values[0].length === 2) && (empty[1] === true || values[1].length === 2)) {
+                    for (let i = 0; i < dataTable.length; i++) {
+                      for (let j = 0; j < columnIndexs.length; j++) {
+                        if (empty[Math.floor(j / 2)] === true) {
+                        } else {
+                          let value = dataTable[i][columnIndexs[j]].toString().toLowerCase();
+                          if (values[Math.floor(j / 2)][j % 2].toString().toLowerCase() === value) {
+                          } else {
+                            break
+                          }
+                        }
+                        if (j === columnIndexs.length - 1) {
+                          temporarymatchTable.push(translateArray(dataTable[i], snapshotLanguage));
+                          let x = dataTable[i][1];
+                          let y = dataTable[i][2];
+                          drawPoint(pointLayerCtx, x, y, 3, 'convert');
+                          drawPoint(fakeLayerCtx, x, y, 2, 'convert');
+                        }
+                      }
+                    }
+                  } else {
+                  }
+                } else if (Number(snapshotMode) === 10) {
+                  for (let i = 0; i < dataTable.length; i++) {
+                    for (let j = 0; j < columnIndexs.length; j++) {
+                      if (values[j] === '') {
+
+                      } else {
+                        let value = dataTable[i][columnIndexs[j]].toString().toLowerCase();
+                        if (values[j].toString().toLowerCase() === value) {
+                        } else {
+                          break
+                        }
+                      }
+                      if (j === columnIndexs.length - 1) {
+                        temporarymatchTable.push(translateArray(dataTable[i], snapshotLanguage));
+                        let x = dataTable[i][1];
+                        let y = dataTable[i][2];
+                        drawPoint(pointLayerCtx, x, y, 3, 'convert');
+                        drawPoint(fakeLayerCtx, x, y, 2, 'convert');
+                      }
+                    }
+                  }
+                }
+                let sortOrder = [9, 8, 2, 1, 7, 6, 5, 4, 3, 0];
+                temporarymatchTable = sortArray(temporarymatchTable, sortOrder);
+                createTable(temporarymatchTable, snapshotMode, snapshotValues);
+                matchTable = temporarymatchTable;
+                pointLayer.style.display = null;
+                fakeLayer.style.display = null;
+                textLayer.style.display = 'none';
+                console.log(values);
+                console.log(temporarymatchTable);
+                console.log(dataTable);
+              }
+            }
+          }
+        }
+      }
+
+      function gridButtonClick() {
+        if (gridLayer.style.display === '') {
+          gridLayer.style.display = 'none';
+          gridButton.textContent = 'show grid';
+        } else {
+          gridLayer.style.display = null;
+          gridButton.textContent = 'hide grid';
+        }
+      }
+
+      function translateArray(array, language) {
+        for (let i = 0; i < array.length; i++) {
+          if (0 <= i && i <= 2) {
+
+          } else if (3 <= i && i <= 6) {
+            let translationDictionary = Event[EventKey].translation.Pii.e2a[language];
+            let translationValue = translationDictionary[array[i]];
+            if (translationValue !== undefined) {
+              array[i] = translationValue;
+            }
+          } else if (i === 7) {
+            let translationDictionary = Event[EventKey].translation.Ground.e2a[language];
+            let translationValue = translationDictionary[array[i]];
+            if (translationValue !== undefined) {
+              array[i] = translationValue;
+            }
+          }
+        }
+        return array;
+      }
+
+      function sortArray(array, sortOrder) {
+        for (let i = 0; i < sortOrder.length; i++) {
+          array.sort(function (a, b) {
+            if (0 <= sortOrder[i] && sortOrder[i] <= 2) {
+              return a[sortOrder[i]] - b[sortOrder[i]];
+            } else {
+              let nameA;
+              let nameB;
+              if (3 <= sortOrder[i] && sortOrder[i] <= 6) {
+                nameA = a[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
+                nameB = b[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
+              } else {
+                nameA = a[sortOrder[i]];
+                nameB = b[sortOrder[i]];
+              }
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+
+              // names must be equal
+              return 0;
+            }
+          });
+        }
+        return array;
+      }
+
+      function drawPoint(ctx, x, y, radius, method) {
+        if (x !== '' && y !== '') {
+          ctx.beginPath();
+          if (method === undefined) {
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+          } else if (method === 'convert') {
+            ctx.arc(Number(x) + 500, -Number(y) + 500, radius, 0, 2 * Math.PI);
+          }
+          ctx.fill();
+        }
+      }
+
+      function createTable(array, mode, values) {
+        result.style.display = 'none';
+        tbody.innerHTML = '';
+        let alternatingColors = ['white', '#ebeff1']
+        for (let i = 0; i < array.length; i++) {
+          let tr = document.createElement('tr');
+          tr.style.backgroundColor = alternatingColors[i % 2];
+          for (let j = 0; j < array[i].length; j++) {
+            let td = document.createElement('td');
+            td.textContent = array[i][j];
+            tr.appendChild(td);
+          }
+          tbody.appendChild(tr);
+        }
+        if (array.length === 0) {
+
+        } else {
+          result.style.display = null;
         }
       }
 
@@ -321,6 +964,111 @@
       }
     });
   </script>
+  <style>
+    body {
+      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      margin: 1em;
+      font-weight: 400;
+      width: 1316px;
+
+    }
+
+    button,
+    select,
+    input {
+      font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    button {
+      cursor: pointer;
+      border-radius: 0.5em;
+      border: none;
+      background-color: rgba(221, 221, 221, 1);
+      padding: 1em;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      background-color: rgba(221, 221, 221, 0.5);
+    }
+
+    input,
+    select {
+      height: 30px;
+      padding: 0;
+    }
+
+    table {
+      width: 1300px;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: #78909c;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    body>div {
+      margin: 1em 0 1em;
+    }
+
+    .canvas {
+      position: absolute;
+      left: 1em;
+    }
+
+    .grid-container>div {
+      margin: 1em 0 1em;
+    }
+
+    .grid-container>div>* {
+      margin: 0.2em 0 0.2em;
+    }
+
+    #button {
+      width: 1300px;
+    }
+
+    #gridButton {
+      width: 10em;
+    }
+
+    #log {
+      position: absolute;
+      left: 1016px;
+      border: 3px;
+      -webkit-box-sizing: border-box;
+      /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;
+      /* Firefox, other Gecko */
+      box-sizing: border-box;
+      padding: 1em;
+      display: inline-block;
+      width: 300px;
+      height: 1000px;
+      overflow-y: scroll;
+      border-color: black;
+      border-style: solid;
+    }
+
+    #result>* {
+      margin: 1em 0 1em;
+    }
+
+    #log>div {
+      margin-bottom: 1em;
+    }
+  </style>
 </head>
 
 <body></body>
