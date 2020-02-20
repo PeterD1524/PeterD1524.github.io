@@ -369,7 +369,18 @@
       mapDiv.appendChild(canvas);
       const log = document.createElement('div');
       log.id = 'log';
-      log.textContent = 'Click Response:';
+      const logTop = document.createElement('div');
+      const clickResponseTitle = document.createElement('span');
+      clickResponseTitle.textContent = 'Click Response:';
+      logTop.appendChild(clickResponseTitle);
+      let br = document.createElement('br');
+      logTop.appendChild(br);
+      const clickResponseValue = document.createElement('span');
+      logTop.appendChild(clickResponseValue);
+      log.appendChild(logTop);
+      const nearbyResults = document.createElement('div');
+      nearbyResults.id = 'nearbyResults';
+      log.appendChild(nearbyResults);
       mapDiv.appendChild(log);
       const mapLayer = document.createElement('canvas');
       mapLayer.className = 'canvas';
@@ -434,6 +445,10 @@
       fakeLayer.style.zIndex = 4;
       fakeLayer.width = Event[EventKey].width;
       fakeLayer.height = Event[EventKey].height;
+      fakeLayer.style.cursor = 'crosshair';
+      fakeLayer.addEventListener('click', function (event) {
+        getCursorPosition(event, fakeLayer);
+      });
       const fakeLayerCtx = fakeLayer.getContext('2d');
       mapDiv.appendChild(fakeLayer);
       body.appendChild(mapDiv);
@@ -461,7 +476,7 @@
       body.appendChild(result);
 
       let dataTable;
-      let matchTable;
+      let matchTable = [];
 
       languageSelect.value = language;
       languageChange(language);
@@ -647,6 +662,11 @@
           pointLayer.style.display = 'none';
           fakeLayer.style.display = 'none';
           if (0 <= snapshotMode && snapshotMode <= 10) {
+            textLayerCtx.clearRect(0, 0, textLayer.width, textLayer.height);
+            textLayerCtx.textAlign = 'center';
+            textLayerCtx.fillStyle = 'red';
+            textLayerCtx.font = '72px Roboto';
+            textLayerCtx.fillText('Loading...', textLayer.width / 2, textLayer.height / 2);
             textLayer.style.display = null;
             if (googleChartsLoaded === true && ready === true) {
               let URL = Event[EventKey].mainSheet.URL;
@@ -831,12 +851,20 @@
                   }
                 }
                 let sortOrder = [9, 8, 2, 1, 7, 6, 5, 4, 3, 0];
-                temporarymatchTable = sortArray(temporarymatchTable, sortOrder);
+                temporarymatchTable = sort2DArray(temporarymatchTable, sortOrder);
                 createTable(temporarymatchTable, snapshotMode, snapshotValues);
                 matchTable = temporarymatchTable;
                 pointLayer.style.display = null;
                 fakeLayer.style.display = null;
-                textLayer.style.display = 'none';
+                if (temporarymatchTable.length === 0) {
+                  textLayerCtx.clearRect(0, 0, textLayer.width, textLayer.height);
+                  textLayerCtx.textAlign = 'center';
+                  textLayerCtx.fillStyle = 'red';
+                  textLayerCtx.font = '72px Roboto';
+                  textLayerCtx.fillText('No data or incorrect input', textLayer.width / 2, textLayer.height / 2);
+                } else {
+                  textLayer.style.display = 'none';
+                }
                 console.log(values);
                 console.log(temporarymatchTable);
                 console.log(dataTable);
@@ -877,7 +905,7 @@
         return array;
       }
 
-      function sortArray(array, sortOrder) {
+      function sort2DArray(array, sortOrder) {
         for (let i = 0; i < sortOrder.length; i++) {
           array.sort(function (a, b) {
             if (0 <= sortOrder[i] && sortOrder[i] <= 2) {
@@ -937,6 +965,46 @@
 
         } else {
           result.style.display = null;
+        }
+      }
+
+      function getCursorPosition(event, canvas) {
+        clickResponseValue.innerHTML = '';
+        nearbyResults.innerHTML = '';
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.round(event.clientX - rect.left);
+        const y = Math.round(event.clientY - rect.top);
+        let mx = x - 500;
+        let my = 500 - y;
+        if (Number(mode) === 11) {
+          // drawPoint(mx, my);
+        }
+        clickResponseValue.textContent = 'Position: [' + mx + ', ' + my + ']';
+        let div = document.createElement('div');
+        div.textContent = 'Nearby results:';
+        nearbyResults.appendChild(div);
+        console.log(matchTable);
+        for (let i = 0; i < matchTable.length; i++) {
+          let mx = Number(matchTable[i][1]) + 500;
+          let my = -Number(matchTable[i][2]) + 500;
+          if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
+            let div = document.createElement('div');
+            div.style.border = '1px solid black';
+            div.style.borderRadius = '0.5em';
+            div.style.padding = '1em';
+            for (let j = 0; j < matchTable[i].length; j++) {
+              let divdiv = document.createElement('div');
+              divdiv.textContent = headers[j];
+              divdiv.style.fontWeight = '700';
+              divdiv.style.height = '1.5em';
+              div.appendChild(divdiv);
+              divdiv = document.createElement('div');
+              divdiv.textContent = matchTable[i][j];
+              divdiv.style.height = '1.5em';
+              div.appendChild(divdiv);
+            }
+            nearbyResults.appendChild(div);
+          }
         }
       }
 
@@ -1073,6 +1141,10 @@
 
     #log>div {
       margin-bottom: 1em;
+    }
+
+    #nearbyResults>div {
+      margin-top: 1em;
     }
   </style>
 </head>
