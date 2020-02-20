@@ -693,8 +693,13 @@
                 }
                 let values = [];
                 if (snapshotLanguage === 'en-us') {
+                  if ((0 <= snapshotMode && snapshotMode <= 8) || Number(snapshotMode) === 10) {
+                    for (let i = 0; i < valueTitleslength; i++) {
+                      values.push(snapshotValues[i]);
+                    }
+                  } else if (Number(snapshotMode) === 9) { }
                   for (let i = 0; i < valueTitleslength; i++) {
-                    values.push(snapshotValues[i]);
+                    values.push(snapshotValues[i].split('/'));
                   }
                 } else {
                   if (0 <= snapshotMode && snapshotMode <= 2) {
