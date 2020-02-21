@@ -290,7 +290,7 @@
       const announcementDiv = document.createElement('div');
       announcementDiv.style.fontSize = '24px';
       const announcementa = document.createElement('p');
-      announcementa.innerHTML = 'Please check out the poll on the spreadsheet.<br>Link: <a href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393</a><br><font color="red">Some features are temporarily disabled, including Sorting, Draw, Click Response, etc.</font>';
+      announcementa.innerHTML = 'Please check out the poll on the spreadsheet.<br>Link: <a href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit#gid=1518772393</a><br><font color="red">Some features are temporarily disabled, including Draw, etc.</font><img src="https://cdn.discordapp.com/emojis/402867992930680833.png" style="height: 1em;">';
       announcementDiv.appendChild(announcementa);
       const announcement = document.createElement('p');
       announcement.id = 'announcement';
@@ -460,12 +460,54 @@
       result.appendChild(resultDescription);
       const table = document.createElement('table');
       const thead = document.createElement('thead');
-      const headers = ['Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)'];
+      const headers = ['', 'Star', 'X', 'Y', 'Boss', 'Sub-Boss', 'Common', 'Uncommon', 'Biome', 'Comment', 'Last Modified(UTC)'];
+      const headerSortTypes = ['String', 'Number', 'Number', 'Number', 'String', 'String', 'String', 'String', 'String', 'String', 'String'];
+      let dataTable = [];
+      let matchTable = [];
       let tr;
       tr = document.createElement('tr');
-      for (let i = 0; i < headers.length; i++) {
-        let th = document.createElement('th');
+      let th;
+      th = document.createElement('th');
+      let input = document.createElement('input');
+      input.type = 'checkbox';
+      input.checked = true;
+      input.style.margin = '0';
+      input.style.width = '20px';
+      input.style.height = '20px';
+      input.addEventListener('click', allInputClick);
+      th.appendChild(input);
+      tr.appendChild(th);
+      for (let i = 1; i < headers.length; i++) {
+        th = document.createElement('th');
         th.textContent = headers[i];
+        th.title = 'Sort ascending';
+        th.addEventListener('mouseenter', function (event) {
+          event.target.style.textDecoration = 'underline';
+          event.target.style.cursor = 'pointer';
+        });
+        th.addEventListener('mouseleave', function (event) {
+          event.target.style.textDecoration = null;
+          event.target.style.cursor = null;
+        });
+        th.addEventListener('click', function (event) {
+          let eventTagetTitle = event.target.title;
+          let snapshotMode = mode;
+          let snapshotValues = [];
+          for (let i = 0; i < inputs.length; i++) {
+            snapshotValues.push(inputs[i].value);
+          }
+          let sortAscending;
+          if (eventTagetTitle === 'Sort ascending') {
+            sortAscending = [1];
+            event.target.title = 'Sort descending';
+          } else if (eventTagetTitle === 'Sort descending') {
+            sortAscending = [-1];
+            event.target.title = 'Sort ascending';
+          }
+          console.log(i);
+          matchTable = sort2DArray(matchTable, [i], [headerSortTypes[i]], sortAscending);
+          createTable(matchTable, snapshotMode, snapshotValues);
+        });
         tr.appendChild(th);
       }
       thead.appendChild(tr);
@@ -474,9 +516,6 @@
       table.appendChild(tbody);
       result.appendChild(table);
       body.appendChild(result);
-
-      let dataTable;
-      let matchTable = [];
 
       languageSelect.value = language;
       languageChange(language);
@@ -661,6 +700,7 @@
           }
           pointLayer.style.display = 'none';
           fakeLayer.style.display = 'none';
+          result.style.visibility = 'hidden';
           if (0 <= snapshotMode && snapshotMode <= 10) {
             textLayerCtx.clearRect(0, 0, textLayer.width, textLayer.height);
             textLayerCtx.textAlign = 'center';
@@ -850,8 +890,13 @@
                     }
                   }
                 }
-                let sortOrder = [9, 8, 2, 1, 7, 6, 5, 4, 3, 0];
-                temporarymatchTable = sort2DArray(temporarymatchTable, sortOrder);
+                let sortOrder = [5];
+                let sortType = ['String', 'String', 'Number', 'Number', 'String', 'String', 'String', 'String', 'String', 'Number'];
+                let sortAscending = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+                for (let i = 0; i < temporarymatchTable.length; i++) {
+                  temporarymatchTable[i].unshift(true);
+                }
+                temporarymatchTable = sort2DArray(temporarymatchTable, sortOrder, sortType, sortAscending);
                 createTable(temporarymatchTable, snapshotMode, snapshotValues);
                 matchTable = temporarymatchTable;
                 pointLayer.style.display = null;
@@ -905,30 +950,27 @@
         return array;
       }
 
-      function sort2DArray(array, sortOrder) {
+      function sort2DArray(array, sortOrder, sortType, sortAscending) {
         for (let i = 0; i < sortOrder.length; i++) {
           array.sort(function (a, b) {
-            if (0 <= sortOrder[i] && sortOrder[i] <= 2) {
-              return a[sortOrder[i]] - b[sortOrder[i]];
-            } else {
+            if (sortType[i] === 'Number') {
+              return (a[sortOrder[i]] - b[sortOrder[i]]) * sortAscending[i];
+            } else if (sortType[i] === 'String') {
               let nameA;
               let nameB;
-              if (3 <= sortOrder[i] && sortOrder[i] <= 6) {
-                nameA = a[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
-                nameB = b[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
-              } else {
-                nameA = a[sortOrder[i]];
-                nameB = b[sortOrder[i]];
-              }
+              nameA = a[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
+              nameB = b[sortOrder[i]].toUpperCase(); // ignore upper and lowercase
               if (nameA < nameB) {
-                return -1;
+                return -1 * sortAscending[i];
               }
               if (nameA > nameB) {
-                return 1;
+                return 1 * sortAscending[i];
               }
 
               // names must be equal
               return 0;
+            } else {
+
             }
           });
         }
@@ -948,15 +990,41 @@
       }
 
       function createTable(array, mode, values) {
-        result.style.display = 'none';
+        result.style.visibility = 'hidden';
         tbody.innerHTML = '';
-        let alternatingColors = ['white', '#ebeff1']
+        let alternatingColors = ['white', '#ebeff1'];
         for (let i = 0; i < array.length; i++) {
           let tr = document.createElement('tr');
           tr.style.backgroundColor = alternatingColors[i % 2];
-          for (let j = 0; j < array[i].length; j++) {
-            let td = document.createElement('td');
+          let td;
+          td = document.createElement('td');
+          let input = document.createElement('input');
+          input.type = 'checkbox';
+          input.checked = array[i][0];
+          input.style.margin = '0';
+          input.style.width = '20px';
+          input.style.height = '20px';
+          input.addEventListener('click', inputClick);
+          td.appendChild(input);
+          tr.appendChild(td);
+          for (let j = 1; j < array[i].length; j++) {
+            td = document.createElement('td');
             td.textContent = array[i][j];
+            if (Number(mode) === 8) {
+              if (3 + 1 <= j && j <= 6 + 1) {
+                if (array[i][j].toString().toLowerCase() === values[0].toString().toLowerCase()) {
+                  td.style.background = 'coral';
+                }
+              }
+            } else if (Number(mode) === 10) {
+              if (0 + 1 <= j && j <= 7 + 1) {
+                if (values[j - 1] !== '') {
+                  if (array[i][j].toString().toLowerCase() === values[j - 1].toString().toLowerCase()) {
+                    td.style.background = 'coral';
+                  }
+                }
+              }
+            }
             tr.appendChild(td);
           }
           tbody.appendChild(tr);
@@ -965,10 +1033,59 @@
 
         } else {
           result.style.display = null;
+          result.style.visibility = null;
+        }
+      }
+
+      function inputClick(event) {
+        let checked = event.target.checked;
+        let snapshotMode = mode;
+        let index = event.target.parentNode.parentNode.sectionRowIndex;
+        matchTable[index][0] = checked;
+        if (0 <= snapshotMode && snapshotMode <= 10) {
+          pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
+          fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
+        } else if (Number(mode) === 11) {
+
+        }
+        pointLayerCtx.fillStyle = 'white';
+        fakeLayerCtx.fillStyle = 'rgb(244, 8, 136)';
+        for (let i = 0; i < matchTable.length; i++) {
+          if (matchTable[i][0] === true) {
+            let x = matchTable[i][2];
+            let y = matchTable[i][3];
+            drawPoint(pointLayerCtx, x, y, 3, 'convert');
+            drawPoint(fakeLayerCtx, x, y, 2, 'convert');
+          }
+        }
+      }
+
+      function allInputClick(event) {
+        let checked = event.target.checked;
+        let snapshotMode = mode;
+        if (0 <= snapshotMode && snapshotMode <= 10) {
+          pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
+          fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
+        } else if (Number(mode) === 11) {
+
+        }
+        pointLayerCtx.fillStyle = 'white';
+        fakeLayerCtx.fillStyle = 'rgb(244, 8, 136)';
+        let inputCheckboxs = tbody.querySelectorAll('input');
+        for (let i = 0; i < matchTable.length; i++) {
+          matchTable[i][0] = checked;
+          inputCheckboxs[i].checked = checked;
+          if (matchTable[i][0] === true) {
+            let x = matchTable[i][2];
+            let y = matchTable[i][3];
+            drawPoint(pointLayerCtx, x, y, 3, 'convert');
+            drawPoint(fakeLayerCtx, x, y, 2, 'convert');
+          }
         }
       }
 
       function getCursorPosition(event, canvas) {
+        let snapshotMode = mode;
         clickResponseValue.innerHTML = '';
         nearbyResults.innerHTML = '';
         const rect = canvas.getBoundingClientRect();
@@ -976,34 +1093,36 @@
         const y = Math.round(event.clientY - rect.top);
         let mx = x - 500;
         let my = 500 - y;
-        if (Number(mode) === 11) {
-          // drawPoint(mx, my);
+        if (Number(snapshotMode) === 11) {
+          fakeLayerCtx.fillStyle = 'red';
+          drawPoint(fakeLayerCtx, x, y, 3);
         }
         clickResponseValue.textContent = 'Position: [' + mx + ', ' + my + ']';
         let div = document.createElement('div');
         div.textContent = 'Nearby results:';
         nearbyResults.appendChild(div);
-        console.log(matchTable);
         for (let i = 0; i < matchTable.length; i++) {
-          let mx = Number(matchTable[i][1]) + 500;
-          let my = -Number(matchTable[i][2]) + 500;
-          if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
-            let div = document.createElement('div');
-            div.style.border = '1px solid black';
-            div.style.borderRadius = '0.5em';
-            div.style.padding = '1em';
-            for (let j = 0; j < matchTable[i].length; j++) {
-              let divdiv = document.createElement('div');
-              divdiv.textContent = headers[j];
-              divdiv.style.fontWeight = '700';
-              divdiv.style.height = '1.5em';
-              div.appendChild(divdiv);
-              divdiv = document.createElement('div');
-              divdiv.textContent = matchTable[i][j];
-              divdiv.style.height = '1.5em';
-              div.appendChild(divdiv);
+          if (matchTable[i][0] === true) {
+            let mx = Number(matchTable[i][2]) + 500;
+            let my = -Number(matchTable[i][3]) + 500;
+            if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
+              let div = document.createElement('div');
+              div.style.border = '1px solid black';
+              div.style.borderRadius = '0.5em';
+              div.style.padding = '1em';
+              for (let j = 1; j < matchTable[i].length; j++) {
+                let divdiv = document.createElement('div');
+                divdiv.textContent = headers[j];
+                divdiv.style.fontWeight = '700';
+                divdiv.style.height = '1.5em';
+                div.appendChild(divdiv);
+                divdiv = document.createElement('div');
+                divdiv.textContent = matchTable[i][j];
+                divdiv.style.height = '1.5em';
+                div.appendChild(divdiv);
+              }
+              nearbyResults.appendChild(div);
             }
-            nearbyResults.appendChild(div);
           }
         }
       }
