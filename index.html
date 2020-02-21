@@ -684,6 +684,8 @@
                   ValuesDiv.style.visibility = null;
                 }
               }
+            } else if (Number(mode) === 11) {
+              ValuesDiv.style.visibility = null;
             }
             break;
           }
@@ -698,10 +700,12 @@
           for (let i = 0; i < inputs.length; i++) {
             snapshotValues.push(inputs[i].value);
           }
-          pointLayer.style.display = 'none';
-          fakeLayer.style.display = 'none';
-          result.style.visibility = 'hidden';
+          pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
+          fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
           if (0 <= snapshotMode && snapshotMode <= 10) {
+            pointLayer.style.display = 'none';
+            fakeLayer.style.display = 'none';
+            result.style.visibility = 'hidden';
             textLayerCtx.clearRect(0, 0, textLayer.width, textLayer.height);
             textLayerCtx.textAlign = 'center';
             textLayerCtx.fillStyle = 'red';
@@ -817,8 +821,6 @@
                   }
                 }
                 let temporarymatchTable = [];
-                pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
-                fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
                 pointLayerCtx.fillStyle = 'white';
                 fakeLayerCtx.fillStyle = 'rgb(244, 8, 136)';
                 if (0 <= snapshotMode && snapshotMode <= 8) {
@@ -915,6 +917,12 @@
                 console.log(dataTable);
               }
             }
+          } else if (Number(snapshotMode) === 11) {
+
+            let x = snapshotValues[0];
+            let y = snapshotValues[1];
+            fakeLayerCtx.fillStyle = 'red';
+            drawPoint(fakeLayerCtx, x, y, 3, 'convert');
           }
         }
       }
@@ -1045,7 +1053,7 @@
         if (0 <= snapshotMode && snapshotMode <= 10) {
           pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
           fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
-        } else if (Number(mode) === 11) {
+        } else if (Number(snapshotMode) === 11) {
 
         }
         pointLayerCtx.fillStyle = 'white';
@@ -1066,7 +1074,7 @@
         if (0 <= snapshotMode && snapshotMode <= 10) {
           pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
           fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
-        } else if (Number(mode) === 11) {
+        } else if (Number(snapshotMode) === 11) {
 
         }
         pointLayerCtx.fillStyle = 'white';
