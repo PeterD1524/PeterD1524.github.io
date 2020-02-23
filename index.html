@@ -351,9 +351,10 @@
       let pif2ediv;
       if (pif2e !== undefined && pif2eImage !== undefined) {
         pif2ediv = document.createElement('div');
-        pif2ediv.style.width = 1300;
-        pif2ediv.width = 1300;
+        pif2ediv.style.width = 1200;
         const pif2eSize = 50;
+        pif2ediv.style.paddingLeft = pif2eSize;
+        pif2ediv.style.paddingRight = pif2eSize;
         for (let i = 0; i < pif2e.length; i++) {
           let button = document.createElement('button');
           button.style.backgroundImage = 'url(./' + pif2eImage + ')';
