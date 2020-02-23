@@ -398,13 +398,14 @@
           button.className = 'pifull2e';
           let value = pifull2e[i];
           function pifClick() {
+            let v = value;
             if (language !== 'en-us') {
               let translationValue = Event[EventKey].translation.Pii.e2a[language][value];
               if (translationValue !== undefined) {
-                value = translationValue;
+                v = translationValue;
               }
             }
-            inputs[0].value = value;
+            inputs[0].value = v;
           }
           button.addEventListener('click', pifClick);
           pifull2ediv.appendChild(button);
