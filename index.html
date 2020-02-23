@@ -154,6 +154,8 @@
               a2e: { 'de': { 'Wiese': 'Grassland', 'Wald': 'Forest', 'Turm': 'Tower', 'Ufer': 'Shore', 'Höhle': 'Cave', }, 'en-us': { 'Grassland': 'Grassland', 'Forest': 'Forest', 'Tower': 'Tower', 'Shore': 'Shore', 'Cave': 'Cave', }, 'es': { 'Pradera': 'Grassland', 'Bosque': 'Forest', 'Torre': 'Tower', 'Orilla': 'Shore', 'Cueva': 'Cave', }, 'fr': { 'Prairie': 'Grassland', 'Forêt': 'Forest', 'Tour': 'Tower', 'Rive': 'Shore', 'Grotte': 'Cave', }, 'it': { 'Prateria': 'Grassland', 'Bosco': 'Forest', 'Torre': 'Tower', 'Riva': 'Shore', 'Grotta': 'Cave', }, 'ja': { '草原': 'Grassland', '森': 'Forest', '塔': 'Tower', '水辺': 'Shore', '洞窟': 'Cave', }, 'ko': { '초원': 'Grassland', '숲': 'Forest', '탑': 'Tower', '물가': 'Shore', '동굴': 'Cave', }, 'zh-tw': { '草原': 'Grassland', '森林': 'Forest', '塔': 'Tower', '水岸': 'Shore', '洞窟': 'Cave', }, },
             },
           },
+          'pii-icons-full2e': ['Shinx', 'Pichu', 'Chinchou', 'Pachirisu', 'Pikachu', 'Lanturn', 'Luxio', 'Elekid', 'Luxray', 'Mareep', 'Electabuzz', 'Flaaffy', 'Raichu', 'Electivire', 'Ampharos', 'Raikou', 'Qwilfish', 'Remoraid', 'Wooper', 'Totodile', 'Squirtle', 'Politoed', 'Marill', 'Croconaw', 'Wartortle', 'Slowking', 'Quagsire', 'Octillery', 'Azumarill', 'Blastoise', 'Feraligatr', 'Suicune', 'Shieldon', 'Corsola', 'Bonsly', 'Larvitar', 'Shuckle', 'Sudowoodo', 'Rampardos', 'Rockruff', 'Bastiodon', 'Pupitar', 'Cranidos', 'Tyranitar', 'Hoothoot', 'Noctowl', 'Lycanroc (Midday Form)', 'Lugia', 'Tornadus (Incarnate Forme)', 'Magby', 'Litleo', 'Slugma', 'Cyndaquil', 'Magcargo', 'Houndour', 'Houndoom', 'Pyroar', 'Entei', 'Charmander', 'Magmar', 'Charmeleon', 'Quilava', 'Magmortar', 'Typhlosion', 'Charizard', 'Bulbasaur', 'Chikorita', 'Oddish', 'Sunkern', 'Sunflora', 'Skiploom', 'Gloom', 'Bayleef', 'Ivysaur', 'Hoppip', 'Jumpluff', 'Meganium', 'Carnivine', 'Bellossom', 'Venusaur', 'Celebi', 'Snubbull', 'Granbull', 'Tyrogue', 'Umbreon', 'Phanpy', 'Unown (G)', 'Hitmontop', 'Espeon', 'Donphan', 'Wobbuffet', 'Unown (S)', 'Girafarig', 'Spinarak', 'Igglybuff', 'Togepi', 'Natu', 'Teddiursa', 'Piloswine', 'Ariados', 'Cleffa', 'Togetic', 'Xatu', 'Ursaring', 'Swinub', 'Aipom', 'Mantine', 'Gligar', 'Heracross', 'Blissey', 'Porygon2', 'Scizor', 'Furret', 'Smoochum', 'Sneasel', 'Miltank', 'Crobat', 'Steelix', 'Kingdra', 'Sentret', 'Stantler', 'Delibird', 'Smeargle', 'Yanma', 'Pineco', 'Murkrow', 'Ledyba', 'Dunsparce', 'Skarmory', 'Forretress', 'Misdreavus', 'Ledian'],
+          'pii-icons-full2eImage': 'https://raw.githubusercontent.com/PeterD1524/PeterD1524.github.io/master/pii-icons-full.png',
         },
       };
       const languages = [
@@ -344,18 +346,51 @@
         Values.push(div);
         ValuesDiv.appendChild(div);
       }
+      let pif2e = Event[EventKey]['pii-icons-full2e'];
+      let pif2eImage = Event[EventKey]['pii-icons-full2eImage'];
+      let pif2ediv;
+      if (pif2e !== undefined && pif2eImage !== undefined) {
+        pif2ediv = document.createElement('div');
+        pif2ediv.style.width = 1300;
+        pif2ediv.width = 1300;
+        const pif2eSize = 50;
+        for (let i = 0; i < pif2e.length; i++) {
+          let button = document.createElement('button');
+          button.style.backgroundImage = 'url(./' + pif2eImage + ')';
+          button.style.backgroundSize = pif2eSize.toString() + 'px auto';
+          button.style.width = pif2eSize;
+          button.style.height = pif2eSize;
+          button.style.backgroundPosition = 'top ' + (-i * pif2eSize).toString() + 'px right 0px';
+          button.className = 'pif2e';
+
+          button.addEventListener('click', function () {
+            let value = pif2e[i];
+            if (language !== 'en-us') {
+              let translationValue = Event[EventKey].translation.Pii.e2a[language][value];
+              if (translationValue !== undefined) {
+                value = translationValue;
+              }
+            }
+            inputs[0].value = value;
+          });
+          pif2ediv.appendChild(button);
+        }
+        Values[0].appendChild(pif2ediv);
+      }
       modeValueDiv.appendChild(ValuesDiv);
       body.appendChild(modeValueDiv);
 
       const buttonDiv = document.createElement('div');
       const button = document.createElement('button');
       button.id = 'button';
+      button.className = 'button';
       button.addEventListener('click', buttonClick);
       buttonDiv.appendChild(button);
       body.appendChild(buttonDiv);
       const gridButtonDiv = document.createElement('div');
       const gridButton = document.createElement('button');
       gridButton.id = 'gridButton';
+      gridButton.className = 'button';
       gridButton.textContent = 'show grid';
       gridButton.addEventListener('click', gridButtonClick);
       gridButtonDiv.appendChild(gridButton);
@@ -594,6 +629,13 @@
           if (mode === modes[i].value) {
             ValuesDiv.style.visibility = 'hidden';
             let valueTitles = modes[mode].valueTitles;
+            if (pif2ediv !== undefined) {
+              if ((0 <= mode && mode <= 2) || Number(mode) === 7 || (9 <= mode && mode <= 11)) {
+                pif2ediv.style.display = 'none';
+              } else if ((3 <= mode && mode <= 6) || Number(mode) === 8) {
+                pif2ediv.style.display = '';
+              }
+            }
             for (let j = 0; j < valueTitles.length; j++) {
               Values[j].style.display = '';
               inputs[j].value = '';
@@ -1243,14 +1285,14 @@
 
     }
 
-    button,
+    .button,
     select,
     input {
       font-family: 'Roboto', 'Noto Sans TC', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       font-weight: 400;
     }
 
-    button {
+    .button {
       cursor: pointer;
       border-radius: 0.5em;
       border: none;
@@ -1258,11 +1300,11 @@
       padding: 1em;
     }
 
-    button:focus {
+    .button:focus {
       outline: none;
     }
 
-    button:hover {
+    .button:hover {
       background-color: rgba(221, 221, 221, 0.5);
     }
 
@@ -1341,6 +1383,14 @@
 
     #nearbyResults>div {
       margin-top: 1em;
+    }
+
+    .pif2e {
+      border: none;
+      display: inline-block;
+      background-color: inherit;
+      cursor: pointer;
+      padding: 0px;
     }
   </style>
 </head>
