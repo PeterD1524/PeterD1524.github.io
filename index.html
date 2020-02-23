@@ -156,6 +156,7 @@
           },
           'pii-icons-full2e': ['Shinx', 'Pichu', 'Chinchou', 'Pachirisu', 'Pikachu', 'Lanturn', 'Luxio', 'Elekid', 'Luxray', 'Mareep', 'Electabuzz', 'Flaaffy', 'Raichu', 'Electivire', 'Ampharos', 'Raikou', 'Qwilfish', 'Remoraid', 'Wooper', 'Totodile', 'Squirtle', 'Politoed', 'Marill', 'Croconaw', 'Wartortle', 'Slowking', 'Quagsire', 'Octillery', 'Azumarill', 'Blastoise', 'Feraligatr', 'Suicune', 'Shieldon', 'Corsola', 'Bonsly', 'Larvitar', 'Shuckle', 'Sudowoodo', 'Rampardos', 'Rockruff', 'Bastiodon', 'Pupitar', 'Cranidos', 'Tyranitar', 'Hoothoot', 'Noctowl', 'Lycanroc (Midday Form)', 'Lugia', 'Tornadus (Incarnate Forme)', 'Magby', 'Litleo', 'Slugma', 'Cyndaquil', 'Magcargo', 'Houndour', 'Houndoom', 'Pyroar', 'Entei', 'Charmander', 'Magmar', 'Charmeleon', 'Quilava', 'Magmortar', 'Typhlosion', 'Charizard', 'Bulbasaur', 'Chikorita', 'Oddish', 'Sunkern', 'Sunflora', 'Skiploom', 'Gloom', 'Bayleef', 'Ivysaur', 'Hoppip', 'Jumpluff', 'Meganium', 'Carnivine', 'Bellossom', 'Venusaur', 'Celebi', 'Snubbull', 'Granbull', 'Tyrogue', 'Umbreon', 'Phanpy', 'Unown (G)', 'Hitmontop', 'Espeon', 'Donphan', 'Wobbuffet', 'Unown (S)', 'Girafarig', 'Spinarak', 'Igglybuff', 'Togepi', 'Natu', 'Teddiursa', 'Piloswine', 'Ariados', 'Cleffa', 'Togetic', 'Xatu', 'Ursaring', 'Swinub', 'Aipom', 'Mantine', 'Gligar', 'Heracross', 'Blissey', 'Porygon2', 'Scizor', 'Furret', 'Smoochum', 'Sneasel', 'Miltank', 'Crobat', 'Steelix', 'Kingdra', 'Sentret', 'Stantler', 'Delibird', 'Smeargle', 'Yanma', 'Pineco', 'Murkrow', 'Ledyba', 'Dunsparce', 'Skarmory', 'Forretress', 'Misdreavus', 'Ledian'],
           'pii-icons-full2eImage': 'https://raw.githubusercontent.com/PeterD1524/PeterD1524.github.io/master/20pii-icons-full.png',
+          'pii-icons-face2eImage': 'https://raw.githubusercontent.com/PeterD1524/PeterD1524.github.io/master/20pii-icons-face.png',
         },
       };
       const languages = [
@@ -346,26 +347,58 @@
         Values.push(div);
         ValuesDiv.appendChild(div);
       }
-      let pif2e = Event[EventKey]['pii-icons-full2e'];
-      let pif2eImage = Event[EventKey]['pii-icons-full2eImage'];
-      let pif2ediv;
-      if (pif2e !== undefined && pif2eImage !== undefined) {
-        pif2ediv = document.createElement('div');
-        pif2ediv.style.width = 1200;
-        const pif2eSize = 50;
-        pif2ediv.style.paddingLeft = pif2eSize;
-        pif2ediv.style.paddingRight = pif2eSize;
-        for (let i = 0; i < pif2e.length; i++) {
+      let pifull2e = Event[EventKey]['pii-icons-full2e'];
+      let pifull2eImage = Event[EventKey]['pii-icons-full2eImage'];
+      let piface2eImage = Event[EventKey]['pii-icons-face2eImage'];
+      let fullface;
+      let backgroundImageUrl = pifull2eImage;
+      if (piface2eImage !== undefined) {
+        fullface = document.createElement('button');
+        fullface.textContent = 'face';
+        fullface.style.width = 60;
+        fullface.className = 'button';
+        fullface.style.marginLeft = '1em';
+        fullface.style.verticalAlign = 'middle';
+        fullface.style.height = 30;
+        fullface.style.padding = '0';
+        fullface.addEventListener('click', function (event) {
+          if (pifull2ediv !== undefined) {
+            if (event.target.textContent === 'face') {
+              event.target.textContent = 'full';
+            } else if (event.target.textContent === 'full') {
+              event.target.textContent = 'face';
+            }
+            let buttons = pifull2ediv.querySelectorAll('button');
+            if (backgroundImageUrl === pifull2eImage) {
+              backgroundImageUrl = piface2eImage;
+            } else if (backgroundImageUrl === piface2eImage) {
+              backgroundImageUrl = pifull2eImage;
+            }
+            for (let i = 0; i < buttons.length; i++) {
+              buttons[i].style.backgroundImage = 'url(' + backgroundImageUrl + ')';
+            }
+          }
+        });
+        Values[0].appendChild(fullface);
+      }
+      let pifull2ediv;
+      if (pifull2e !== undefined && pifull2eImage !== undefined) {
+        pifull2ediv = document.createElement('div');
+        pifull2ediv.style.width = 1200;
+        const pifull2eSize = 50;
+        pifull2ediv.style.paddingLeft = pifull2eSize;
+        pifull2ediv.style.paddingRight = pifull2eSize;
+        for (let i = 0; i < pifull2e.length; i++) {
           let button = document.createElement('button');
-          button.style.backgroundImage = 'url(' + pif2eImage + ')';
-          button.style.backgroundSize = pif2eSize.toString() + 'px auto';
-          button.style.width = pif2eSize;
-          button.style.height = pif2eSize;
-          button.style.backgroundPosition = 'top ' + (-i * pif2eSize).toString() + 'px right 0px';
-          button.className = 'pif2e';
+          button.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
+          button.style.backgroundSize = pifull2eSize.toString() + 'px auto';
+          button.style.width = pifull2eSize;
+          button.style.height = pifull2eSize;
+          button.style.backgroundPosition = 'top ' + (-i * pifull2eSize).toString() + 'px right 0px';
+          button.className = 'pifull2e';
 
           button.addEventListener('click', function () {
-            let value = pif2e[i];
+            let value = pifull2e[i];
             if (language !== 'en-us') {
               let translationValue = Event[EventKey].translation.Pii.e2a[language][value];
               if (translationValue !== undefined) {
@@ -374,9 +407,9 @@
             }
             inputs[0].value = value;
           });
-          pif2ediv.appendChild(button);
+          pifull2ediv.appendChild(button);
         }
-        Values[0].appendChild(pif2ediv);
+        Values[0].appendChild(pifull2ediv);
       }
       modeValueDiv.appendChild(ValuesDiv);
       body.appendChild(modeValueDiv);
@@ -630,11 +663,18 @@
           if (mode === modes[i].value) {
             ValuesDiv.style.visibility = 'hidden';
             let valueTitles = modes[mode].valueTitles;
-            if (pif2ediv !== undefined) {
+            if (pifull2ediv !== undefined) {
               if ((0 <= mode && mode <= 2) || Number(mode) === 7 || (9 <= mode && mode <= 11)) {
-                pif2ediv.style.display = 'none';
+                pifull2ediv.style.display = 'none';
+                if (fullface !== undefined) {
+                  fullface.style.display = 'none';
+                }
+                fullface.style.display = 'none';
               } else if ((3 <= mode && mode <= 6) || Number(mode) === 8) {
-                pif2ediv.style.display = '';
+                pifull2ediv.style.display = '';
+                if (fullface !== undefined) {
+                  fullface.style.display = '';
+                }
               }
             }
             for (let j = 0; j < valueTitles.length; j++) {
@@ -1313,6 +1353,7 @@
     select {
       height: 30px;
       padding: 0;
+      vertical-align: middle;
     }
 
     table {
@@ -1386,7 +1427,7 @@
       margin-top: 1em;
     }
 
-    .pif2e {
+    .pifull2e {
       border: none;
       display: inline-block;
       background-color: inherit;
