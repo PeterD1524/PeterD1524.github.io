@@ -447,12 +447,20 @@
       fakeLayer.style.zIndex = 4;
       fakeLayer.width = Event[EventKey].width;
       fakeLayer.height = Event[EventKey].height;
-      fakeLayer.style.cursor = 'crosshair';
-      fakeLayer.addEventListener('click', function (event) {
-        getCursorPosition(event, fakeLayer);
-      });
       const fakeLayerCtx = fakeLayer.getContext('2d');
       mapDiv.appendChild(fakeLayer);
+      const drawLayer = document.createElement('canvas');
+      drawLayer.className = 'canvas';
+      drawLayer.style.zIndex = 5;
+      drawLayer.width = Event[EventKey].width;
+      drawLayer.height = Event[EventKey].height;
+      drawLayer.style.cursor = 'crosshair';
+      drawLayer.addEventListener('click', function (event) {
+        getCursorPosition(event, drawLayer);
+      });
+      const drawLayerCtx = drawLayer.getContext('2d');
+      let isDragging = false;
+      mapDiv.appendChild(drawLayer);
       body.appendChild(mapDiv);
       const result = document.createElement('div');
       result.style.display = 'none';
@@ -506,7 +514,6 @@
             sortAscending = [-1];
             event.target.title = 'Sort ascending';
           }
-          console.log(i);
           matchTable = sort2DArray(matchTable, [i], [headerSortTypes[i]], sortAscending);
           createTable(matchTable, snapshotMode, snapshotValues);
         });
@@ -704,6 +711,7 @@
           }
           pointLayerCtx.clearRect(0, 0, pointLayer.width, pointLayer.height);
           fakeLayerCtx.clearRect(0, 0, fakeLayer.width, fakeLayer.height);
+          drawLayerCtx.clearRect(0, 0, drawLayer.width, drawLayer.height);
           if (0 <= snapshotMode && snapshotMode <= 10) {
             pointLayer.style.display = 'none';
             fakeLayer.style.display = 'none';
@@ -914,17 +922,14 @@
                 } else {
                   textLayer.style.display = 'none';
                 }
-                console.log(values);
-                console.log(temporarymatchTable);
-                console.log(dataTable);
               }
             }
           } else if (Number(snapshotMode) === 11) {
 
             let x = snapshotValues[0];
             let y = snapshotValues[1];
-            fakeLayerCtx.fillStyle = 'red';
-            drawPoint(fakeLayerCtx, x, y, 3, 'convert');
+            drawLayerCtx.fillStyle = 'red';
+            drawPoint(drawLayerCtx, x, y, 3, 'convert');
           }
         }
       }
@@ -1095,46 +1100,112 @@
       }
 
       function getCursorPosition(event, canvas) {
-        let snapshotMode = mode;
-        clickResponseValue.innerHTML = '';
-        nearbyResults.innerHTML = '';
-        const rect = canvas.getBoundingClientRect();
-        const x = Math.round(event.clientX - rect.left);
-        const y = Math.round(event.clientY - rect.top);
-        let mx = x - 500;
-        let my = 500 - y;
-        if (Number(snapshotMode) === 11) {
-          fakeLayerCtx.fillStyle = 'red';
-          drawPoint(fakeLayerCtx, x, y, 3);
-        }
-        clickResponseValue.textContent = 'Position: [' + mx + ', ' + my + ']';
-        let div = document.createElement('div');
-        div.textContent = 'Nearby results:';
-        nearbyResults.appendChild(div);
-        for (let i = 0; i < matchTable.length; i++) {
-          if (matchTable[i][0] === true) {
-            let mx = Number(matchTable[i][2]) + 500;
-            let my = -Number(matchTable[i][3]) + 500;
-            if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
-              let div = document.createElement('div');
-              div.style.border = '1px solid black';
-              div.style.borderRadius = '0.5em';
-              div.style.padding = '1em';
-              for (let j = 1; j < matchTable[i].length; j++) {
-                let divdiv = document.createElement('div');
-                divdiv.textContent = headers[j];
-                divdiv.style.fontWeight = '700';
-                divdiv.style.height = '1.5em';
-                div.appendChild(divdiv);
-                divdiv = document.createElement('div');
-                divdiv.textContent = matchTable[i][j];
-                divdiv.style.height = '1.5em';
-                div.appendChild(divdiv);
+        if (isDragging === false) {
+          let snapshotMode = mode;
+          clickResponseValue.innerHTML = '';
+          nearbyResults.innerHTML = '';
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.round(event.clientX - rect.left);
+          const y = Math.round(event.clientY - rect.top);
+          let mx = x - 500;
+          let my = 500 - y;
+          if (Number(snapshotMode) === 11) {
+            drawLayerCtx.fillStyle = 'red';
+            drawPoint(drawLayerCtx, x, y, 3);
+          }
+          clickResponseValue.textContent = 'Position: [' + mx + ', ' + my + ']';
+          let div = document.createElement('div');
+          div.textContent = 'Nearby results:';
+          nearbyResults.appendChild(div);
+          for (let i = 0; i < matchTable.length; i++) {
+            if (matchTable[i][0] === true) {
+              let mx = Number(matchTable[i][2]) + 500;
+              let my = -Number(matchTable[i][3]) + 500;
+              if (Math.pow((x - mx), 2) + Math.pow((y - my), 2) <= Math.pow(4, 2)) {
+                let div = document.createElement('div');
+                div.style.border = '1px solid black';
+                div.style.borderRadius = '0.5em';
+                div.style.padding = '1em';
+                for (let j = 1; j < matchTable[i].length; j++) {
+                  let divdiv = document.createElement('div');
+                  divdiv.textContent = headers[j];
+                  divdiv.style.fontWeight = '700';
+                  divdiv.style.height = '1.5em';
+                  div.appendChild(divdiv);
+                  divdiv = document.createElement('div');
+                  divdiv.textContent = matchTable[i][j];
+                  divdiv.style.height = '1.5em';
+                  div.appendChild(divdiv);
+                }
+                nearbyResults.appendChild(div);
               }
-              nearbyResults.appendChild(div);
             }
           }
         }
+      }
+
+      drawLayer.addEventListener('mousedown', function (event) {
+        isDragging = false;
+        const rect = drawLayer.getBoundingClientRect();
+        const x0 = event.clientX - rect.left;
+        const y0 = event.clientY - rect.top;
+        let mousemove = function (event) {
+          isDragging = true;
+          drawBox(event, x0, y0);
+        };
+        let mouseup = function (event) {
+          drawLayer.removeEventListener('mousemove', mousemove);
+          clickResponseValue.innerHTML = '';
+          nearbyResults.innerHTML = '';
+          const x1 = event.clientX - rect.left;
+          const y1 = event.clientY - rect.top;
+          const left = Math.min(x0, x1);
+          const right = Math.max(x0, x1);
+          const top = Math.min(y0, y1);
+          const bottom = Math.max(y0, y1);
+          let div = document.createElement('div');
+          div.textContent = 'Selected results:';
+          nearbyResults.appendChild(div);
+          for (let i = 0; i < matchTable.length; i++) {
+            if (matchTable[i][0] === true) {
+              let mx = Number(matchTable[i][2]) + 500;
+              let my = -Number(matchTable[i][3]) + 500;
+              if (left <= mx && mx <= right && top <= my && my <= bottom) {
+                let div = document.createElement('div');
+                div.style.border = '1px solid black';
+                div.style.borderRadius = '0.5em';
+                div.style.padding = '1em';
+                for (let j = 1; j < matchTable[i].length; j++) {
+                  let divdiv = document.createElement('div');
+                  divdiv.textContent = headers[j];
+                  divdiv.style.fontWeight = '700';
+                  divdiv.style.height = '1.5em';
+                  div.appendChild(divdiv);
+                  divdiv = document.createElement('div');
+                  divdiv.textContent = matchTable[i][j];
+                  divdiv.style.height = '1.5em';
+                  div.appendChild(divdiv);
+                }
+                nearbyResults.appendChild(div);
+              }
+            }
+          }
+          drawLayer.removeEventListener('mouseup', mouseup);
+        };
+        drawLayer.addEventListener('mouseup', mouseup);
+        drawLayer.addEventListener('mousemove', mousemove);
+      })
+
+      function drawBox(event, x0, y0) {
+        drawLayerCtx.clearRect(0, 0, drawLayer.width, drawLayer.height);
+        const rect = drawLayer.getBoundingClientRect();
+        const x1 = event.clientX - rect.left;
+        const y1 = event.clientY - rect.top;
+        const x = Math.min(x0, x1);
+        const y = Math.min(y0, y1);
+        const w = Math.abs(x0 - x1);
+        const h = Math.abs(y0 - y1);
+        drawLayerCtx.strokeRect(x, y, w, h);
       }
 
       function callback() {
