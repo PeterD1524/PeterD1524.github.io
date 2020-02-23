@@ -396,9 +396,8 @@
           button.style.height = pifull2eSize;
           button.style.backgroundPosition = 'top ' + (-i * pifull2eSize).toString() + 'px right 0px';
           button.className = 'pifull2e';
-
-          button.addEventListener('click', function () {
-            let value = pifull2e[i];
+          let value = pifull2e[i];
+          function pifClick() {
             if (language !== 'en-us') {
               let translationValue = Event[EventKey].translation.Pii.e2a[language][value];
               if (translationValue !== undefined) {
@@ -406,7 +405,8 @@
               }
             }
             inputs[0].value = value;
-          });
+          }
+          button.addEventListener('click', pifClick);
           pifull2ediv.appendChild(button);
         }
         Values[0].appendChild(pifull2ediv);
@@ -1430,7 +1430,7 @@
     .pifull2e {
       border: none;
       display: inline-block;
-      background-color: inherit;
+      background-color: transparent;
       cursor: pointer;
       padding: 0px;
     }
