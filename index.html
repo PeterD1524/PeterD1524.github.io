@@ -195,6 +195,7 @@
           'ko': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
           'ja': '<p>Data is from <a target="_blank"href="https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit">https://docs.google.com/spreadsheets/d/1RydjAEbYRZSyuKu3oFNqXz2J-vhO3b9VrYACItL_YrQ/edit</a><br>Feel free to add your locations if you find them to help others. Incomplete data is also acceptable.<br>The sea part is just a mono color background currently.<br>Some locations only unlock after reaching certain stages.</p><p>First, select the Mode.<br>And enter the Value.<br>Then click the button.</p><p>Search results will also be listed below the map.</p>',
         },
+        /*
         '#announcement': {
           'en-us': 'The website is very unstable recently. Sorry for the inconvenience.',
           'fr': 'Le site Web est très instable récemment. Désolé pour le dérangement.',
@@ -205,6 +206,7 @@
           'ko': '최근 웹 사이트가 매우 불안정합니다. 불편을 드려 죄송합니다.',
           'ja': 'ウェブサイトは最近非常に不安定です。 ご不便おかけしてすみません。',
         },
+        */
         '#mode': {
           'en-us': 'Mode',
           'fr': 'Mode',
@@ -1154,12 +1156,12 @@
       function dateChange() {
         let DateNow;
         DateNow = Date.now();
-        let min = -1;
+        let max = -1;
         for (let i in Event) {
           let DateParseI = Date.parse(i);
-          if (DateParseI > min && DateParseI < DateNow) {
+          if (max < DateParseI && DateParseI < DateNow) {
             EventKey = i;
-            min = DateParseI;
+            max = DateParseI;
           }
         }
       }
